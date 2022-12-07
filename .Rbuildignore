@@ -13,6 +13,7 @@
 ^alphaci\.bib$
 ^alphaci\.tex$
 ^workspace$
+^data_raw$
 ^\.travis\.yml$
 ^codecov\.yml$
 ^arxiv\.sty$

@@ -1,6 +1,6 @@
 Type: Package
 Package: fleissci
-Title: Confidence intervals for the quadratically weighted Fleiss' kappa, Conger's kappa, and Cohen's kappa.
+Title: Confidence intervals for the quadratically weighted Fleiss' kappa, Conger's kappa, and Cohen's kappa
 Version: 0.0.1
 Authors@R: 
     person("Jonas", "Moss", , "jonas.moss.statistics@gmail.com", role = c("aut", "cre"),

@@ -1,5 +1,5 @@
 
-# fleissci <img src="man/figures/logo.png" align="right" width="411" height="321"/>
+# fleissci <img src="man/figures/logo.png" align="right" width="206" height="161"/>
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/fleissci.png)](https://cran.r-project.org/package=fleissci)
 [![R-CMD-check](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml)

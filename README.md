@@ -11,6 +11,7 @@ coverage](https://codecov.io/gh/JonasMoss/fleissci/branch/main/graph/badge.svg)]
 
 An `R` package for calculating and doing inference with the
 quadratically weighted Fleiss’ kappa, Cohen’s kappa, and Conger’s kappa.
+Has support for missing values.
 
 **Note:** I justed started development on this package!
 

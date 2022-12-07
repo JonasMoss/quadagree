@@ -1,0 +1,35 @@
+Type: Package
+Package: fleissci
+Title: Confidence intervals for the quadratically weighted Fleiss' kappa, Conger's kappa, and Cohen's kappa.
+Version: 0.0.1
+Authors@R: 
+    person("Jonas", "Moss", , "jonas.moss.statistics@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6876-6964"))
+Description: Calculate the quadratically weighted Fleiss' kappa, Cohen's kappa,
+    and Conger's kappa. Missing values are handled using all pairwise
+    available information. Currently supports three inferential procedures;
+    the ADF method, the elliptical method, and the normal method.
+License: MIT + file LICENSE
+URL: https://jonasmoss.github.io/fleissci/
+LazyData: true
+Depends:
+    R (>= 3.5.0)
+Imports: 
+    future.apply,
+    matrixcalc
+Suggests: 
+    covr,
+    extraDistr,
+    knitr,
+    lavaan,
+    psychTools,
+    rmarkdown,
+    Rfast,
+    irrCAC,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1

@@ -1,0 +1,90 @@
+---
+format:
+  gfm:
+    html-math-method: webtex
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+```
+
+# fleissci <img src="man/figures/logo.png" align="right" width="411" height="321"/>
+
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/fleissci)](https://cran.r-project.org/package=fleissci) [![R-CMD-check](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Codecov test coverage](https://codecov.io/gh/JonasMoss/fleissci/branch/main/graph/badge.svg)](https://app.codecov.io/gh/JonasMoss/fleissci?branch=main)
+
+An `R` package for calculating and doing inference with the quadratically weighted Fleiss' kappa, Cohen's kappa, and Conger's kappa.
+
+**Note:** I justed started development on this package!
+
+```{r setup, include=FALSE}
+library("fleissci")
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(out.width='750px', dpi=200)
+```
+
+## Installation
+
+The package is not available on `CRAN` yet, so use the following command from inside `R`:
+
+```{r install, echo = TRUE, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("JonasMoss/fleissci")
+```
+
+## Usage
+
+Call the `library` function and load the data of Zapf et al. (2016):
+
+```{r prepare, echo = TRUE, eval = TRUE}
+library("fleissci")
+head(dat.zapf2016)
+```
+
+Then calculate an asymptotically distribution-free confidence interval for $\kappa$,
+
+```{r}
+fleissci(dat.zapf2016)
+```
+
+You can also calculate confidence intervals for Conger's kappa (Cohen's kappa.)
+
+```{r}
+#| cache: true
+congerci(dat.zapf2016)
+```
+
+## Supported techniques
+
+`fleissci` supports three basic asymptotic confidence interval constructios. The asymptotically distribution-free interval, the pseudo-elliptical interval, and the normal method.
+
+| Method       | Description                                                                                                                                                                                                                                                      |
+|------------|------------------------------------------------------------|
+| `adf`        | The asymptotic distribution free method. The method is asymptotically correct, but has poor small-sample performance.                                                                                                           |
+| `elliptical` | The elliptical or pseudo-elliptical kurtosis correction. Uses the unbiased sample estimator of the common kurtosis (Joanes, 1998). Has better small-sample performance than `adf` and `normal` if the kurtosis is large and $n$ is small. |
+| `normal`     | Assumes normality of $X$. This method is not recommended since it yields too short confidence intervals when the excess kurtosis of $X$ is larger than $0$.                                                                               |
+
+In addition, you may transform the intervals using one of four transforms:
+
+1.  The [Fisher transform](https://en.wikipedia.org/wiki/Fisher_transformation), or $\kappa\mapsto \operatorname{artanh}(\kappa)$. Famously used in inference for the correlation coefficient.
+2.  The $\log$ transform, where $\kappa \mapsto \log(1-\kappa)$. This is an asymptotic pivot under the elliptical model with parallel items.
+3.  The identity transform. The default option.
+4.  The [$\arcsin$ transform](https://en.wikipedia.org/wiki/Inverse_trigonometric_functions). This transform might fail when $n$ is small, as negative values for $\hat{\kappa}$ is possible, but $\arcsin$ do not accept them,
+
+The option `bootstrap` does studentized bootstrapping Efron, B. (1987) with `n_reps` repetitions. If `bootstrap = FALSE`, an ordinary normal approximation will be used. The studentized bootstrap intervals are is a second-order correct, so its confidence intervals will be better than the normal approximation when $n$ is sufficiently large.
+
+## Similar software
+There are several `R` packages that calculate agreement coefficients, most notably `irrCAC`.
+
+## How to Contribute or Get Help
+
+If you encounter a bug, have a feature request or need some help, open a [Github issue](https://github.com/JonasMoss/fleissci/issues). Create a pull requests to contribute.
+
+## References
+- Zapf, A., Castell, S., Morawietz, L. et al. Measuring inter-rater
+reliability for nominal data – which coefficients and confidence
+intervals are appropriate?. BMC Med Res Methodol 16, 93 (2016). https://doi.org/10.1186/s12874-016-0200-9
+

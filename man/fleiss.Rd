@@ -31,7 +31,7 @@ values are allowed.}
 \item{sigma}{Covariance matrix; must have the same dimensions as mu.}
 }
 \value{
-Sample quadratically weighted Fleiss' kappa.
+Sample quadratically weighted Fleiss' or Conger's kappa.
 
 Population value of Conger's kappa / Fleiss' kappa.
 }

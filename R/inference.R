@@ -44,6 +44,11 @@ congerci <- function(x,
   do.call(what = fleissci_, c(args, call = quote(call), fleiss = FALSE))
 }
 
+#' @export
+#' @rdname fleissci
+cohenci <- congerci
+
+
 #' @keywords internal
 fleissci_ <- function(x,
                       type = c("adf", "elliptical", "normal"),
@@ -114,11 +119,12 @@ print.fleissci <- function(x, digits = getOption("digits"), ...) {
 
   if (!is.null(at("estimate"))) {
     cat("Sample estimates.\n")
-    print(c(
-      kappa = at("estimate"),
-      sd = at("sd")
-    ),
-    digits = digits
+    print(
+      c(
+        kappa = at("estimate"),
+        sd = at("sd")
+      ),
+      digits = digits
     )
   }
   invisible(x)

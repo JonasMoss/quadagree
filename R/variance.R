@@ -60,8 +60,8 @@ cov_mat <- function(p, mu, sigma, gamma) {
   mu_vec <- (diag(r) - matrix(1 / r, r, r)) %*% mu
   cov_mu_mu <- c(4 / r^2 * t(mu_vec) %*% mu_middle %*% mu_vec)
   matrix(c(
-    4*cov_ss_ss, 2*cov_ss_tr, 0,
-    2*cov_ss_tr, cov_tr_tr, 0,
+    4 * cov_ss_ss, 2 * cov_ss_tr, 0,
+    2 * cov_ss_tr, cov_tr_tr, 0,
     0, 0, cov_mu_mu
   ), nrow = 3, byrow = FALSE)
 }

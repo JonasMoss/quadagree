@@ -1,7 +1,7 @@
 #' Agreement study from Zapf et. al (2016)
 #'
 #' Agreement study (n = 200) from Zapf et al. (2016) in wide format. There are
-#'   `50` items `4` judges, and ratings from `1` to `5`.It is
+#'   `50` items `4` judges, and ratings from `1` to `5`. It is
 #'    the case that the same set four judges rated every item, hence this
 #'    data is suitable for Cohen's kappa.
 #'
@@ -15,7 +15,7 @@
 #'
 #' @references
 #' Zapf, A., Castell, S., Morawietz, L. et al. Measuring inter-rater
-#' reliability for nominal data – which coefficients and confidence
+#' reliability for nominal data <U+2013> which coefficients and confidence
 #' intervals are appropriate?. BMC Med Res Methodol 16, 93 (2016).
 #' https://doi.org/10.1186/s12874-016-0200-9
 #'

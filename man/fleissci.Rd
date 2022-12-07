@@ -3,6 +3,7 @@
 \name{fleissci}
 \alias{fleissci}
 \alias{congerci}
+\alias{cohenci}
 \title{Confidence intervals for quadratically weighted Fleiss' kappa and
 Conger's kappa.}
 \usage{
@@ -17,6 +18,16 @@ fleissci(
 )
 
 congerci(
+  x,
+  type = c("adf", "elliptical", "normal"),
+  transform = "none",
+  conf_level = 0.95,
+  alternative = c("two.sided", "greater", "less"),
+  bootstrap = FALSE,
+  n_reps = 1000
+)
+
+cohenci(
   x,
   type = c("adf", "elliptical", "normal"),
   transform = "none",

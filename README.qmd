@@ -23,7 +23,7 @@ An `R` package for calculating and doing inference with the quadratically weight
 ```{r setup, include=FALSE}
 library("fleissci")
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(out.width='750px', dpi=200)
+knitr::opts_chunk$set(out.width = "750px", dpi = 200)
 ```
 
 ## Installation

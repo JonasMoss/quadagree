@@ -1,7 +1,7 @@
-x = dat.zapf2016
-n = nrow(x)
-sigma = stats::cov(x) * (n - 1) / n
-mu = colMeans(x)
+x <- dat.zapf2016
+n <- nrow(x)
+sigma <- stats::cov(x) * (n - 1) / n
+mu <- colMeans(x)
 
 alleq <- \(x, y) isTRUE(all.equal(x, y))
 

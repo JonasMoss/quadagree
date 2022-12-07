@@ -5,7 +5,7 @@
 #'    values are allowed.
 #' @param mu Population vector of means.
 #' @param sigma Population covariance matrix.
-#' @return Sample quadratically weighted Fleiss' kappa.
+#' @return Sample quadratically weighted Fleiss' or Conger's kappa.
 #' @examples
 #' x <- irrCAC::cac.raw4raters[2:9, ]
 #' fleiss(x)

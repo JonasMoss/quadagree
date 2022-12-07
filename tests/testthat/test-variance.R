@@ -1,7 +1,7 @@
-x = dat.zapf2016
-n = nrow(x)
-sigma = stats::cov(x) * (n - 1) / n
-mu = colMeans(x)
+x <- dat.zapf2016
+n <- nrow(x)
+sigma <- stats::cov(x) * (n - 1) / n
+mu <- colMeans(x)
 
 test_that("avar yields different results for fleiss.", {
   results <- c(
@@ -13,7 +13,6 @@ test_that("avar yields different results for fleiss.", {
   for (i in seq(length(results) - 1)) {
     expect_false(isTRUE(all.equal(results[i], results[i + 1])))
   }
-
 })
 
 test_that("avar yields different results for conger.", {

@@ -24,8 +24,9 @@ Suggests:
     lavaan,
     psychTools,
     rmarkdown,
-    Rfast,
+    Matrix,
     irrCAC,
+    arrangements,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr

@@ -17,3 +17,4 @@ A vector of \code{TRUE} where the variances are.
 \description{
 Get the indices of the diagonal for the variances.
 }
+\keyword{internal}

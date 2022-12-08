@@ -1,9 +1,17 @@
+#' Asymptotic variance for the kappas.
+#'
+#' @param x Covariance matrix as calculated by `cov_mat`.
+#' @param type Either `adf`, `normal`, or `elliptical`.
+#' @param fleiss If `TRUE` calculates variance for Fleiss kappa, else
+#'    Conger's kappa.
+#' @return The asymptotic variance for the kappas.
+#' @keywords internal
 avar <- \(x, type, fleiss) {
   p <- colSums(!is.na(x)) / nrow(x)
   mu <- colMeans(x, na.rm = TRUE)
   sigma <- stats::cov(x, use = "pairwise.complete.obs")
   gamma <- gamma_est(x, sigma, type)
-  mat <- cov_mat(p, mu, sigma, gamma)
+  mat <- cov_mat(p, mu, sigma, gamma, x)
   avar_(mat, mu, sigma, fleiss)
 }
 
@@ -15,6 +23,7 @@ avar <- \(x, type, fleiss) {
 #' @param fleiss If `TRUE` calculates variance for Fleiss kappa, else
 #'    Conger's kappa.
 #' @return The asymptotic variance for the kappas.
+#' @keywords internal
 avar_ <- function(mat, mu, sigma, fleiss) {
   r <- nrow(sigma)
   yy <- sum(diag(sigma))
@@ -42,11 +51,11 @@ avar_ <- function(mat, mu, sigma, fleiss) {
 #' @param gamma Covariance matrix of the covariances.
 #' @return The covariance matrix of x, y, z
 #' @keywords internal
-cov_mat <- function(p, mu, sigma, gamma) {
+cov_mat <- function(p, mu, sigma, gamma, x) {
   r <- length(p)
 
   # The covariances involving s.
-  gamma_pi <- gamma * pi_mat(p, vech = TRUE)
+  gamma_pi <- gamma * pi_mat_empirical(x)
   d <- get_diag_indices(r, vech = TRUE)
   ones <- rep(1, length(d))
   ones_minus_d <- ones - d
@@ -70,6 +79,7 @@ cov_mat <- function(p, mu, sigma, gamma) {
 #' @param r Number of raters.
 #' @param vech If `TRUE`, returns for the result for half-vectorization.
 #' @return A vector of `TRUE` where the variances are.
+#' @keywords internal
 get_diag_indices <- function(r, vech = TRUE) {
   e_mat <- matrixcalc::elimination.matrix(r)
   indices <- rep(0, r^2)
@@ -134,28 +144,42 @@ kurtosis_correction <- function(x, type) {
 #'    covariance matrix of s to correct for missing values.
 #'
 #' @param p Vector of probabilities for being missing.
-#' @param vech If `TRUE`, returns for the result for half-vectorization.
+#' @param vech Does not affect anything. The half-vectorized matrix is always
+#'    returned.
 #' @return The capital pi matrix.
+#' @keywords internal
 pi_mat <- function(p, vech = TRUE) {
   r <- length(p)
-  if (vech) {
-    m <- (r * (r + 1)) / 2
-    temp_mat <- matrix(rep(seq(r), r), nrow = r)
-    ri <- c(matrixcalc::vech(temp_mat))
-    ci <- c(matrixcalc::vech(t(temp_mat)))
-  } else {
-    m <- r^2
-    temp_mat <- matrix(rep(1:r, r), nrow = r)
-    ri <- c(matrixcalc::vec(temp_mat))
-    ci <- c(matrixcalc::vec(t(temp_mat)))
-  }
-  outer(seq(m), seq(m), Vectorize(function(i, j) {
-    numbers <- c()
-    for (k in c(i, j)) {
-      numbers <- c(numbers, ri[k])
-      if (ri[k] != ci[k]) numbers <- c(numbers, ci[k])
-    }
-    table <- Rfast::Table(numbers)
-    1 / prod(p[as.numeric(names(table))[table >= 2]])
-  }))
+  f <- \(x) prod(p[unique(x)])
+  indices <- arrangements::combinations(r, 2, replace = TRUE)
+  ps <- apply(indices, 1, f)
+  g <- Vectorize(\(x, y) f(c(indices[x, ], indices[y, ])) /  (ps[x] * ps[y]))
+  x <- seq(nrow(indices))
+  outer(x, x, g)
 }
+
+#' Calculates the empirical capital pi matrix.
+#'
+#' @param x Vector of probabilities for being missing.
+#' @return The capital pi matrix.
+#' @keywords internal
+pi_mat_empirical <- \(x) {
+  r <- ncol(x)
+  indices2 <- arrangements::combinations(r, 2, replace = TRUE)
+  indices4 <- arrangements::combinations(seq(nrow(indices2)), 2, replace = TRUE)
+
+  p2_hats <- apply(indices2, 1, \(i) mean(!is.na(x[, i[1]]) & !is.na(x[, i[2]])))
+  hats <- apply(indices4, 1, \(i) {
+    j1 = indices2[i[1], ]
+    j2 = indices2[i[2], ]
+    mean(!is.na(x[, j1[1]]) & !is.na(x[, j1[2]]) &
+           !is.na(x[, j2[1]]) & !is.na(x[, j2[2]])) /
+      (p2_hats[i[1]] * p2_hats[i[2]])
+  })
+
+  new_mat <- matrix(NA, choose(r+1, 2), choose(r+1, 2))
+  new_mat[indices4] <- hats
+  as.matrix(Matrix::forceSymmetric(new_mat,uplo="U"))
+
+}
+

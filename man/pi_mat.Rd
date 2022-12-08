@@ -9,7 +9,8 @@ pi_mat(p, vech = TRUE)
 \arguments{
 \item{p}{Vector of probabilities for being missing.}
 
-\item{vech}{If \code{TRUE}, returns for the result for half-vectorization.}
+\item{vech}{Does not affect anything. The half-vectorized matrix is always
+returned.}
 }
 \value{
 The capital pi matrix.
@@ -18,3 +19,4 @@ The capital pi matrix.
 The capital pi matrix is multiplied element-wise with the asymptotic
 covariance matrix of s to correct for missing values.
 }
+\keyword{internal}

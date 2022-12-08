@@ -4,7 +4,7 @@
 \alias{cov_mat}
 \title{The covariance matrix of the elements involved in the inference.}
 \usage{
-cov_mat(p, mu, sigma, gamma)
+cov_mat(p, mu, sigma, gamma, x)
 }
 \arguments{
 \item{p}{Vector of probabilities for being missing.}

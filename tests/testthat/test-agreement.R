@@ -12,4 +12,9 @@ test_that("population and x-based measures coincide", {
     conger(x),
     conger_pop(mu, sigma)
   )
+  expect_equal(
+    cohen(x),
+    cohen_pop(mu, sigma)
+  )
+
 })

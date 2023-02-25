@@ -40,8 +40,6 @@ simulate <- function(n, mu, sigma, p, n_reps, f = mean, laplace = FALSE) {
     future.seed = TRUE
   )
 }
-
-
 ```
 
 ## Setup
@@ -84,10 +82,10 @@ We can use the function `simulate` to simulate the coverage of confidence interv
 
 ```{r}
 set.seed(313)
-n = 100
-n_reps = 10000
+n <- 100
+n_reps <- 10000
 f <- \(x) {
-  ci = fleissci::congerci(x)
+  ci <- fleissci::congerci(x)
   (c(ci[1] <= par) & (par <= ci[2]))
 }
 results <- simulate(n, mu, sigma, p, n_reps, f = f, laplace = TRUE)
@@ -98,10 +96,10 @@ This coverage is OK (it's supposed to be $95\%$), but not very impressive. But w
 
 ```{r}
 set.seed(313)
-n = 100
-n_reps = 10000
+n <- 100
+n_reps <- 10000
 f <- \(x) {
-  ci = fleissci::congerci(x, type = "elliptical")
+  ci <- fleissci::congerci(x, type = "elliptical")
   (c(ci[1] <= par) & (par <= ci[2]))
 }
 results <- simulate(n, mu, sigma, p, n_reps, f = f, laplace = TRUE)
@@ -111,10 +109,10 @@ This coverage is better, but maybe it can be improved further using the Fisher t
 
 ```{r}
 set.seed(313)
-n = 100
-n_reps = 10000
+n <- 100
+n_reps <- 10000
 f <- \(x) {
-  ci = fleissci::congerci(x, type = "elliptical", transform = "fisher")
+  ci <- fleissci::congerci(x, type = "elliptical", transform = "fisher")
   (c(ci[1] <= par) & (par <= ci[2]))
 }
 results <- simulate(n, mu, sigma, p, n_reps, f = f, laplace = TRUE)

@@ -153,7 +153,7 @@ pi_mat <- function(p, vech = TRUE) {
   f <- \(x) prod(p[unique(x)])
   indices <- arrangements::combinations(r, 2, replace = TRUE)
   ps <- apply(indices, 1, f)
-  g <- Vectorize(\(x, y) f(c(indices[x, ], indices[y, ])) /  (ps[x] * ps[y]))
+  g <- Vectorize(\(x, y) f(c(indices[x, ], indices[y, ])) / (ps[x] * ps[y]))
   x <- seq(nrow(indices))
   outer(x, x, g)
 }
@@ -170,16 +170,14 @@ pi_mat_empirical <- \(x) {
 
   p2_hats <- apply(indices2, 1, \(i) mean(!is.na(x[, i[1]]) & !is.na(x[, i[2]])))
   hats <- apply(indices4, 1, \(i) {
-    j1 = indices2[i[1], ]
-    j2 = indices2[i[2], ]
+    j1 <- indices2[i[1], ]
+    j2 <- indices2[i[2], ]
     mean(!is.na(x[, j1[1]]) & !is.na(x[, j1[2]]) &
-           !is.na(x[, j2[1]]) & !is.na(x[, j2[2]])) /
+      !is.na(x[, j2[1]]) & !is.na(x[, j2[2]])) /
       (p2_hats[i[1]] * p2_hats[i[2]])
   })
 
-  new_mat <- matrix(NA, choose(r+1, 2), choose(r+1, 2))
+  new_mat <- matrix(NA, choose(r + 1, 2), choose(r + 1, 2))
   new_mat[indices4] <- hats
-  as.matrix(Matrix::forceSymmetric(new_mat,uplo="U"))
-
+  as.matrix(Matrix::forceSymmetric(new_mat, uplo = "U"))
 }
-

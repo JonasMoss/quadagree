@@ -14,7 +14,8 @@ knitr::opts_chunk$set(
 
 # fleissci <img src="man/figures/logo.png" align="right" width="206" height="161"/>
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/fleissci)](https://cran.r-project.org/package=fleissci) [![R-CMD-check](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Codecov test coverage](https://codecov.io/gh/JonasMoss/fleissci/branch/main/graph/badge.svg)](https://app.codecov.io/gh/JonasMoss/fleissci?branch=main)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/fleissci)](https://cran.r-project.org/package=fleissci) [![R-CMD-check](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Codecov  
+[![Coveralls test coverage](https://coveralls.io/repos/github/JonasMoss/fleissci/badge.svg)](https://coveralls.io/r/JonasMoss/fleissci?branch=main)
 
 An `R` package for calculating and doing inference with the quadratically weighted multi-rater Fleiss' kappa, Cohen's kappa, and Conger's kappa. Has support for missing values using the methods of Moss and van Oest (work in progress).
 

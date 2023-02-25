@@ -16,5 +16,4 @@ test_that("population and x-based measures coincide", {
     cohen(x),
     cohen_pop(mu, sigma)
   )
-
 })

@@ -7,8 +7,7 @@
 \alias{conger_pop}
 \alias{cohen_pop}
 \alias{fleiss_pop}
-\title{Calculate the quadratically weighted Fleiss's kappa, Conger's kappa, and
-Cohen's kappa}
+\title{Calculate the quadratically weighted Fleiss' kappa and Conger's (Cohen's) kappa}
 \usage{
 fleiss(x)
 
@@ -23,23 +22,43 @@ cohen_pop(mu, sigma)
 fleiss_pop(mu, sigma)
 }
 \arguments{
-\item{x}{Input data on wide. Columns are judges, items are ratings. Missing
-values are allowed.}
+\item{x}{Input data on wide form. Columns are raters, items are ratings. Missing
+values are allowed, and should be encoded as \code{NA}s.}
 
-\item{mu}{Vector of means.}
+\item{mu}{Population vector of means.}
 
-\item{sigma}{Covariance matrix; must have the same dimensions as mu.}
+\item{sigma}{Population covariance matrix.}
 }
 \value{
-Sample quadratically weighted Fleiss' or Conger's kappa.
-
-Population value of Conger's kappa / Fleiss' kappa.
+Sample / population quadratically weighted Fleiss' or Conger's kappa.
 }
 \description{
-Calculate the quadratically weighted Fleiss's kappa, Conger's kappa, and
-Cohen's kappa
+Estimate a quadratically weighted kappa with potentially missing data using least squares, or
+calculate its population value. \code{conger} and \code{cohen} are aliases.
+See \code{\link[=fleissci]{fleissci()}} and \code{\link[=cohenci]{cohenci()}} for confidence intervals.
+}
+\details{
+Conger's (1980) kappa is a multi-rater generalization of Cohen's (1968) kappa.
+All functions in this package work for multiple raters, so functions starting
+with \code{cohen} or \code{conger} are aliases. The quadratically weighted Cohen's kappa is
+also known as Lin's (1989) concordance coefficient.
 
-Calculates the population value of Conger's kappa and Fleiss' kappa.
+The only difference between Cohen's kappa and Fleiss' kappa lies on how they
+measure disagreement due to chance. Here Fleiss' marginalizes the rating
+distribution across raters, essentially assuming there is no difference in
+the rating distribution across raters, while Cohen's kappa does not. There is
+a large literature comparing Fleiss' kappa to Cohen's kappa, and there
+is consensus on which to prefer.
+
+The functions \code{cohen_pop}, \code{conger_pop}, and \code{fleiss_pop} calculate the population values
+of the kappas using the mean and covariance of the rating rating distributions.
+The derivation of the covariance and mean formulation can be found in (Moss and van Oest, work in progress.)
+
+The functions \code{cohen}, \code{conger}, and \code{fleiss} estimate the kappas using least squares.
+This method uses the biased sample covariance estimator, which agrees
+with the literature on agreement coefficients in the case of two raters.
+In the case of missing data, the pairwise available data is used,
+employing the option \code{use = "pairwise.complete.obs"} in \code{\link[stats:cor]{stats::cov()}}.
 }
 \examples{
 x <- irrCAC::cac.raw4raters[2:9, ]
@@ -53,4 +72,15 @@ conger(x)
 # [1] 0.6719243
 irrCAC::conger.kappa.raw(x, weights = "quadratic")$est$coeff.val
 # [1] 0.67192 (irrCAC prematurely rounds the coefficient)
+}
+\references{
+Cohen, J. (1968). Weighted kappa: Nominal scale agreement with provision for scaled disagreement or partial credit. Psychological Bulletin, 70(4), 213–220. https://doi.org/10.1037/h0026256
+
+Fleiss, J. L. (1975). Measuring agreement between two judges on the presence or absence of a trait. Biometrics, 31(3), 651–659. https://www.ncbi.nlm.nih.gov/pubmed/1174623
+
+Conger, A. J. (1980). Integration and generalization of kappas for multiple raters. Psychological Bulletin, 88(2), 322–328. https://doi.org/10.1037/0033-2909.88.2.322
+
+Lin, L. I. (1989). A concordance correlation coefficient to evaluate reproducibility. Biometrics, 45(1), 255–268. https://www.ncbi.nlm.nih.gov/pubmed/2720055
+
+Moss, van Oest (work in progress). Inference for quadratically weighted multi-rater kappas with missing raters.
 }

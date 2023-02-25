@@ -10,10 +10,9 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 coverage](https://codecov.io/gh/JonasMoss/fleissci/branch/main/graph/badge.svg)](https://app.codecov.io/gh/JonasMoss/fleissci?branch=main)
 
 An `R` package for calculating and doing inference with the
-quadratically weighted Fleiss’ kappa, Cohen’s kappa, and Conger’s kappa.
-Has support for missing values.
-
-**Note:** I justed started development on this package!
+quadratically weighted multi-rater Fleiss’ kappa, Cohen’s kappa, and
+Conger’s kappa. Has support for missing values using the methods of Moss
+and van Oest (work in progress).
 
 ## Installation
 
@@ -58,7 +57,7 @@ fleissci(dat.zapf2016)
 ```
 
 You can also calculate confidence intervals for Conger’s kappa (Cohen’s
-kappa.)
+kappa).
 
 ``` r
 congerci(dat.zapf2016)
@@ -73,10 +72,16 @@ congerci(dat.zapf2016)
 #> 0.8984700 0.1929226
 ```
 
-## Supported techniques
+## Support for missing values
+
+The inferential methods have support for missing values, using pairwise
+available information in the biased sample covariance matrix. We use the
+asymptotic method of van Praag (1985).
+
+## Supported inferential techniques
 
 `fleissci` supports three basic asymptotic confidence interval
-constructios. The asymptotically distribution-free interval, the
+constructions. The asymptotically distribution-free interval, the
 pseudo-elliptical interval, and the normal method.
 
 | Method       | Description                                                                                                                                                                                                                                                                                        |
@@ -129,7 +134,36 @@ pull requests to contribute.
 
 ## References
 
+- Moss, van Oest (work in progress). Inference for quadratically
+  weighted multi-rater kappas with missing raters.
+
 - Zapf, A., Castell, S., Morawietz, L. et al. Measuring inter-rater
   reliability for nominal data – which coefficients and confidence
   intervals are appropriate?. BMC Med Res Methodol 16, 93 (2016).
   https://doi.org/10.1186/s12874-016-0200-9
+
+- Cohen, J. (1968). Weighted kappa: Nominal scale agreement with
+  provision for scaled disagreement or partial credit. Psychological
+  Bulletin, 70(4), 213–220. https://doi.org/10.1037/h0026256
+
+- Fleiss, J. L. (1975). Measuring agreement between two judges on the
+  presence or absence of a trait. Biometrics, 31(3), 651–659.
+  https://www.ncbi.nlm.nih.gov/pubmed/1174623
+
+- Conger, A. J. (1980). Integration and generalization of kappas for
+  multiple raters. Psychological Bulletin, 88(2), 322–328.
+  https://doi.org/10.1037/0033-2909.88.2.322
+
+- Lin, L. I. (1989). A concordance correlation coefficient to evaluate
+  reproducibility. Biometrics, 45(1), 255–268.
+  https://www.ncbi.nlm.nih.gov/pubmed/2720055
+
+- Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample
+  skewness and kurtosis. Journal of the Royal Statistical Society:
+  Series D (The Statistician), 47(1), 183-189.
+  https://doi.org/10.1111/1467-9884.00122
+
+- Van Praag, B. M. S., Dijkstra, T. K., & Van Velzen, J. (1985).
+  Least-squares theory based on general distributional assumptions with
+  an application to the incomplete observations problem. Psychometrika,
+  50(1), 25–36. https://doi.org/10.1007/BF02294145

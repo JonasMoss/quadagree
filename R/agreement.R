@@ -76,7 +76,7 @@ conger <- function(x) {
 
 #' @rdname fleiss
 #' @export
-cohen <- function(x) conger_pop(x)
+cohen <- function(x) conger(x)
 
 #' @rdname fleiss
 #' @export

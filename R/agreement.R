@@ -121,8 +121,9 @@ fleiss_aggr <- \(x, values = seq(ncol(x))) {
   r <- sum(x[1, ])
   stopifnot(ncol(x) == length(values))
 
-  xtx <- apply(x, 1, \(row) sum(values^2 * row))
-  xt1 <- apply(x, 1, \(row) sum(values * row))
+  y <- as.matrix(x)
+  xtx <- tcrossprod(values^2, y)
+  xt1 <- tcrossprod(values, y)
 
   extx <- mean(xtx)
   ext1 <- mean(xt1)

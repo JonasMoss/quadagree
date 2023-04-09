@@ -31,3 +31,4 @@
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
 ^.lintr$
+^benchmarks$

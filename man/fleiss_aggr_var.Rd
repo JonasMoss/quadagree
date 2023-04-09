@@ -18,3 +18,4 @@ Calculated value of Fleiss' kappa.
 \description{
 Variance for Fleiss' kappa with aggregated raters.
 }
+\keyword{internal}

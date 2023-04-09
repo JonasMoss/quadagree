@@ -20,14 +20,16 @@ avar <- \(x, type, fleiss) {
 #' @param values Values to attach to each column on the Fleiss form data.
 #'    Defaults to `1:C`, where `C` is the number of categories.
 #' @return Calculated value of Fleiss' kappa.
+#' @keywords internal
 fleiss_aggr_var <- \(x, values = seq(ncol(x))) {
   r <- sum(x[1, ])
   n <- nrow(x)
   stopifnot(ncol(x) == length(values))
 
   values2 <- values^2
-  xtx <- apply(x, 1, \(row) sum(values2 * row))
-  xt1 <- apply(x, 1, \(row) sum(values * row))
+  y <- as.matrix(x)
+  xtx <- c(tcrossprod(values^2, y))
+  xt1 <- c(tcrossprod(values, y))
   xt12 <- xt1^2
 
   cov_ <- \(x) {

@@ -5,15 +5,16 @@
 #'    with potentially missing data. `congerci` and `cohenci` are aliases.
 #'    See [fleiss()] and [cohen()] for estimation without inference.
 #'
-#' The confidence intervals are based on the formulas of Moss and van Oest (work in progress)
-#'    along with standard asymptotic theory (Magnus, Neudecker, 2019) and
-#'    the missing data theory of van Praag et al. (1985).
+#' The confidence intervals are based on the formulas of Moss and van Oest
+#'    (work in progress) along with standard asymptotic theory
+#'    (Magnus, Neudecker, 2019) and the missing data theory of
+#'    van Praag et al. (1985).
 #'
-#' The methods handle missing data using pairwise available information, i.e., the option
-#'    `use = "pairwise.complete.obs"` in [stats::cov()] along with the
-#'    asymptotic theory of van Praag et al. (1985). The bootstrap option uses the
-#'    studentized bootstrap (Efron, B. 1987), which is second order correct.
-#'    Both functions makes use of [`future.apply`] when bootstrapping.
+#' The methods handle missing data using pairwise available information, i.e.,
+#'    the option `use = "pairwise.complete.obs"` in [stats::cov()] along with
+#'    the asymptotic theory of van Praag et al. (1985). The bootstrap option
+#'    uses the studentized bootstrap (Efron, B. 1987), which is second order
+#'    correct. Both functions makes use of [`future.apply`] when bootstrapping.
 #'
 #' The `type` variables defaults to `adf`, asymptotically distribution-free,
 #'    which is consistent when the fourth moment is finite. The `normal` option
@@ -25,37 +26,55 @@
 #'    common kurtosis parameter is calculated using the unbiased sample
 #'    kurtosis (Joanes, 1998).
 #'
-#' Conger's (1980) kappa is a multi-rater generalization of Cohen's (1968) kappa.
-#'    All functions in this package work for multiple raters, so functions starting
-#'    with `cohen` or `conger` are aliases. The quadratically weighted Cohen's kappa is
-#'    also known as Lin's (1989) concordance coefficient.
+#' Conger's (1980) kappa is a multi-rater generalization of Cohen's kappa.
+#'    All functions in this package work for multiple raters, so functions
+#'    starting with `cohen` or `conger` are aliases. The quadratically
+#'    weighted Cohen's kappa is also known as Lin's concordance coefficient.
 #'
 #' The only difference between Cohen's kappa and Fleiss' kappa lies on how they
 #'    measure disagreement due to chance. Here Fleiss' marginalizes the rating
 #'    distribution across raters, essentially assuming there is no difference in
-#'    the rating distribution across raters, while Cohen's kappa does not. There is
-#'    a large literature comparing Fleiss' kappa to Cohen's kappa, and there
-#'    is consensus on which to prefer.
+#'    the rating distribution across raters, while Cohen's kappa does not.
+#'    There is a large literature comparing Fleiss' kappa to Cohen's kappa, and
+#'    there is no consensus on which to prefer.
 #'
 #' @references
 #'
-#' Efron, B. (1987). Better Bootstrap Confidence Intervals. Journal of the American Statistical Association, 82(397), 171-185. https://doi.org/10.2307/2289144
+#' Efron, B. (1987). Better Bootstrap Confidence Intervals. Journal of the
+#' American Statistical Association, 82(397), 171-185.
+#' https://doi.org/10.2307/2289144
 #'
-#' Van Praag, B. M. S., Dijkstra, T. K., & Van Velzen, J. (1985). Least-squares theory based on general distributional assumptions with an application to the incomplete observations problem. Psychometrika, 50(1), 25–36. https://doi.org/10.1007/BF02294145
+#' Van Praag, B. M. S., Dijkstra, T. K., & Van Velzen, J. (1985).
+#' Least-squares theory based on general distributional assumptions with
+#' an application to the incomplete observations problem.
+#' Psychometrika, 50(1), 25–36. https://doi.org/10.1007/BF02294145
 #'
-#' Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample skewness and kurtosis. Journal of the Royal Statistical Society: Series D (The Statistician), 47(1), 183-189. https://doi.org/10.1111/1467-9884.00122
+#' Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample skewness
+#' and kurtosis. Journal of the Royal Statistical Society: Series D
+#' (The Statistician), 47(1), 183-189. https://doi.org/10.1111/1467-9884.00122
 #'
-#' Cohen, J. (1968). Weighted kappa: Nominal scale agreement with provision for scaled disagreement or partial credit. Psychological Bulletin, 70(4), 213–220. https://doi.org/10.1037/h0026256
+#' Cohen, J. (1968). Weighted kappa: Nominal scale agreement with provision for
+#' scaled disagreement or partial credit. Psychological Bulletin, 70(4),
+#' 213–220. https://doi.org/10.1037/h0026256
 #'
-#' Fleiss, J. L. (1975). Measuring agreement between two judges on the presence or absence of a trait. Biometrics, 31(3), 651–659. https://www.ncbi.nlm.nih.gov/pubmed/1174623
+#' Fleiss, J. L. (1975). Measuring agreement between two judges on the presence
+#' or absence of a trait. Biometrics, 31(3), 651–659.
+#' https://www.ncbi.nlm.nih.gov/pubmed/1174623
 #'
-#' Conger, A. J. (1980). Integration and generalization of kappas for multiple raters. Psychological Bulletin, 88(2), 322–328. https://doi.org/10.1037/0033-2909.88.2.322
+#' Conger, A. J. (1980). Integration and generalization of kappas for multiple
+#' raters. Psychological Bulletin, 88(2), 322–328.
+#' https://doi.org/10.1037/0033-2909.88.2.322
 #'
-#' Lin, L. I. (1989). A concordance correlation coefficient to evaluate reproducibility. Biometrics, 45(1), 255–268. https://www.ncbi.nlm.nih.gov/pubmed/2720055
+#' Lin, L. I. (1989). A concordance correlation coefficient to evaluate
+#' reproducibility. Biometrics, 45(1), 255–268.
+#' https://www.ncbi.nlm.nih.gov/pubmed/2720055
 #'
-#' Moss, van Oest (work in progress). Inference for quadratically weighted multi-rater kappas with missing raters.
+#' Moss, van Oest (work in progress). Inference for quadratically weighted
+#' multi-rater kappas with missing raters.
 #'
-#' Magnus, J. R., & Neudecker, H. (2019). Matrix Differential Calculus with Applications in Statistics and Econometrics. John Wiley & Sons. https://doi.org/10.1002/9781119541219
+#' Magnus, J. R., & Neudecker, H. (2019). Matrix Differential Calculus with
+#' Applications in Statistics and Econometrics. John Wiley & Sons.
+#' https://doi.org/10.1002/9781119541219
 #'
 #' @export
 #' @param x Input data data can be converted to a matrix using `as.matrix`.

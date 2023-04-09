@@ -22,7 +22,7 @@ fleiss_aggr <- \(x, values = seq(ncol(x))) {
   r <- sum(x[1, ])
   stopifnot(ncol(x) == length(values))
 
-  xtx <- apply(x, 1, \(row) sum(values ^ 2 * row))
+  xtx <- apply(x, 1, \(row) sum(values^2 * row))
   xt1 <- apply(x, 1, \(row) sum(values * row))
 
   vxt1 <- var_(xt1)
@@ -39,7 +39,7 @@ fleiss_aggrci <- \(x, values = seq(ncol(x))) {
   n <- nrow(x)
   stopifnot(ncol(x) == length(values))
 
-  xtx <- apply(x, 1, \(row) sum(values ^ 2 * row))
+  xtx <- apply(x, 1, \(row) sum(values^2 * row))
   xt1 <- apply(x, 1, \(row) sum(values * row))
   xt12 <- xt1^2
 
@@ -49,9 +49,9 @@ fleiss_aggrci <- \(x, values = seq(ncol(x))) {
     a <- x[1]
     b <- x[2]
     c <- x[3]
-    const <- (c - a^2/r)^(-1)
+    const <- (c - a^2 / r)^(-1)
 
-    const * (r-1)^(-1)*c(
+    const * (r - 1)^(-1) * c(
       2 * a * ((b - a^2) * const / r - 1),
       1,
       -const * (b - a^2)
@@ -97,9 +97,9 @@ grad_fun <- \(x) {
   a <- x[1]
   b <- x[2]
   c <- x[3]
-  const <- (c - a^2/r)^(-1)
+  const <- (c - a^2 / r)^(-1)
 
-  const * (r-1)^(-1)*c(
+  const * (r - 1)^(-1) * c(
     2 * a * ((b - a^2) * const / r - 1),
     1,
     -const * (b - a^2)
@@ -112,7 +112,7 @@ grad_fun(c(0.5, 0.6, 0.7))
 
 x <- fleissci::dat.fleiss1971
 
-#x <- t(t(xx)*(1:6))
+# x <- t(t(xx)*(1:6))
 
 xtx <- apply(x, 1, \(row) sum((1:5)^2 * row))
 xt1 <- apply(x, 1, \(row) sum((1:5) * row))
@@ -135,7 +135,7 @@ c_xtx_xt1 <- mean(xtx * xt1) - (tr(sigma) + mutmu)
 
 z <- fake_wide(fleissci::dat.fleiss1971)
 z_ <- z
-for(i in 1:nrow(z)) {
+for (i in 1:nrow(z)) {
   z_[i, 1:6] <- z[i, sample(1:6, 6)]
 }
 

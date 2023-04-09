@@ -165,19 +165,19 @@ pi_mat <- function(p, vech = TRUE) {
 #' @keywords internal
 pi_mat_empirical <- \(x) {
   r <- ncol(x)
-  indices2 <- arrangements::combinations(r, 2, replace = TRUE)
-  indices4 <- arrangements::combinations(seq(nrow(indices2)), 2, replace = TRUE)
+  ind2 <- arrangements::combinations(r, 2, replace = TRUE)
+  ind4 <- arrangements::combinations(seq(nrow(ind2)), 2, replace = TRUE)
 
-  p2_hats <- apply(indices2, 1, \(i) mean(!is.na(x[, i[1]]) & !is.na(x[, i[2]])))
-  hats <- apply(indices4, 1, \(i) {
-    j1 <- indices2[i[1], ]
-    j2 <- indices2[i[2], ]
+  p2_hats <- apply(ind2, 1, \(i) mean(!is.na(x[, i[1]]) & !is.na(x[, i[2]])))
+  hats <- apply(ind4, 1, \(i) {
+    j1 <- ind2[i[1], ]
+    j2 <- ind2[i[2], ]
     mean(!is.na(x[, j1[1]]) & !is.na(x[, j1[2]]) &
       !is.na(x[, j2[1]]) & !is.na(x[, j2[2]])) /
       (p2_hats[i[1]] * p2_hats[i[2]])
   })
 
   new_mat <- matrix(NA, choose(r + 1, 2), choose(r + 1, 2))
-  new_mat[indices4] <- hats
+  new_mat[ind4] <- hats
   as.matrix(Matrix::forceSymmetric(new_mat, uplo = "U"))
 }

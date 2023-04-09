@@ -30,4 +30,4 @@
 ^pkgdown$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
-^.lintr\$
+^.lintr$

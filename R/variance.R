@@ -15,6 +15,44 @@ avar <- \(x, type, fleiss) {
   avar_(mat, mu, sigma, fleiss)
 }
 
+#' Variance for Fleiss' kappa with aggregated raters.
+#' @param x Data on Fleiss form.
+#' @param values Values to attach to each column on the Fleiss form data.
+#'    Defaults to `1:C`, where `C` is the number of categories.
+#' @return Calculated value of Fleiss' kappa.
+fleiss_aggr_var <- \(x, values = seq(ncol(x))) {
+  r <- sum(x[1, ])
+  n <- nrow(x)
+  stopifnot(ncol(x) == length(values))
+
+  values2 <- values^2
+  xtx <- apply(x, 1, \(row) sum(values2 * row))
+  xt1 <- apply(x, 1, \(row) sum(values * row))
+  xt12 <- xt1^2
+
+  cov_ <- \(x) {
+    n <- nrow(x)
+    stats::cov(x) * (n - 1) / n
+  }
+
+  theta <- cov_(cbind(xt1, xt12, xtx))
+
+  grad_fun <- \(x) {
+    a <- x[1]
+    b <- x[2]
+    c <- x[3]
+    const <- (c - a^2 / r)^(-1)
+    const * (r - 1)^(-1) * c(
+      2 * a * ((b - a^2) * const / r - 1),
+      1,
+      -const * (b - a^2)
+    )
+  }
+
+  grad <- grad_fun(c(mean(xt1), mean(xt12), mean(xtx)))
+  c(t(grad) %*% theta %*% grad)
+}
+
 #' Asymptotic variance for the kappas.
 #'
 #' @param mat Covariance matrix as calculated by `cov_mat`.
@@ -107,15 +145,15 @@ gamma_est <- function(x, sigma, type = "adf") {
     mat <- z - rowMeans(z, na.rm = TRUE)
     nas <- is.na(mat)
     mat[nas] <- 0
-    base::tcrossprod(mat) / base::tcrossprod(!nas)
-  } else {
-    k <- ncol(sigma)
-    e_mat <- matrixcalc::elimination.matrix(k)
-    k_mat <- matrixcalc::K.matrix(k)
-    gamma <- ((diag(k^2) + k_mat) %*% (sigma %x% sigma))
-    gamma <- gamma * kurtosis_correction(x, type = type)
-    e_mat %*% gamma %*% t(e_mat)
+    return(base::tcrossprod(mat) / base::tcrossprod(!nas))
   }
+
+  k <- ncol(sigma)
+  e_mat <- matrixcalc::elimination.matrix(k)
+  k_mat <- matrixcalc::K.matrix(k)
+  gamma <- ((diag(k^2) + k_mat) %*% (sigma %x% sigma))
+  gamma <- gamma * kurtosis_correction(x, type = type)
+  e_mat %*% gamma %*% t(e_mat)
 }
 
 #' Calculate unbiased sample kurtosis.

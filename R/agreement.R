@@ -32,6 +32,9 @@
 #'    Missing values are allowed, and should be encoded as `NA`s.
 #' @param mu Population vector of means.
 #' @param sigma Population covariance matrix.
+#' @param values to attach to each column on the Fleiss form data.
+#'    Defaults to `1:C`, where `C` is the number of categories. Only used
+#'    in `fleiss_aggr`.
 #' @return Sample / population quadratically weighted Fleiss' or Conger's kappa.
 #' @examples
 #' x <- irrCAC::cac.raw4raters[2:9, ]
@@ -110,4 +113,20 @@ fleiss_pop <- function(mu, sigma) {
   top <- sum(sigma) - trace - r * (mean(mu^2) - mean(mu)^2)
   bottom <- (r - 1) * trace + (r - 1) * r * (mean(mu^2) - mean(mu)^2)
   top / bottom
+}
+
+#' @rdname fleiss
+#' @export
+fleiss_aggr <- \(x, values = seq(ncol(x))) {
+  r <- sum(x[1, ])
+  stopifnot(ncol(x) == length(values))
+
+  xtx <- apply(x, 1, \(row) sum(values^2 * row))
+  xt1 <- apply(x, 1, \(row) sum(values * row))
+
+  extx <- mean(xtx)
+  ext1 <- mean(xt1)
+  ext2 <- mean(xt1^2)
+
+  1 / (r - 1) * ((ext2 - ext1^2) / (extx - ext1^2 / r) - 1)
 }

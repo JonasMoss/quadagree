@@ -7,6 +7,7 @@
 \alias{conger_pop}
 \alias{cohen_pop}
 \alias{fleiss_pop}
+\alias{fleiss_aggr}
 \title{Calculate the quadratic Fleiss' kappa and Conger's (Cohen's) kappa}
 \usage{
 fleiss(x)
@@ -20,6 +21,8 @@ conger_pop(mu, sigma)
 cohen_pop(mu, sigma)
 
 fleiss_pop(mu, sigma)
+
+fleiss_aggr(x, values = seq(ncol(x)))
 }
 \arguments{
 \item{x}{Input data on wide form. Columns are raters, items are ratings.
@@ -28,6 +31,10 @@ Missing values are allowed, and should be encoded as \code{NA}s.}
 \item{mu}{Population vector of means.}
 
 \item{sigma}{Population covariance matrix.}
+
+\item{values}{to attach to each column on the Fleiss form data.
+Defaults to \code{1:C}, where \code{C} is the number of categories. Only used
+in \code{fleiss_aggr}.}
 }
 \value{
 Sample / population quadratically weighted Fleiss' or Conger's kappa.

@@ -78,8 +78,11 @@
 #'
 #' @export
 #' @param x Input data data can be converted to a matrix using `as.matrix`.
+#' @param values to attach to each column on the Fleiss form data.
+#'    Defaults to `1:C`, where `C` is the number of categories. Only used
+#'    in `fleiss_aggr`.
 #' @param type Type of confidence interval. Either `adf`, `elliptical`, or
-#'   `normal`.
+#'   `normal`. Ignored in `fleiss_aggrci`.
 #' @param transform One of `"none"`, `"log"`, `"fisher"`, and `"arcsin`.
 #'   Defaults to `"none"`.
 #' @param alternative A character string specifying the alternative hypothesis,
@@ -107,6 +110,55 @@ fleissci <- function(x,
 
 #' @export
 #' @rdname fleissci
+fleiss_aggr_ci <- function(x,
+                           values = seq(ncol(x)),
+                           transform = "none",
+                           conf_level = 0.95,
+                           alternative = c("two.sided", "greater", "less"),
+                           bootstrap = FALSE,
+                           n_reps = 1000) {
+  r <- sum(x[1, ])
+  stopifnot(ncol(x) == length(values))
+  alternative <- match.arg(alternative)
+  transformer <- get_transformer(transform)
+
+  quants <- limits(alternative, conf_level)
+  x <- as.matrix(x)
+  est <- fleiss_aggr(x, values)
+  sd <- sqrt(fleiss_aggr_var(x, values))
+
+  ci <- if (!bootstrap) {
+    ci_asymptotic(est, sd, nrow(x), transformer, quants)
+  } else {
+    ci_boot_aggr(
+      x,
+      values,
+      est,
+      sd,
+      transformer,
+      quants,
+      n_reps
+    )
+  }
+
+  names(ci) <- quants
+  attr(ci, "conf_level") <- conf_level
+  attr(ci, "alternative") <- alternative
+  attr(ci, "type") <- "Aggregated Fleiss kappa"
+  attr(ci, "n") <- nrow(x)
+  attr(ci, "transform") <- transform
+  attr(ci, "bootstrap") <- bootstrap
+  attr(ci, "n_reps") <- n_reps
+  attr(ci, "estimate") <- est
+  attr(ci, "sd") <- sd
+  attr(ci, "call") <- call
+  class(ci) <- "fleissci"
+  ci[2] <- min(ci[2], 1)
+  ci
+}
+
+#' @export
+#' @rdname fleissci
 congerci <- function(x,
                      type = c("adf", "elliptical", "normal"),
                      transform = "none",
@@ -122,7 +174,6 @@ congerci <- function(x,
 #' @export
 #' @rdname fleissci
 cohenci <- congerci
-
 
 #' @keywords internal
 fleissci_ <- function(x,

@@ -2,6 +2,7 @@
 % Please edit documentation in R/inference.R
 \name{fleissci}
 \alias{fleissci}
+\alias{fleiss_aggr_ci}
 \alias{congerci}
 \alias{cohenci}
 \title{Confidence intervals for the quadratically weighted Fleiss' kappa and
@@ -10,6 +11,16 @@ Conger's (Cohen's) kappa}
 fleissci(
   x,
   type = c("adf", "elliptical", "normal"),
+  transform = "none",
+  conf_level = 0.95,
+  alternative = c("two.sided", "greater", "less"),
+  bootstrap = FALSE,
+  n_reps = 1000
+)
+
+fleiss_aggr_ci(
+  x,
+  values = seq(ncol(x)),
   transform = "none",
   conf_level = 0.95,
   alternative = c("two.sided", "greater", "less"),
@@ -41,7 +52,7 @@ cohenci(
 \item{x}{Input data data can be converted to a matrix using \code{as.matrix}.}
 
 \item{type}{Type of confidence interval. Either \code{adf}, \code{elliptical}, or
-\code{normal}.}
+\code{normal}. Ignored in \code{fleiss_aggrci}.}
 
 \item{transform}{One of \code{"none"}, \code{"log"}, \code{"fisher"}, and \verb{"arcsin}.
 Defaults to \code{"none"}.}
@@ -56,6 +67,10 @@ repetitions. Defaults to \code{FALSE}.}
 
 \item{n_reps}{Number of bootstrap samples if \code{bootstrap = TRUE}. Ignored if
 \code{bootstrap = FALSE}. Defaults to \code{1000}.}
+
+\item{values}{to attach to each column on the Fleiss form data.
+Defaults to \code{1:C}, where \code{C} is the number of categories. Only used
+in \code{fleiss_aggr}.}
 }
 \value{
 A vector of class \code{fleissci} containing the confidence end points.

@@ -6,8 +6,6 @@
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Codecov test
-coverage](https://codecov.io/gh/JonasMoss/fleissci/branch/main/graph/badge.svg)](https://app.codecov.io/gh/JonasMoss/fleissci?branch=main)
 
 An `R` package for calculating and doing inference with the
 quadratically weighted multi-rater Fleiss’ kappa, Cohen’s kappa, and

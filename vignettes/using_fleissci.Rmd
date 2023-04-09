@@ -1,0 +1,64 @@
+---
+title: "Using the fleissci package."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{using_fleissci}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(fleissci)
+```
+
+Use the `fleissci` package to estimate and do inference on the quadratically weighted Fleiss' kappa and Conger's kappa (the multirater variant of Cohen's kappa). It supports data on two forms: Raw or aggregated. An example of data on "raw" or "wide" form is the following data set with 4 raters and 5 categories from Zapf et al. (2016).
+
+```{r}
+knitr::kable(dat.zapf2016)
+```
+
+To estimate Fleiss' kappa and Conger's kappa, simply call
+
+```{r}
+fleiss(dat.zapf2016)
+conger(dat.zapf2016)
+```
+For inference, use
+```{r}
+fleissci(dat.zapf2016)
+```
+and
+```{r}
+cohenci(dat.zapf2016)
+```
+
+It is also possible to use the studentized bootstrap by selecting the option `bootstrap = "TRUE`", but this appears to confer no benefits and we would recommend sticking to the standard methods.
+
+Data on aggregated form looks different, with each row aggregating the number of ratings for each category. The following example is from Fleiss (1971).
+
+```{r}
+knitr::kable(dat.fleiss1971)
+```
+
+The dataset has categories
+```{r}
+colnames(dat.fleiss1971)
+```
+Provided we understand `depression` as being `1`, `personality disorder` as being `2`, and so on, we can calculate and do inference on the quadratically weighted Fleiss kappa (but not Conger's kappa) for data on this form.
+
+```{r}
+fleiss_aggr(dat.fleiss1971)
+```
+
+Inference is done in a similar way.
+
+```{r}
+fleiss_aggr_ci(dat.fleiss1971)
+```

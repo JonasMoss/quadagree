@@ -117,6 +117,7 @@ fleiss_aggr_ci <- function(x,
                            alternative = c("two.sided", "greater", "less"),
                            bootstrap = FALSE,
                            n_reps = 1000) {
+  call <- match.call()
   r <- sum(x[1, ])
   stopifnot(ncol(x) == length(values))
   alternative <- match.arg(alternative)

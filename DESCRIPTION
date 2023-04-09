@@ -16,17 +16,13 @@ Depends:
     R (>= 3.5.0)
 Imports: 
     future.apply,
-    matrixcalc
-Suggests: 
-    covr,
-    extraDistr,
-    knitr,
-    lavaan,
-    psychTools,
-    rmarkdown,
+    matrixcalc,
     Matrix,
+    arrangements
+Suggests: 
+    knitr,
     irrCAC,
-    arrangements,
+    rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr

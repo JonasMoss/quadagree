@@ -4,6 +4,7 @@
 \alias{fleissci}
 \alias{fleiss_aggr_ci}
 \alias{congerci}
+\alias{bp_aggr}
 \alias{cohenci}
 \title{Confidence intervals for the quadratically weighted Fleiss' kappa and
 Conger's (Cohen's) kappa}
@@ -38,6 +39,8 @@ congerci(
   n_reps = 1000
 )
 
+bp_aggr(x, values = seq(ncol(x)), kind = 1)
+
 cohenci(
   x,
   type = c("adf", "elliptical", "normal"),
@@ -70,7 +73,11 @@ repetitions. Defaults to \code{FALSE}.}
 
 \item{values}{to attach to each column on the Fleiss form data.
 Defaults to \code{1:C}, where \code{C} is the number of categories. Only used
-in \code{fleiss_aggr}.}
+in \code{fleiss_aggr} and \code{bp_aggr}.}
+
+\item{kind}{The kind of Brennan-Prediger coefficient used, \code{1} for the
+classical kind and \code{2} for the kind introduced in Moss (2023). Only
+relevant for \code{bp_aggr} and \code{bp}.}
 }
 \value{
 A vector of class \code{fleissci} containing the confidence end points.
@@ -147,6 +154,8 @@ https://www.ncbi.nlm.nih.gov/pubmed/2720055
 
 Moss, van Oest (work in progress). Inference for quadratically weighted
 multi-rater kappas with missing raters.
+
+Moss (work in progress). On the Brennan–Prediger coefficients.
 
 Magnus, J. R., & Neudecker, H. (2019). Matrix Differential Calculus with
 Applications in Statistics and Econometrics. John Wiley & Sons.

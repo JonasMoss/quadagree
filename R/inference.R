@@ -72,6 +72,8 @@
 #' Moss, van Oest (work in progress). Inference for quadratically weighted
 #' multi-rater kappas with missing raters.
 #'
+#' Moss (work in progress). On the Brennan–Prediger coefficients.
+#'
 #' Magnus, J. R., & Neudecker, H. (2019). Matrix Differential Calculus with
 #' Applications in Statistics and Econometrics. John Wiley & Sons.
 #' https://doi.org/10.1002/9781119541219
@@ -80,9 +82,12 @@
 #' @param x Input data data can be converted to a matrix using `as.matrix`.
 #' @param values to attach to each column on the Fleiss form data.
 #'    Defaults to `1:C`, where `C` is the number of categories. Only used
-#'    in `fleiss_aggr`.
+#'    in `fleiss_aggr` and `bp_aggr`.
 #' @param type Type of confidence interval. Either `adf`, `elliptical`, or
 #'   `normal`. Ignored in `fleiss_aggrci`.
+#' @param kind The kind of Brennan-Prediger coefficient used, `1` for the
+#'   classical kind and `2` for the kind introduced in Moss (2023). Only
+#'   relevant for `bp_aggr` and `bp`.
 #' @param transform One of `"none"`, `"log"`, `"fisher"`, and `"arcsin`.
 #'   Defaults to `"none"`.
 #' @param alternative A character string specifying the alternative hypothesis,
@@ -170,6 +175,17 @@ congerci <- function(x,
   call <- match.call()
   args <- sapply(names(formals()), str2lang)
   do.call(what = fleissci_, c(args, call = quote(call), fleiss = FALSE))
+}
+
+#' @export
+#' @rdname fleissci
+bp_aggr <- \(x, values = seq(ncol(x)), kind = 1) {
+  stopifnot(kind == 1 | kind == 2)
+  args <- bp_prepare(x, values, kind)
+  c(
+    est = do.call(bp_est_matrix, args),
+    var = do.call(bp_var_matrix, args)
+  )
 }
 
 #' @export

@@ -12,12 +12,25 @@ var_ <- \(x) {
   var(x) * (n - 1) / n
 }
 
-#' Quadratic Fleiss' kappa for data on Fleiss form.
+#' Quadratic Fleiss' kappa for aggregated data on Fleiss form.
+#'
+#' Estimate or do inference on Fleiss' kappa on aggregated form, i.e, when
+#'    each row contains the number of ratings in each category. See
+#'    `data.fleiss1971` for an example of data on this form. The function
+#'    `fleiss_aggr` calculates the value of Fleiss' kappa and `fleiss_aggr_ci`
+#'    returns a confidence interval.
+#'
+#' The estimation is done using the sums of each row and the dot product of
+#'    each row. The inferential method uses fourth moments. See Moss and
+#'    van Ouest (2023) for more details.
 #'
 #' @param x Data on Fleiss form.
 #' @param values Values to attach to each column on the Fleiss form data.
 #'    Defaults to `1:C`, where `C` is the number of categories.
 #' @return Calculated value of Fleiss' kappa.
+#' @references
+#' Moss, van Oest (work in progress). Inference for quadratically weighted
+#' multi-rater kappas with missing raters.
 fleiss_aggr <- \(x, values = seq(ncol(x))) {
   r <- sum(x[1, ])
   stopifnot(ncol(x) == length(values))

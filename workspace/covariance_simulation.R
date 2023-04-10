@@ -37,24 +37,3 @@ for (x in unique(yy$y1)) {
   resids[[x]] = residuals[yy$y2 == x]
 }
 
-y2 ==
-
-
-
-
-sapply(resids, var)
-
-
-
-
-
-xx <- sort(unique(yy$y1))
-covs <- matrix(NA, length(xx), 2)
-for (x1 in xx {
-  for (x2 in xx) {
-    indices <- arrangements::combinations(r, 2)
-    indices <- rbind(indices, cbind(indices[, 2], indices[, 1]))
-    (data[, 1] == x1) *
-  }
-}
-

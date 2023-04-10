@@ -26,7 +26,6 @@ fleiss_aggr_var <- \(x, values = seq(ncol(x))) {
   n <- nrow(x)
   stopifnot(ncol(x) == length(values))
 
-  values2 <- values^2
   y <- as.matrix(x)
   xtx <- c(tcrossprod(values^2, y))
   xt1 <- c(tcrossprod(values, y))

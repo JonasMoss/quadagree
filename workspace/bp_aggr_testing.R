@@ -5,7 +5,7 @@
 # Testing data
 x <- fleissci::dat.fleiss1971
 
-bp(x)
+bp_aggr(x)
 #' Convert data on raw form to Fleiss form.
 #'
 #' @param x Data on raw form.

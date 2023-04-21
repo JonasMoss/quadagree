@@ -74,6 +74,9 @@
 fleiss <- function(x) {
   n <- nrow(x)
   sigma <- stats::cov(x, use = "pairwise.complete.obs") * (n - 1) / n
+  if(any(is.na(sigma))) {
+    stop("The data does not contain sufficient non-NAs.")
+  }
   mu <- colMeans(x, na.rm = TRUE)
   fleiss_pop(mu, sigma)
 }
@@ -83,6 +86,9 @@ fleiss <- function(x) {
 conger <- function(x) {
   n <- nrow(x)
   sigma <- stats::cov(x, use = "pairwise.complete.obs") * (n - 1) / n
+  if(any(is.na(sigma))) {
+    stop("The data does not contain sufficient non-NAs.")
+  }
   mu <- colMeans(x, na.rm = TRUE)
   conger_pop(mu, sigma)
 }

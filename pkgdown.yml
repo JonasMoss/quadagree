@@ -1,0 +1,10 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  using_fleissci: using_fleissci.html
+last_built: 2023-04-21T13:19Z
+urls:
+  reference: https://jonasmoss.github.io/fleissci/reference
+  article: https://jonasmoss.github.io/fleissci/articles
+

@@ -1,0 +1,14 @@
+### Summary
+
+When measuring agreement between raters on a continuous scale, the most popular methods are the quadratically weighted agreement coefficients. Three popular options are the quadratically weighted Fleiss' kappa, Cohen's kappa (also known as Conger's kappa), and the Brennan--Prediger coefficient. This package implements and estimators and inferential methods for these coefficient. Details about the inference can be found in Moss and van Oest (2023) and Moss (2023).
+
+This package supports data on wide form and long form for Fleiss' kappa and the Brennan-Prediger coefficient and long form for Cohen's kappa. In addition, if the data is on long form, estimation and inference with is possible. Since inference with complete data is already possible using available packages such as `irrCAC`, we focus on missing data primarily. In addition, we support fast studentized bootstrap and several options regarding the data-generating process.
+
+Klein (2018) provides a data set of $5$ raters with some missing ratings. To calculate Fleiss' kappa for this data, call `fleissci`. The functions `bpci` and `cohenci` can be used to calculte the Brennan-Prediger coefficient and Cohen's kappa.
+
+```{r}
+library("quadagree")
+fleissci(dat.klein2018)
+```
+
+Possible options for the `ci` functions include the `type` argument, where one may assume the ratings are elliptically or normally distributed for possibly improved performance. Moreover, setting `bootstrap = TRUE` runs a studentized bootstrap with `n_reps` repetitions.

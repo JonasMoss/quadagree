@@ -1,5 +1,5 @@
 
-# quadagree <img src="man/figures/logo.png" align="right" width="206" height="161"/>
+# quadagree
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree.png)](https://cran.r-project.org/package=quadagree)
 [![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml)
@@ -43,8 +43,8 @@ Then calculate an asymptotically distribution-free confidence interval
 for ![\kappa](https://latex.codecogs.com/svg.latex?%5Ckappa "\kappa"),
 
 ``` r
-quadagree(dat.zapf2016)
-#> Call: quadagree(x = dat.zapf2016)
+fleissci(dat.zapf2016)
+#> Call: fleissci(x = dat.zapf2016)
 #> 
 #> 95% confidence interval (n = 50).
 #>     0.025     0.975 

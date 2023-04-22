@@ -45,7 +45,7 @@ head(dat.zapf2016)
 Then calculate an asymptotically distribution-free confidence interval for $\kappa$,
 
 ```{r}
-quadagree(dat.zapf2016)
+fleissci(dat.zapf2016)
 ```
 
 You can also calculate confidence intervals for Conger's kappa (Cohen's kappa) and the Brenna-Prediger coefficient.

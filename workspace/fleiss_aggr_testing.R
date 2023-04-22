@@ -1,8 +1,8 @@
-x <- fleissci::dat.fleiss1971
+x <- quadagree::dat.fleiss1971
 fleiss_aggr_ci(x, bootstrap = TRUE)
 fleiss_aggr_ci(x)
 
-fleissci(fleiss_to_wide(x))
+quadagree(fleiss_to_wide(x))
 
 
 x <- agreeable::simulate_jsm(100, c(0.6, 0.7, 0.8), model = "fleiss",

@@ -12,14 +12,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-# fleissci <img src="man/figures/logo.png" align="right" width="206" height="161"/>
+# quadagree <img src="man/figures/logo.png" align="right" width="206" height="161"/>
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/fleissci)](https://cran.r-project.org/package=fleissci) [![R-CMD-check](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree)](https://cran.r-project.org/package=quadagree) [![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 An `R` package for calculating and doing inference with the quadratically weighted multi-rater Fleiss' kappa, Cohen's kappa, and Conger's kappa. Has support for missing values using the methods of Moss and van Oest (work in progress). ***This package is work in progress and has no stable API! Expect breaking changes.***
 
 ```{r setup, include=FALSE}
-library("fleissci")
+library("quadagree")
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(out.width = "750px", dpi = 200)
 ```
@@ -30,7 +30,7 @@ The package is not available on `CRAN` yet, so use the following command from in
 
 ```{r install, echo = TRUE, eval = FALSE}
 # install.packages("remotes")
-remotes::install_github("JonasMoss/fleissci")
+remotes::install_github("JonasMoss/quadagree")
 ```
 
 ## Usage
@@ -38,14 +38,14 @@ remotes::install_github("JonasMoss/fleissci")
 Call the `library` function and load the data of Zapf et al. (2016):
 
 ```{r prepare, echo = TRUE, eval = TRUE}
-library("fleissci")
+library("quadagree")
 head(dat.zapf2016)
 ```
 
 Then calculate an asymptotically distribution-free confidence interval for $\kappa$,
 
 ```{r}
-fleissci(dat.zapf2016)
+quadagree(dat.zapf2016)
 ```
 
 You can also calculate confidence intervals for Conger's kappa (Cohen's kappa) and the Brenna-Prediger coefficient.
@@ -65,7 +65,7 @@ The data from Klein (2018) contains missing values.
 head(dat.klein2018)
 ```
 
-The estimates returned by `congerci`, `fleissci` and `bpci` are consistent.
+The estimates returned by `congerci`, `quadagree` and `bpci` are consistent.
 ```{r}
 #| cache: true
 congerci(dat.klein2018)
@@ -73,7 +73,7 @@ congerci(dat.klein2018)
 
 ## Supported inferential techniques
 
-`fleissci` supports three basic asymptotic confidence interval constructions. The asymptotically distribution-free interval, the pseudo-elliptical interval, and the normal method.
+`quadagree` supports three basic asymptotic confidence interval constructions. The asymptotically distribution-free interval, the pseudo-elliptical interval, and the normal method.
 
 | Method       | Description                                                                                                                                                                                                                                                      |
 |------------|------------------------------------------------------------|
@@ -107,7 +107,7 @@ There are several `R` packages that calculate agreement coefficients, most notab
 
 ## How to Contribute or Get Help
 
-If you encounter a bug, have a feature request or need some help, open a [Github issue](https://github.com/JonasMoss/fleissci/issues). Create a pull requests to contribute.
+If you encounter a bug, have a feature request or need some help, open a [Github issue](https://github.com/JonasMoss/quadagree/issues). Create a pull requests to contribute.
 
 ## References
 - Moss, van Oest (work in progress). Inference for quadratically weighted multi-rater kappas with missing raters.

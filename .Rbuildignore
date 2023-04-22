@@ -1,5 +1,5 @@
 ^appveyor\.yml$
-^fleissci\.Rproj$
+^quadagree\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.circleci/config\.yml$

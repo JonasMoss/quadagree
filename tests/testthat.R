@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(fleissci)
+library(quadagree)
 
-test_check("fleissci")
+test_check("quadagree")

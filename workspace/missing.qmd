@@ -58,7 +58,7 @@ sigma <- matrix(c(
 Then the population value of Conger's kappa is
 
 ```{r}
-library("fleissci")
+library("quadagree")
 par <- conger_pop(mu, sigma)
 par
 ```
@@ -75,7 +75,7 @@ head(x)
 And it's easy to calculate confidence intervals for this data
 
 ```{r}
-fleissci::congerci(x)
+quadagree::congerci(x)
 ```
 
 We can use the function `simulate` to simulate the coverage of confidence intervals.
@@ -85,7 +85,7 @@ set.seed(313)
 n <- 100
 n_reps <- 10000
 f <- \(x) {
-  ci <- fleissci::congerci(x)
+  ci <- quadagree::congerci(x)
   (c(ci[1] <= par) & (par <= ci[2]))
 }
 results <- simulate(n, mu, sigma, p, n_reps, f = f, laplace = TRUE)
@@ -99,7 +99,7 @@ set.seed(313)
 n <- 100
 n_reps <- 10000
 f <- \(x) {
-  ci <- fleissci::congerci(x, type = "elliptical")
+  ci <- quadagree::congerci(x, type = "elliptical")
   (c(ci[1] <= par) & (par <= ci[2]))
 }
 results <- simulate(n, mu, sigma, p, n_reps, f = f, laplace = TRUE)
@@ -113,7 +113,7 @@ set.seed(313)
 n <- 100
 n_reps <- 10000
 f <- \(x) {
-  ci <- fleissci::congerci(x, type = "elliptical", transform = "fisher")
+  ci <- quadagree::congerci(x, type = "elliptical", transform = "fisher")
   (c(ci[1] <= par) & (par <= ci[2]))
 }
 results <- simulate(n, mu, sigma, p, n_reps, f = f, laplace = TRUE)

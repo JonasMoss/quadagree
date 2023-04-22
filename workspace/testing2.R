@@ -29,7 +29,7 @@ mat <- cov_mat(p, mu, sigma, gamma_est(NULL, sigma, type = "normal"))
 avar_(mat, mu, sigma, TRUE)
 
 x <- simulate(10000, mu, sigma, p, n_reps = 1, f = \(x) x, laplace = FALSE)[, , 1]
-congerci::fleissci(x, type = "normal")
+congerci::quadagree(x, type = "normal")
 
 
 ##

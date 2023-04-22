@@ -97,9 +97,9 @@
 #'   repetitions. Defaults to `FALSE`.
 #' @param n_reps Number of bootstrap samples if `bootstrap = TRUE`. Ignored if
 #'   `bootstrap = FALSE`. Defaults to `1000`.
-#' @return A vector of class `fleissci` containing the confidence end points.
+#' @return A vector of class `quadagree` containing the confidence end points.
 #'   The arguments of the function call are included as attributes.
-#' @name fleissci
+#' @name quadagree
 
 fleissci <- function(x,
                      type = c("adf", "elliptical", "normal"),
@@ -110,11 +110,11 @@ fleissci <- function(x,
                      n_reps = 1000) {
   call <- match.call()
   args <- sapply(names(formals()), str2lang)
-  do.call(what = fleissci_, c(args, call = quote(call), fleiss = TRUE))
+  do.call(what = quadagree_, c(args, call = quote(call), fleiss = TRUE))
 }
 
 #' @export
-#' @rdname fleissci
+#' @rdname quadagree
 fleiss_aggr_ci <- function(x,
                            values = seq(ncol(x)),
                            transform = "none",
@@ -158,13 +158,13 @@ fleiss_aggr_ci <- function(x,
   attr(ci, "estimate") <- est
   attr(ci, "sd") <- sd
   attr(ci, "call") <- call
-  class(ci) <- "fleissci"
+  class(ci) <- "quadagree"
   ci[2] <- min(ci[2], 1)
   ci
 }
 
 #' @export
-#' @rdname fleissci
+#' @rdname quadagree
 congerci <- function(x,
                      type = c("adf", "elliptical", "normal"),
                      transform = "none",
@@ -174,11 +174,11 @@ congerci <- function(x,
                      n_reps = 1000) {
   call <- match.call()
   args <- sapply(names(formals()), str2lang)
-  do.call(what = fleissci_, c(args, call = quote(call), fleiss = FALSE))
+  do.call(what = quadagree_, c(args, call = quote(call), fleiss = FALSE))
 }
 
 #' @export
-#' @rdname fleissci
+#' @rdname quadagree
 bp_aggr <- \(x, values = seq(ncol(x)), kind = 1) {
   stopifnot(kind == 1 | kind == 2)
   args <- bp_aggr_prepare(x, values, kind)
@@ -189,11 +189,11 @@ bp_aggr <- \(x, values = seq(ncol(x)), kind = 1) {
 }
 
 #' @export
-#' @rdname fleissci
+#' @rdname quadagree
 cohenci <- congerci
 
 #' @keywords internal
-fleissci_ <- function(x,
+quadagree_ <- function(x,
                       type = c("adf", "elliptical", "normal"),
                       transform,
                       conf_level,
@@ -238,13 +238,13 @@ fleissci_ <- function(x,
   attr(ci, "estimate") <- est
   attr(ci, "sd") <- sd
   attr(ci, "call") <- call
-  class(ci) <- "fleissci"
+  class(ci) <- "quadagree"
   ci[2] <- min(ci[2], 1)
   ci
 }
 
 #' @export
-print.fleissci <- function(x, digits = getOption("digits"), ...) {
+print.quadagree <- function(x, digits = getOption("digits"), ...) {
   at <- \(y) attr(x, y)
   cat("Call: ", paste(deparse(at("call")),
     sep = "\n",

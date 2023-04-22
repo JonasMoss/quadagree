@@ -2,7 +2,7 @@
 #'
 #' Estimate a quadratically weighted kappa with potentially missing data using
 #'    least squares, or calculate its population value. `conger` and `cohen` are
-#'    aliases. See [fleissci()] and [cohenci()] for confidence intervals.
+#'    aliases. See [quadagree()] and [cohenci()] for confidence intervals.
 #'
 #' Conger's kappa is a multi-rater generalization of Cohen's kappa.
 #'    All functions in this package work for multiple raters, so functions

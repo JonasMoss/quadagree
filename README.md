@@ -1,8 +1,8 @@
 
-# fleissci <img src="man/figures/logo.png" align="right" width="206" height="161"/>
+# quadagree <img src="man/figures/logo.png" align="right" width="206" height="161"/>
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/fleissci.png)](https://cran.r-project.org/package=fleissci)
-[![R-CMD-check](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/fleissci/actions/workflows/R-CMD-check.yaml)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree.png)](https://cran.r-project.org/package=quadagree)
+[![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -20,7 +20,7 @@ from inside `R`:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("JonasMoss/fleissci")
+remotes::install_github("JonasMoss/quadagree")
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ remotes::install_github("JonasMoss/fleissci")
 Call the `library` function and load the data of Zapf et al. (2016):
 
 ``` r
-library("fleissci")
+library("quadagree")
 head(dat.zapf2016)
 #>   Rater A Rater B Rater C Rater D
 #> 1       5       5       4       5
@@ -43,8 +43,8 @@ Then calculate an asymptotically distribution-free confidence interval
 for ![\kappa](https://latex.codecogs.com/svg.latex?%5Ckappa "\kappa"),
 
 ``` r
-fleissci(dat.zapf2016)
-#> Call: fleissci(x = dat.zapf2016)
+quadagree(dat.zapf2016)
+#> Call: quadagree(x = dat.zapf2016)
 #> 
 #> 95% confidence interval (n = 50).
 #>     0.025     0.975 
@@ -90,7 +90,7 @@ head(dat.klein2018)
 #> 6      1      2      2      2      2
 ```
 
-The estimates returned by `congerci`, `fleissci` and `bpci` are
+The estimates returned by `congerci`, `quadagree` and `bpci` are
 consistent.
 
 ``` r
@@ -108,7 +108,7 @@ congerci(dat.klein2018)
 
 ## Supported inferential techniques
 
-`fleissci` supports three basic asymptotic confidence interval
+`quadagree` supports three basic asymptotic confidence interval
 constructions. The asymptotically distribution-free interval, the
 pseudo-elliptical interval, and the normal method.
 
@@ -193,7 +193,7 @@ most notably `irrCAC`.
 ## How to Contribute or Get Help
 
 If you encounter a bug, have a feature request or need some help, open a
-[Github issue](https://github.com/JonasMoss/fleissci/issues). Create a
+[Github issue](https://github.com/JonasMoss/quadagree/issues). Create a
 pull requests to contribute.
 
 ## References

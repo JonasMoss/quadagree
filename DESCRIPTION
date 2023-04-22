@@ -1,5 +1,5 @@
 Type: Package
-Package: fleissci
+Package: quadagree
 Title: Confidence intervals for the quadratically weighted Fleiss' kappa, Conger's kappa, and Cohen's kappa
 Version: 0.0.1
 Authors@R: 
@@ -10,7 +10,7 @@ Description: Calculate the quadratically weighted Fleiss' kappa, Cohen's kappa,
     available information. Currently supports three inferential procedures;
     the ADF method, the elliptical method, and the normal method.
 License: MIT + file LICENSE
-URL: https://jonasmoss.github.io/fleissci/
+URL: https://jonasmoss.github.io/quadagree/
 LazyData: true
 Depends:
     R (>= 3.5.0)

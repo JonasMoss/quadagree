@@ -1,8 +1,8 @@
 ---
-title: "Using the fleissci package."
+title: "Using the quadagree package."
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{using_fleissci}
+  %\VignetteIndexEntry{using_quadagree}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,10 +15,10 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(fleissci)
+library(quadagree)
 ```
 
-Use the `fleissci` package to estimate and do inference on the quadratically weighted Fleiss' kappa and Conger's kappa (the multirater variant of Cohen's kappa). It supports data on two forms: Raw or aggregated. An example of data on "raw" or "wide" form is the following data set with 4 raters and 5 categories from Zapf et al. (2016).
+Use the `quadagree` package to estimate and do inference on the quadratically weighted Fleiss' kappa and Conger's kappa (the multirater variant of Cohen's kappa). It supports data on two forms: Raw or aggregated. An example of data on "raw" or "wide" form is the following data set with 4 raters and 5 categories from Zapf et al. (2016).
 
 ```{r}
 knitr::kable(dat.zapf2016)
@@ -32,7 +32,7 @@ conger(dat.zapf2016)
 ```
 For inference, use
 ```{r}
-fleissci(dat.zapf2016)
+quadagree(dat.zapf2016)
 ```
 and
 ```{r}

@@ -2,7 +2,7 @@
 ###   Covariance of residuals simulation using dat.zapf2016
 ### ===========================================================================
 
-data <- fleissci::dat.zapf2016
+data <- quadagree::dat.zapf2016
 
 sampler <- \(n) dplyr::slice_sample(data, n = n)
 

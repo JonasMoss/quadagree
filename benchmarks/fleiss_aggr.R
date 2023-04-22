@@ -1,4 +1,4 @@
-library("fleissci")
+library("quadagree")
 
 x <- dat.fleiss1971
 microbenchmark::microbenchmark(

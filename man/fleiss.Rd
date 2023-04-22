@@ -42,7 +42,7 @@ Sample / population quadratically weighted Fleiss' or Conger's kappa.
 \description{
 Estimate a quadratically weighted kappa with potentially missing data using
 least squares, or calculate its population value. \code{conger} and \code{cohen} are
-aliases. See \code{\link[=fleissci]{fleissci()}} and \code{\link[=cohenci]{cohenci()}} for confidence intervals.
+aliases. See \code{\link[=quadagree]{quadagree()}} and \code{\link[=cohenci]{cohenci()}} for confidence intervals.
 }
 \details{
 Conger's kappa is a multi-rater generalization of Cohen's kappa.

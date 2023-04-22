@@ -5,7 +5,7 @@ x <- rbind(
 )
 
 
-#x <- fleissci::dat.fleiss1971
+#x <- quadagree::dat.fleiss1971
 values = seq(ncol(x))
 r <- sum(x[1, ])
 

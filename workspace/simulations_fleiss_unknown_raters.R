@@ -20,7 +20,7 @@ results <- replicate(n_reps, {
     model = "fleiss",
     true_dist = c(0.2, 0.2, 0.3, 0.2, 0.1)
   )
-  fleissci::fleiss(xx)
+  quadagree::fleiss(xx)
 })
 
 var(results) * n

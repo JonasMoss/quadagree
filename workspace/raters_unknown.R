@@ -82,7 +82,7 @@ long_to_wide <- function(x, rating = "rating") {
   as.matrix(dplyr::select(tidyr::spread(x, key = "judge", value = rating), -1))
 }
 
-long_to_wide(fleissci::dat.zapf2016)
+long_to_wide(quadagree::dat.zapf2016)
 
 
 
@@ -123,7 +123,7 @@ grad_fun(c(0.5, 0.6, 0.7))
 
 
 
-x <- fleissci::dat.fleiss1971
+x <- quadagree::dat.fleiss1971
 
 # x <- t(t(xx)*(1:6))
 
@@ -146,7 +146,7 @@ c_xtx_xt1 <- mean(xtx * xt1) - (tr(sigma) + mutmu)
 
 
 
-z <- fake_wide(fleissci::dat.fleiss1971)
+z <- fake_wide(quadagree::dat.fleiss1971)
 z_ <- z
 for (i in 1:nrow(z)) {
   z_[i, 1:6] <- z[i, sample(1:6, 6)]

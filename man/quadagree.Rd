@@ -2,6 +2,7 @@
 % Please edit documentation in R/inference.R
 \name{quadagree}
 \alias{quadagree}
+\alias{fleissci}
 \alias{fleiss_aggr_ci}
 \alias{congerci}
 \alias{bp_aggr}
@@ -9,7 +10,7 @@
 \title{Confidence intervals for the quadratically weighted Fleiss' kappa and
 Conger's (Cohen's) kappa}
 \usage{
-quadagree(
+fleissci(
   x,
   type = c("adf", "elliptical", "normal"),
   transform = "none",

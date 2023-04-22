@@ -32,7 +32,7 @@ conger(dat.zapf2016)
 ```
 For inference, use
 ```{r}
-quadagree(dat.zapf2016)
+fleissci(dat.zapf2016)
 ```
 and
 ```{r}

@@ -10,9 +10,9 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 An `R` package for calculating and doing inference the quadratically
 weighted multi-rater measures of agreement. Fleiss’ kappa, Cohen’s kappa
 (Conger’s kappa), and the Brennan-Prediger coefficient. Has support for
-missing values using the methods of Moss and van Oest (work in
-progress). ***This package is work in progress and has no stable API!
-Expect breaking changes.***
+missing values using the methods of Moss and van Oest (work in progress)
+and Moss (work in progress). ***This package is work in progress and has
+no stable API! Expect breaking changes.***
 
 ## Installation
 
@@ -57,7 +57,7 @@ fleissci(dat.zapf2016)
 ```
 
 You can also calculate confidence intervals for Conger’s kappa (Cohen’s
-kappa) and the Brenna-Prediger coefficient.
+kappa) and the Brennan-Prediger coefficient.
 
 ``` r
 congerci(dat.zapf2016)
@@ -186,6 +186,16 @@ fleiss_aggr_ci(dat.fleiss1971)
 #> 0.2840722 0.5987194
 ```
 
+The results agree with `irrCAC`.
+
+``` r
+irrCAC::fleiss.kappa.dist(dat.fleiss1971, weights = "quadratic")
+#>      coeff.name     coeff    stderr      conf.int    p.value        pa
+#> 1 Fleiss' Kappa 0.2840722 0.1111794 (0.057,0.511) 0.01612517 0.8334722
+#>          pe
+#> 1 0.7673958
+```
+
 ## Similar software
 
 There are several `R` packages that calculate agreement coefficients,
@@ -202,22 +212,24 @@ pull requests to contribute.
 - Moss, van Oest (work in progress). Inference for quadratically
   weighted multi-rater kappas with missing raters.
 
-- Zapf, A., Castell, S., Morawietz, L. et al. Measuring inter-rater
-  reliability for nominal data – which coefficients and confidence
-  intervals are appropriate?. BMC Med Res Methodol 16, 93 (2016).
-  https://doi.org/10.1186/s12874-016-0200-9
+- Moss (work in progress). On the Brennan–Prediger coefficients.
 
 - Cohen, J. (1968). Weighted kappa: Nominal scale agreement with
   provision for scaled disagreement or partial credit. Psychological
   Bulletin, 70(4), 213–220. https://doi.org/10.1037/h0026256
 
+- Conger, A. J. (1980). Integration and generalization of kappas for
+  multiple raters. Psychological Bulletin, 88(2), 322–328.
+  https://doi.org/10.1037/0033-2909.88.2.322
+
 - Fleiss, J. L. (1975). Measuring agreement between two judges on the
   presence or absence of a trait. Biometrics, 31(3), 651–659.
   https://www.ncbi.nlm.nih.gov/pubmed/1174623
 
-- Conger, A. J. (1980). Integration and generalization of kappas for
-  multiple raters. Psychological Bulletin, 88(2), 322–328.
-  https://doi.org/10.1037/0033-2909.88.2.322
+- Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample
+  skewness and kurtosis. Journal of the Royal Statistical Society:
+  Series D (The Statistician), 47(1), 183-189.
+  https://doi.org/10.1111/1467-9884.00122
 
 - Lin, L. I. (1989). A concordance correlation coefficient to evaluate
   reproducibility. Biometrics, 45(1), 255–268.
@@ -228,11 +240,16 @@ pull requests to contribute.
   Series D (The Statistician), 47(1), 183-189.
   https://doi.org/10.1111/1467-9884.00122
 
+- Klein, D. (2018). Implementing a General Framework for Assessing
+  Interrater Agreement in Stata. The Stata Journal, 18(4), 871–901.
+  https://doi.org/10.1177/1536867X1801800408
+
 - Van Praag, B. M. S., Dijkstra, T. K., & Van Velzen, J. (1985).
   Least-squares theory based on general distributional assumptions with
   an application to the incomplete observations problem. Psychometrika,
   50(1), 25–36. https://doi.org/10.1007/BF02294145
 
-- Klein, D. (2018). Implementing a General Framework for Assessing
-  Interrater Agreement in Stata. The Stata Journal, 18(4), 871–901.
-  https://doi.org/10.1177/1536867X1801800408
+- Zapf, A., Castell, S., Morawietz, L. et al. Measuring inter-rater
+  reliability for nominal data – which coefficients and confidence
+  intervals are appropriate?. BMC Med Res Methodol 16, 93 (2016).
+  https://doi.org/10.1186/s12874-016-0200-9

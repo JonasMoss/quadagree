@@ -48,7 +48,7 @@ Then calculate an asymptotically distribution-free confidence interval for $\kap
 fleissci(dat.zapf2016)
 ```
 
-You can also calculate confidence intervals for Conger's kappa (Cohen's kappa).
+You can also calculate confidence intervals for Conger's kappa (Cohen's kappa) and the Brenna-Prediger coefficient.
 
 ```{r}
 #| cache: true
@@ -56,7 +56,20 @@ congerci(dat.zapf2016)
 ```
 
 ## Support for missing values
-The inferential methods have support for missing values, using pairwise available information in the biased sample covariance matrix. We use the asymptotic method of van Praag (1985).
+The inferential methods have support for missing values, using pairwise available information in the biased sample covariance matrix. We use the asymptotic method of van Praag (1985). 
+
+The data from Klein (2018) contains missing values.
+
+```{r}
+#| cache: true
+head(dat.klein2018)
+```
+
+The estimates returned by `congerci`, `fleissci` and `bpci` are consistent.
+```{r}
+#| cache: true
+congerci(dat.klein2018)
+```
 
 ## Supported inferential techniques
 
@@ -76,6 +89,18 @@ In addition, you may transform the intervals using one of four transforms:
 4.  The [$\arcsin$ transform](https://en.wikipedia.org/wiki/Inverse_trigonometric_functions). This transform might fail when $n$ is small, as negative values for $\hat{\kappa}$ is possible, but $\arcsin$ do not accept them,
 
 The option `bootstrap` does studentized bootstrapping Efron, B. (1987) with `n_reps` repetitions. If `bootstrap = FALSE`, an ordinary normal approximation will be used. The studentized bootstrap intervals are is a second-order correct, so its confidence intervals will be better than the normal approximation when $n$ is sufficiently large.
+
+## Data on wide form
+Some agreement data is recorded on *wide form* instead of *long form*. Here each row contains all the possible ratings of an item along with the total number of ratings for that item. The data of Fleiss (1971) is on this form
+
+```{r}
+head(dat.fleiss1971)
+```
+
+Provided the raters are exchangeable in the sense that the ratings are conditionally independent given the item, consistent inference for the Fleiss' kappa and the Brennan--Prediger coefficient is possible using `fleiss_aggr` and `bp_aggr`.  
+```{r}
+fleiss_aggr_ci(dat.fleiss1971)
+```
 
 ## Similar software
 There are several `R` packages that calculate agreement coefficients, most notably `irrCAC`.
@@ -102,4 +127,6 @@ intervals are appropriate?. BMC Med Res Methodol 16, 93 (2016). https://doi.org/
 - Joanes, D. N., & Gill, C. A. (1998). Comparing measures of sample skewness and kurtosis. Journal of the Royal Statistical Society: Series D (The Statistician), 47(1), 183-189. https://doi.org/10.1111/1467-9884.00122
 
 - Van Praag, B. M. S., Dijkstra, T. K., & Van Velzen, J. (1985). Least-squares theory based on general distributional assumptions with an application to the incomplete observations problem. Psychometrika, 50(1), 25–36. https://doi.org/10.1007/BF02294145
+
+- Klein, D. (2018). Implementing a General Framework for Assessing Interrater Agreement in Stata. The Stata Journal, 18(4), 871–901. https://doi.org/10.1177/1536867X1801800408
 

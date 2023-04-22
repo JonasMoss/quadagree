@@ -56,7 +56,7 @@ fleissci(dat.zapf2016)
 ```
 
 You can also calculate confidence intervals for Conger’s kappa (Cohen’s
-kappa).
+kappa) and the Brenna-Prediger coefficient.
 
 ``` r
 congerci(dat.zapf2016)
@@ -76,6 +76,35 @@ congerci(dat.zapf2016)
 The inferential methods have support for missing values, using pairwise
 available information in the biased sample covariance matrix. We use the
 asymptotic method of van Praag (1985).
+
+The data from Klein (2018) contains missing values.
+
+``` r
+head(dat.klein2018)
+#>   rater1 rater2 rater3 rater4 rater5
+#> 1      1      2      2     NA      2
+#> 2      1      1      3      3      3
+#> 3      3      3      3      3      3
+#> 4      1      1      1      1      3
+#> 5      1      1      1      3      3
+#> 6      1      2      2      2      2
+```
+
+The estimates returned by `congerci`, `fleissci` and `bpci` are
+consistent.
+
+``` r
+congerci(dat.klein2018)
+#> Call: congerci(x = dat.klein2018)
+#> 
+#> 95% confidence interval (n = 10).
+#>       0.025       0.975 
+#> -0.03263703  0.58005580 
+#> 
+#> Sample estimates.
+#>     kappa        sd 
+#> 0.2737094 0.4062667
+```
 
 ## Supported inferential techniques
 
@@ -119,6 +148,42 @@ approximation will be used. The studentized bootstrap intervals are is a
 second-order correct, so its confidence intervals will be better than
 the normal approximation when
 ![n](https://latex.codecogs.com/svg.latex?n "n") is sufficiently large.
+
+## Data on wide form
+
+Some agreement data is recorded on *wide form* instead of *long form*.
+Here each row contains all the possible ratings of an item along with
+the total number of ratings for that item. The data of Fleiss (1971) is
+on this form
+
+``` r
+head(dat.fleiss1971)
+#>   depression personality disorder schizophrenia neurosis other
+#> 1          0                    0             0        6     0
+#> 2          0                    3             0        0     3
+#> 3          0                    1             4        0     1
+#> 4          0                    0             0        0     6
+#> 5          0                    3             0        3     0
+#> 6          2                    0             4        0     0
+```
+
+Provided the raters are exchangeable in the sense that the ratings are
+conditionally independent given the item, consistent inference for the
+Fleiss’ kappa and the Brennan–Prediger coefficient is possible using
+`fleiss_aggr` and `bp_aggr`.
+
+``` r
+fleiss_aggr_ci(dat.fleiss1971)
+#> Call: fleiss_aggr_ci(x = dat.fleiss1971)
+#> 
+#> 95% confidence interval (n = 30).
+#>      0.025      0.975 
+#> 0.05668483 0.51145967 
+#> 
+#> Sample estimates.
+#>     kappa        sd 
+#> 0.2840722 0.5987194
+```
 
 ## Similar software
 
@@ -166,3 +231,7 @@ pull requests to contribute.
   Least-squares theory based on general distributional assumptions with
   an application to the incomplete observations problem. Psychometrika,
   50(1), 25–36. https://doi.org/10.1007/BF02294145
+
+- Klein, D. (2018). Implementing a General Framework for Assessing
+  Interrater Agreement in Stata. The Stata Journal, 18(4), 871–901.
+  https://doi.org/10.1177/1536867X1801800408

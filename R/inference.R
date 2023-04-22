@@ -181,10 +181,10 @@ congerci <- function(x,
 #' @rdname fleissci
 bp_aggr <- \(x, values = seq(ncol(x)), kind = 1) {
   stopifnot(kind == 1 | kind == 2)
-  args <- bp_prepare(x, values, kind)
+  args <- bp_aggr_prepare(x, values, kind)
   c(
-    est = do.call(bp_est_matrix, args),
-    var = do.call(bp_var_matrix, args)
+    est = do.call(bp_aggr_est_matrix, args),
+    var = do.call(bp_aggr_var_matrix, args)
   )
 }
 

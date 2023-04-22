@@ -105,6 +105,7 @@ f <- \(x) {
 results <- simulate(n, mu, sigma, p, n_reps, f = f, laplace = TRUE)
 mean(results)
 ```
+
 This coverage is better, but maybe it can be improved further using the Fisher transform?
 
 ```{r}
@@ -118,3 +119,5 @@ f <- \(x) {
 results <- simulate(n, mu, sigma, p, n_reps, f = f, laplace = TRUE)
 mean(results)
 ```
+
+The confidence interval improved just a little. This appears to generally be the case, leading us to recommend the Fisher interval.

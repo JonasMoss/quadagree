@@ -7,11 +7,12 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-An `R` package for calculating and doing inference with the
-quadratically weighted multi-rater Fleiss’ kappa, Cohen’s kappa, and
-Conger’s kappa. Has support for missing values using the methods of Moss
-and van Oest (work in progress). ***This package is work in progress and
-has no stable API! Expect breaking changes.***
+An `R` package for calculating and doing inference the quadratically
+weighted multi-rater measures of agreement. Fleiss’ kappa, Cohen’s kappa
+(Conger’s kappa), and the Brennan-Prediger coefficient. Has support for
+missing values using the methods of Moss and van Oest (work in
+progress). ***This package is work in progress and has no stable API!
+Expect breaking changes.***
 
 ## Installation
 

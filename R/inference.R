@@ -127,6 +127,27 @@ congerci <- function(x,
   do.call(what = quadagree_, c(args, call = quote(call), fleiss = FALSE))
 }
 
+
+#' @export
+#' @rdname quadagree
+bpci <- function(x,
+                 values = NULL,
+                 kind = 1,
+                 type = c("adf", "elliptical", "normal"),
+                 transform = "none",
+                 conf_level = 0.95,
+                 alternative = c("two.sided", "greater", "less"),
+                 bootstrap = FALSE,
+                 n_reps = 1000) {
+  stopifnot(kind == 1 || kind == 2)
+  call <- match.call()
+  args <- sapply(names(formals()), str2lang)
+  do.call(
+    what = quadagree_,
+    c(args, call = quote(call), fleiss = FALSE)
+  )
+}
+
 #' @export
 #' @rdname quadagree
 cohenci <- congerci
@@ -241,16 +262,27 @@ quadagree_ <- function(x,
                        bootstrap,
                        n_reps,
                        call,
-                       fleiss) {
+                       fleiss,
+                       kind = NULL,
+                       values = NULL) {
   type <- match.arg(type)
   alternative <- match.arg(alternative)
   transformer <- get_transformer(transform)
-
   quants <- limits(alternative, conf_level)
+
   x <- as.matrix(x)
 
-  est <- if (!fleiss) conger(x) else fleiss(x)
-  sd <- sqrt(avar(x, type, fleiss))
+  if (is.null(kind)) {
+    est <- if (!fleiss) conger(x) else fleiss(x)
+    sd <- sqrt(avar(x, type, fleiss))
+  } else {
+    if (is.null(values)) {
+      values <- sort(unique(c(x)))
+    }
+    c1 <- bp_aggr_get_c1(values, kind)
+    est <- bp(x, values, kind)
+    sd <- sqrt(avar_bp(x, type, c1))
+  }
 
   ci <- if (!bootstrap) {
     ci_asymptotic(est, sd, nrow(x), transformer, quants)
@@ -263,7 +295,9 @@ quadagree_ <- function(x,
       transformer,
       quants,
       n_reps,
-      fleiss = fleiss
+      fleiss = fleiss,
+      kind,
+      values
     )
   }
 

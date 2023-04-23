@@ -29,8 +29,10 @@ ci_boot <- function(x,
                     transformer,
                     quants,
                     n_reps,
-                    fleiss = FALSE) {
-  boots <- studentized_boots(n_reps, x, type, transformer)
+                    fleiss = FALSE,
+                    kind = NULL,
+                    values = NULL) {
+  boots <- studentized_boots(n_reps, x, type, transformer, fleiss, kind, values)
   est_t <- transformer$est(est)
   sd_t <- transformer$sd(est, sd)
   multiplier <- stats::quantile(boots, quants, na.rm = TRUE)
@@ -52,14 +54,28 @@ studentized_boots <- function(n_reps,
                               x,
                               type,
                               transformer,
-                              fleiss = FALSE) {
-  fun <- if (fleiss) fleiss else conger
-  est <- fun(x)
+                              fleiss = FALSE,
+                              kind = NULL,
+                              values = NULL) {
+  if (!is.null(kind)) {
+    est_fun <- bp
+    c1 <- bp_aggr_get_c1(values, kind)
+    var_fun <- \(y) avar_bp(y, type, c1)
+  } else {
+    if (fleiss) {
+      est_fun <- methods::getFunction("fleiss")
+    } else {
+      est_fun <- conger
+    }
+    var_fun <- \(y) avar(y, type, fleiss)
+  }
+
+  est <- est_fun(x)
   future.apply::future_replicate(n_reps,
     {
       indices_star <- sample(nrow(x), nrow(x), replace = TRUE)
-      est_star <- fun(x)
-      sd_star <- sqrt(avar(x[indices_star, ], type, fleiss))
+      est_star <- est_fun(x[indices_star, ])
+      sd_star <- sqrt(var_fun(x[indices_star, ]))
       (transformer$est(est_star) - transformer$est(est)) /
         transformer$sd(est_star, sd_star)
     },

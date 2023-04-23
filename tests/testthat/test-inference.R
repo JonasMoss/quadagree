@@ -29,7 +29,17 @@ congerci_fishers <- list(
   congerci(x, type = "normal", transform = "fisher")
 )
 
+bpcis <- list(
+  bpci(x, type = "adf"),
+  bpci(x, type = "elliptical"),
+  bpci(x, type = "normal")
+)
 
+bpci_fishers <- list(
+  bpci(x, type = "adf", transform = "fisher"),
+  bpci(x, type = "elliptical", transform = "fisher"),
+  bpci(x, type = "normal", transform = "fisher")
+)
 
 y <- dat.fleiss1971
 
@@ -49,6 +59,12 @@ bpci_aggrs <- list(
 test_that("fleissci yield different results", {
   for (i in seq(length(fleisscis) - 1)) {
     expect_false(alleq(fleisscis[[i]], fleisscis[[i + 1]]))
+  }
+})
+
+test_that("bpci yield different results", {
+  for (i in seq(length(bpcis) - 1)) {
+    expect_false(alleq(bpcis[[i]], bpcis[[i + 1]]))
   }
 })
 
@@ -76,6 +92,12 @@ test_that("congerci fisher transform does something", {
   }
 })
 
+test_that("bpci fisher transform does something", {
+  for (i in seq(length(fleisscis) - 1)) {
+    expect_false(alleq(bpcis[[i]], bpci_fishers[[i]]))
+  }
+})
+
 test_that("congerci yield different results", {
   for (i in seq(length(congercis) - 1)) {
     expect_false(alleq(congercis[[i]], congercis[[i + 1]]))
@@ -85,6 +107,12 @@ test_that("congerci yield different results", {
 test_that("fleissci and congerci yield different results", {
   for (i in seq(length(congercis) - 1)) {
     expect_false(alleq(congercis[[i]], fleisscis[[i]]))
+  }
+})
+
+test_that("bpci and congerci yield different results", {
+  for (i in seq(length(congercis) - 1)) {
+    expect_false(alleq(congercis[[i]], bpcis[[i]]))
   }
 })
 
@@ -106,6 +134,13 @@ test_that("congerci bootstrap does something", {
   expect_false(alleq(
     congercis[[1]],
     congerci(x, type = "adf", bootstrap = TRUE, n_reps = 10)
+  ))
+})
+
+test_that("bpci bootstrap does something", {
+  expect_false(alleq(
+    bpcis[[1]],
+    bpci(x, type = "adf", bootstrap = TRUE, n_reps = 10)
   ))
 })
 

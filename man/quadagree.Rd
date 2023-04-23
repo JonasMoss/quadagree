@@ -5,6 +5,7 @@
 \alias{quadagree}
 \alias{fleissci}
 \alias{congerci}
+\alias{bpci}
 \alias{cohenci}
 \alias{fleissci_aggr}
 \alias{bpci_aggr}
@@ -25,6 +26,18 @@ fleissci(
 
 congerci(
   x,
+  type = c("adf", "elliptical", "normal"),
+  transform = "none",
+  conf_level = 0.95,
+  alternative = c("two.sided", "greater", "less"),
+  bootstrap = FALSE,
+  n_reps = 1000
+)
+
+bpci(
+  x,
+  values = NULL,
+  kind = 1,
   type = c("adf", "elliptical", "normal"),
   transform = "none",
   conf_level = 0.95,

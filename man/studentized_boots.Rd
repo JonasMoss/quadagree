@@ -4,7 +4,15 @@
 \alias{studentized_boots}
 \title{Studentized bootstrap estimates using transformers.}
 \usage{
-studentized_boots(n_reps, x, type, transformer, fleiss = FALSE)
+studentized_boots(
+  n_reps,
+  x,
+  type,
+  transformer,
+  fleiss = FALSE,
+  kind = NULL,
+  values = NULL
+)
 }
 \arguments{
 \item{n_reps}{Number of bootstrap repetitions.}

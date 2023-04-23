@@ -10,7 +10,18 @@
 \usage{
 ci_asymptotic(est, sd, n, transformer, quants)
 
-ci_boot(x, est, sd, type, transformer, quants, n_reps, fleiss = FALSE)
+ci_boot(
+  x,
+  est,
+  sd,
+  type,
+  transformer,
+  quants,
+  n_reps,
+  fleiss = FALSE,
+  kind = NULL,
+  values = NULL
+)
 
 ci_boot_aggr(x, values, est, sd, transformer, quants, n_reps, fleiss = FALSE)
 

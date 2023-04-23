@@ -6,6 +6,16 @@ bp_aggr_prepare <- \(x, values, kind) {
   list(calc = calc, c1 = c1, r = r)
 }
 
+bp_aggr_get_c1 <- \(values, kind) {
+  if (kind == 1) {
+    w <- outer(values, values, Vectorize(\(x, y) (x - y)^2))
+    n_cat <- length(values)
+    sum(w) / n_cat^2
+  } else {
+    0.5 * (max(values) - min(values))^2
+  }
+}
+
 bp_aggr_calc <- \(y, values) {
   xtx <- c(tcrossprod(values^2, y))
   xt12 <- c(tcrossprod(values, y))^2
@@ -16,16 +26,6 @@ bp_aggr_est_matrix <- \(calc, c1, r) {
   means <- colMeans(calc)
   disagreement <- 2 / (r - 1) * (means[1] - 1 / r * means[2])
   unname(1 - disagreement / c1)
-}
-
-bp_aggr_get_c1 <- \(values, kind) {
-  if (kind == 1) {
-    w <- outer(values, values, Vectorize(\(x, y) (x - y)^2))
-    n_cat <- length(values)
-    sum(w) / n_cat^2
-  } else {
-    0.5 * (max(values) - min(values))^2
-  }
 }
 
 bp_aggr_var_matrix <- \(calc, c1, r) {

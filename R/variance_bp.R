@@ -27,7 +27,7 @@ cov_mat_bp <- function(p, mu, sigma, gamma, x) {
   gamma_pi <- gamma * pi_mat_empirical(x)
   d <- get_diag_indices(r, vech = TRUE)
   ones <- rep(1, length(d))
-  d_minus_ones <- d*(1 + 1/r) - 2/r * ones
+  d_minus_ones <- d * (1 + 1 / r) - 2 / r * ones
   var_b <- c(t(d_minus_ones) %*% gamma_pi %*% d_minus_ones)
   var_a + var_b
 }

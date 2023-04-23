@@ -204,9 +204,10 @@ bpci_aggr <- function(x,
   ci <- if (!bootstrap) {
     ci_asymptotic(est, sd, nrow(x), transformer, quants)
   } else {
-    ci_boot_aggr(
+    ci_boot_bp_aggr(
       x,
       values,
+      kind,
       est,
       sd,
       transformer,

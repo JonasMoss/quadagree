@@ -112,20 +112,48 @@ studentized_boots_aggr <- function(n_reps,
 }
 
 
-#' Calculate limits of a confidence interval.
-#'
-#' @param alternative Alternative choosen.
-#' @param conf_level Confidence level.
 #' @keywords internal
-limits <- function(alternative, conf_level) {
-  half <- (1 - conf_level) / 2
-  if (alternative == "two.sided") {
-    return(c(half, 1 - half))
-  }
-  if (alternative == "greater") {
-    return(c(2 * half, 1))
-  }
-  if (alternative == "less") {
-    return(c(0, conf_level))
-  }
+#' @rdname ci
+ci_boot_bp_aggr <- function(x,
+                            values,
+                            kind,
+                            est,
+                            sd,
+                            transformer,
+                            quants,
+                            n_reps) {
+  est_t <- transformer$est(est)
+  sd_t <- transformer$sd(est, sd)
+  boots <- studentized_boots_bp_aggr(n_reps, est_t, x, values, kind, transformer)
+  multiplier <- stats::quantile(boots, quants, na.rm = TRUE)
+  sort(transformer$inv(est_t + multiplier * sd_t))
+}
+
+#' Studentized bootstrap estimates using transformers.
+#'
+#' @param n_reps Number of bootstrap repetitions.
+#' @param x Data to estimate kappa on.
+#' @param values Values for the different categories.
+#' @param transformer A `transformer` object.
+#' @param fleiss If `TRUE`, calculates Fleiss' kappa. If not, calculates
+#'    Conger's kappa.
+#' @return Studentized bootstrap estimates.
+#' @keywords internal
+studentized_boots_bp_aggr <- function(n_reps,
+                                      est_t,
+                                      x,
+                                      values,
+                                      kind,
+                                      transformer) {
+  future.apply::future_replicate(n_reps,
+    {
+      indices_star <- sample(nrow(x), nrow(x), replace = TRUE)
+      args_star <- bp_aggr_prepare(x[indices_star, ], values, kind)
+      est_star <- do.call(bp_aggr_est_matrix, args_star)
+      sd_star <- sqrt(do.call(bp_aggr_var_matrix, args_star))
+      (transformer$est(est_star) - est_t) /
+        transformer$sd(est_star, sd_star)
+    },
+    future.seed = TRUE
+  )
 }

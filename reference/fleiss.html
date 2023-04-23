@@ -56,17 +56,21 @@ aliases. See <code><a href="quadagree.html">quadagree()</a></code> and <code><a 
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fleiss</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">bp</span><span class="op">(</span><span class="va">x</span>, values <span class="op">=</span> <span class="cn">NULL</span>, type <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">conger</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">cohen</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">fleiss_aggr</span><span class="op">(</span><span class="va">x</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bp_pop</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span>, <span class="va">values</span>, type <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">conger_pop</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">cohen_pop</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">fleiss_pop</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">fleiss_aggr</span><span class="op">(</span><span class="va">x</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">fleiss_pop</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,18 +80,18 @@ aliases. See <code><a href="quadagree.html">quadagree()</a></code> and <code><a 
 Missing values are allowed, and should be encoded as <code>NA</code>s.</p></dd>
 
 
+<dt>values</dt>
+<dd><p>to attach to each column on the Fleiss form data.
+Defaults to <code>1:C</code>, where <code>C</code> is the number of categories. Only used
+in <code>fleiss_aggr</code>.</p></dd>
+
+
 <dt>mu</dt>
 <dd><p>Population vector of means.</p></dd>
 
 
 <dt>sigma</dt>
 <dd><p>Population covariance matrix.</p></dd>
-
-
-<dt>values</dt>
-<dd><p>to attach to each column on the Fleiss form data.
-Defaults to <code>1:C</code>, where <code>C</code> is the number of categories. Only used
-in <code>fleiss_aggr</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

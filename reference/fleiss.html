@@ -56,15 +56,15 @@ aliases. See <code><a href="quadagree.html">quadagree()</a></code> and <code><a 
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fleiss</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bp</span><span class="op">(</span><span class="va">x</span>, values <span class="op">=</span> <span class="cn">NULL</span>, type <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu">bp</span><span class="op">(</span><span class="va">x</span>, values <span class="op">=</span> <span class="cn">NULL</span>, kind <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">conger</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">cohen</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">fleiss_aggr</span><span class="op">(</span><span class="va">x</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">fleiss_aggr</span><span class="op">(</span><span class="va">x</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bp_pop</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span>, <span class="va">values</span>, type <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu">bp_pop</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span>, <span class="va">values</span>, kind <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">conger_pop</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span></span>
 <span></span>
@@ -83,7 +83,12 @@ Missing values are allowed, and should be encoded as <code>NA</code>s.</p></dd>
 <dt>values</dt>
 <dd><p>to attach to each column on the Fleiss form data.
 Defaults to <code>1:C</code>, where <code>C</code> is the number of categories. Only used
-in <code>fleiss_aggr</code>.</p></dd>
+in <code>fleiss_aggr</code> and <code>bp_aggr</code>.</p></dd>
+
+
+<dt>kind</dt>
+<dd><p>The kind of Brennan-Prediger coefficient used <code>1</code> for the kind
+used by e.g. Gwet (2014) and <code>2</code> for the type introduced by Moss (2023).</p></dd>
 
 
 <dt>mu</dt>
@@ -138,6 +143,9 @@ reproducibility. Biometrics, 45(1), 255–268.
 https://www.ncbi.nlm.nih.gov/pubmed/2720055</p>
 <p>Moss, van Oest (work in progress). Inference for quadratically weighted
 multi-rater kappas with missing raters.</p>
+<p>Moss (work in progress). On the Brennan–Prediger coefficients.</p>
+<p>Gwet, K. L. (2014). Handbook of Inter-Rater Reliability.
+Advanced Analytics, LLC.</p>
     </div>
 
     <div class="section level2">

@@ -7,7 +7,7 @@
 avar_(mat, mu, sigma, fleiss)
 }
 \arguments{
-\item{mat}{Covariance matrix as calculated by \code{cov_mat}.}
+\item{mat}{Covariance matrix as calculated by \code{cov_mat_kappa}.}
 
 \item{mu}{Vector of means.}
 

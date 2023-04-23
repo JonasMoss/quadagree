@@ -7,7 +7,7 @@
 avar(x, type, fleiss)
 }
 \arguments{
-\item{x}{Covariance matrix as calculated by \code{cov_mat}.}
+\item{x}{Covariance matrix as calculated by \code{cov_mat_kappa}.}
 
 \item{type}{Either \code{adf}, \code{normal}, or \code{elliptical}.}
 

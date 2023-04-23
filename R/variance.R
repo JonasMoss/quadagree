@@ -1,6 +1,6 @@
 #' Asymptotic variance for the kappas.
 #'
-#' @param x Covariance matrix as calculated by `cov_mat`.
+#' @param x Covariance matrix as calculated by `cov_mat_kappa`.
 #' @param type Either `adf`, `normal`, or `elliptical`.
 #' @param fleiss If `TRUE` calculates variance for Fleiss kappa, else
 #'    Conger's kappa.
@@ -11,52 +11,13 @@ avar <- \(x, type, fleiss) {
   mu <- colMeans(x, na.rm = TRUE)
   sigma <- stats::cov(x, use = "pairwise.complete.obs")
   gamma <- gamma_est(x, sigma, type)
-  mat <- cov_mat(p, mu, sigma, gamma, x)
+  mat <- cov_mat_kappa(p, mu, sigma, gamma, x)
   avar_(mat, mu, sigma, fleiss)
-}
-
-#' Variance for Fleiss' kappa with aggregated raters.
-#' @param x Data on Fleiss form.
-#' @param values Values to attach to each column on the Fleiss form data.
-#'    Defaults to `1:C`, where `C` is the number of categories.
-#' @return Calculated value of Fleiss' kappa.
-#' @keywords internal
-fleiss_aggr_var <- \(x, values = seq(ncol(x))) {
-  r <- sum(x[1, ])
-  n <- nrow(x)
-  stopifnot(ncol(x) == length(values))
-
-  y <- as.matrix(x)
-  xtx <- c(tcrossprod(values^2, y))
-  xt1 <- c(tcrossprod(values, y))
-  xt12 <- xt1^2
-
-  cov_ <- \(x) {
-    n <- nrow(x)
-    stats::cov(x) * (n - 1) / n
-  }
-
-  theta <- cov_(cbind(xt1, xt12, xtx))
-
-  grad_fun <- \(x) {
-    a <- x[1]
-    b <- x[2]
-    c <- x[3]
-    const <- (c - a^2 / r)^(-1)
-    const * (r - 1)^(-1) * c(
-      2 * a * ((b - a^2) * const / r - 1),
-      1,
-      -const * (b - a^2)
-    )
-  }
-
-  grad <- grad_fun(c(mean(xt1), mean(xt12), mean(xtx)))
-  c(t(grad) %*% theta %*% grad)
 }
 
 #' Asymptotic variance for the kappas.
 #'
-#' @param mat Covariance matrix as calculated by `cov_mat`.
+#' @param mat Covariance matrix as calculated by `cov_mat_kappa`.
 #' @param mu Vector of means.
 #' @param sigma Covariance matrix
 #' @param fleiss If `TRUE` calculates variance for Fleiss kappa, else
@@ -80,9 +41,12 @@ avar_ <- function(mat, mu, sigma, fleiss) {
   c(t(vec) %*% mat %*% vec) * mult^2
 }
 
-#' The covariance matrix of the elements involved in the inference.
+#' Covariance matrix (x,y,z) for Fleiss' and Cohen's kappa.
 #'
-#' Returns the covariance matrix of x, y, z as defined in the paper.
+#' Returns the covariance matrix of x, y, z as defined in the paper on
+#'   quadratic Fleiss kappa and Cohen's kappa. These are defined as
+#'   $x=1^{T}\Sigma1-\tr\Sigma$, $y=\tr\Sigma$, and
+#'   $z=\left(\overline{\mu^{2}}-\overline{\mu}^{2}\right)$.
 #'
 #' @param p Vector of probabilities for being missing.
 #' @param mu Vector of means.
@@ -90,7 +54,7 @@ avar_ <- function(mat, mu, sigma, fleiss) {
 #' @param gamma Covariance matrix of the covariances.
 #' @return The covariance matrix of x, y, z
 #' @keywords internal
-cov_mat <- function(p, mu, sigma, gamma, x) {
+cov_mat_kappa <- function(p, mu, sigma, gamma, x) {
   r <- length(p)
 
   # The covariances involving s.

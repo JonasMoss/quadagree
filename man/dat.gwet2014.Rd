@@ -10,7 +10,8 @@ different items. Each of the \code{R = 5} columns contains the ratings of
 the \code{j}th judge.
 }
 \source{
-Gwet, K. L. (2014). Handbook of Inter-Rater Reliability. Advanced Analytics, LLC.
+Gwet, K. L. (2014). Handbook of Inter-Rater Reliability.
+Advanced Analytics, LLC.
 }
 \usage{
 dat.zapf2016

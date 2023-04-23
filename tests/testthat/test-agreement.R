@@ -23,9 +23,17 @@ test_that("population and x-based measures coincide", {
   )
 })
 
-test_that("agreement with irrCAC where relevant", {
+test_that("BP agreement with irrCAC (long form)", {
   x <- dat.zapf2016
   est_irr <- (irrCAC::bp.coeff.raw(x, weights = "quadratic"))$est[4]
-  est_quad <- bp(x, type = 1)
+  est_quad <- bp(x, kind = 1)
   expect_equal(as.numeric(est_irr), est_quad)
+})
+
+test_that("BP agreement with irrCAC for se (wide form)", {
+  x <- dat.fleiss1971
+  n <- nrow(x)
+  se_irr <- irrCAC::bp.coeff.dist(x, weights = "quadratic")[3]
+  se_quad <- attr(bpci_aggr(x), "sd") / sqrt(n - 1)
+  expect_equal(as.numeric(se_irr), se_quad)
 })

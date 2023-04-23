@@ -99,7 +99,7 @@ head(dat.fleiss1971)
 
 Provided the raters are exchangeable in the sense that the ratings are conditionally independent given the item, consistent inference for the Fleiss' kappa and the Brennan--Prediger coefficient is possible using `fleiss_aggr` and `bp_aggr`.  
 ```{r}
-fleiss_aggr_ci(dat.fleiss1971)
+fleissci_aggr(dat.fleiss1971)
 ```
 
 The results agree with `irrCAC`.

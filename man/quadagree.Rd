@@ -4,36 +4,18 @@
 \alias{bp_aggr}
 \alias{quadagree}
 \alias{fleissci}
-\alias{fleiss_aggr_ci}
 \alias{congerci}
 \alias{cohenci}
+\alias{fleissci_aggr}
+\alias{bpci_aggr}
 \title{Confidence intervals for the quadratically weighted Fleiss' kappa and
 Conger's (Cohen's) kappa}
 \usage{
-bp_aggr(
-  x,
-  values = seq(ncol(x)),
-  kind = 1,
-  transform = "none",
-  conf_level = 0.95,
-  alternative = c("two.sided", "greater", "less"),
-  bootstrap = FALSE,
-  n_reps = 1000
-)
+bp_aggr(x, values = seq_len(ncol(x)), kind = 1)
 
 fleissci(
   x,
   type = c("adf", "elliptical", "normal"),
-  transform = "none",
-  conf_level = 0.95,
-  alternative = c("two.sided", "greater", "less"),
-  bootstrap = FALSE,
-  n_reps = 1000
-)
-
-fleiss_aggr_ci(
-  x,
-  values = seq(ncol(x)),
   transform = "none",
   conf_level = 0.95,
   alternative = c("two.sided", "greater", "less"),
@@ -51,10 +33,9 @@ congerci(
   n_reps = 1000
 )
 
-bp_aggr(
+cohenci(
   x,
-  values = seq(ncol(x)),
-  kind = 1,
+  type = c("adf", "elliptical", "normal"),
   transform = "none",
   conf_level = 0.95,
   alternative = c("two.sided", "greater", "less"),
@@ -62,9 +43,20 @@ bp_aggr(
   n_reps = 1000
 )
 
-cohenci(
+fleissci_aggr(
   x,
-  type = c("adf", "elliptical", "normal"),
+  values = seq_len(ncol(x)),
+  transform = "none",
+  conf_level = 0.95,
+  alternative = c("two.sided", "greater", "less"),
+  bootstrap = FALSE,
+  n_reps = 1000
+)
+
+bpci_aggr(
+  x,
+  values = seq_len(ncol(x)),
+  kind = 1,
   transform = "none",
   conf_level = 0.95,
   alternative = c("two.sided", "greater", "less"),
@@ -83,6 +75,9 @@ in \code{fleiss_aggr} and \code{bp_aggr}.}
 classical kind and \code{2} for the kind introduced in Moss (2023). Only
 relevant for \code{bp_aggr} and \code{bp}.}
 
+\item{type}{Type of confidence interval. Either \code{adf}, \code{elliptical}, or
+\code{normal}. Ignored in \code{fleiss_aggrci}.}
+
 \item{transform}{One of \code{"none"}, \code{"log"}, \code{"fisher"}, and \verb{"arcsin}.
 Defaults to \code{"none"}.}
 
@@ -96,9 +91,6 @@ repetitions. Defaults to \code{FALSE}.}
 
 \item{n_reps}{Number of bootstrap samples if \code{bootstrap = TRUE}. Ignored if
 \code{bootstrap = FALSE}. Defaults to \code{1000}.}
-
-\item{type}{Type of confidence interval. Either \code{adf}, \code{elliptical}, or
-\code{normal}. Ignored in \code{fleiss_aggrci}.}
 }
 \value{
 A vector of class \code{quadagree} containing the confidence end points.

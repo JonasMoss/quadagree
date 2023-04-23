@@ -10,7 +10,9 @@ different items. Each of the \code{R = 5} columns contains the ratings of
 the \code{j}th judge.
 }
 \source{
-Klein, D. (2018). Implementing a General Framework for Assessing Interrater Agreement in Stata. The Stata Journal, 18(4), 871–901. https://doi.org/10.1177/1536867X1801800408
+Klein, D. (2018). Implementing a General Framework for Assessing Interrater
+Agreement in Stata. The Stata Journal, 18(4), 871–901.
+https://doi.org/10.1177/1536867X1801800408
 }
 \usage{
 dat.zapf2016

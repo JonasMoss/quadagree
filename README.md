@@ -174,8 +174,8 @@ Fleiss’ kappa and the Brennan–Prediger coefficient is possible using
 `fleiss_aggr` and `bp_aggr`.
 
 ``` r
-fleiss_aggr_ci(dat.fleiss1971)
-#> Call: fleiss_aggr_ci(x = dat.fleiss1971)
+fleissci_aggr(dat.fleiss1971)
+#> Call: fleissci_aggr(x = dat.fleiss1971)
 #> 
 #> 95% confidence interval (n = 30).
 #>      0.025      0.975 

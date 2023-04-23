@@ -20,8 +20,6 @@ The covariance matrix of x, y, z
 }
 \description{
 Returns the covariance matrix of x, y, z as defined in the paper on
-quadratic Fleiss kappa and Cohen's kappa. These are defined as
-$x=1^{T}\Sigma1-\tr\Sigma$, $y=\tr\Sigma$, and
-$z=\left(\overline{\mu^{2}}-\overline{\mu}^{2}\right)$.
+quadratic Fleiss kappa and Cohen's kappa.
 }
 \keyword{internal}

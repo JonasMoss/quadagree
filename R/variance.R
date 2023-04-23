@@ -44,9 +44,7 @@ avar_ <- function(mat, mu, sigma, fleiss) {
 #' Covariance matrix (x,y,z) for Fleiss' and Cohen's kappa.
 #'
 #' Returns the covariance matrix of x, y, z as defined in the paper on
-#'   quadratic Fleiss kappa and Cohen's kappa. These are defined as
-#'   $x=1^{T}\Sigma1-\tr\Sigma$, $y=\tr\Sigma$, and
-#'   $z=\left(\overline{\mu^{2}}-\overline{\mu}^{2}\right)$.
+#'   quadratic Fleiss kappa and Cohen's kappa.
 #'
 #' @param p Vector of probabilities for being missing.
 #' @param mu Vector of means.

@@ -1,8 +1,8 @@
-bp_aggr_prepare <- \(x, values, type) {
+bp_aggr_prepare <- \(x, values, kind) {
   r <- sum(x[1, ])
   y <- as.matrix(x)
   calc <- bp_aggr_calc(y, values)
-  c1 <- bp_aggr_get_c1(values, type)
+  c1 <- bp_aggr_get_c1(values, kind)
   list(calc = calc, c1 = c1, r = r)
 }
 
@@ -12,8 +12,8 @@ bp_aggr_calc <- \(y, values) {
   cbind(xtx, xt12)
 }
 
-bp_aggr_est <- \(x, values, type) {
-  args <- bp_aggr_prepare(x, values, type)
+bp_aggr_est <- \(x, values, kind) {
+  args <- bp_aggr_prepare(x, values, kind)
   do.call(bp_aggr_est_matrix, args)
 }
 
@@ -23,8 +23,8 @@ bp_aggr_est_matrix <- \(calc, c1, r) {
   unname(1 - disagreement / c1)
 }
 
-bp_aggr_get_c1 <- \(values, type) {
-  if (type == 1) {
+bp_aggr_get_c1 <- \(values, kind) {
+  if (kind == 1) {
     w <- outer(values, values, Vectorize(\(x, y) (x - y)^2))
     n_cat <- length(values)
     sum(w) / n_cat^2
@@ -33,8 +33,8 @@ bp_aggr_get_c1 <- \(values, type) {
   }
 }
 
-bp_aggr_var <- \(x, values, type) {
-  args <- bp_aggr_prepare(x, values, type)
+bp_aggr_var <- \(x, values, kind) {
+  args <- bp_aggr_prepare(x, values, kind)
   do.call(bp_aggr_var_matrix, args)
 }
 

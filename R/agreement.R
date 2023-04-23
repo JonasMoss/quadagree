@@ -34,7 +34,9 @@
 #' @param sigma Population covariance matrix.
 #' @param values to attach to each column on the Fleiss form data.
 #'    Defaults to `1:C`, where `C` is the number of categories. Only used
-#'    in `fleiss_aggr`.
+#'    in `fleiss_aggr` and `bp_aggr`.
+#' @param kind The kind of Brennan-Prediger coefficient used `1` for the kind
+#'    used by e.g. Gwet (2014) and `2` for the type introduced by Moss (2023).
 #' @return Sample / population quadratically weighted Fleiss' or Conger's kappa.
 #' @examples
 #' x <- irrCAC::cac.raw4raters[2:9, ]
@@ -68,6 +70,11 @@
 #' Moss, van Oest (work in progress). Inference for quadratically weighted
 #' multi-rater kappas with missing raters.
 #'
+#' Moss (work in progress). On the Brennan–Prediger coefficients.
+#'
+#' Gwet, K. L. (2014). Handbook of Inter-Rater Reliability.
+#' Advanced Analytics, LLC.
+#'
 #' @export
 
 #' @name fleiss
@@ -83,7 +90,7 @@ fleiss <- function(x) {
 
 #' @rdname fleiss
 #' @export
-bp <- \(x, values = NULL, type = 1) {
+bp <- \(x, values = NULL, kind = 1) {
   y <- as.matrix(x)
 
   if (is.null(values)) {
@@ -99,7 +106,7 @@ bp <- \(x, values = NULL, type = 1) {
   }
 
   mu <- colMeans(y, na.rm = TRUE)
-  bp_pop(mu, sigma, values, type)
+  bp_pop(mu, sigma, values, kind)
 }
 
 #' @rdname fleiss

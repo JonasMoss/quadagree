@@ -60,5 +60,5 @@ fleiss_aggr(dat.fleiss1971)
 Inference is done in a similar way.
 
 ```{r}
-fleiss_aggr_ci(dat.fleiss1971)
+fleissci_aggr(dat.fleiss1971)
 ```

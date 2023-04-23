@@ -25,6 +25,7 @@ patient.
 }
 \references{
 Fleiss, J. L. (1971). Measuring nominal scale agreement among many raters.
-Psychological Bulletin, 76(5), 378<U+2013>382. https://doi.org/10.1037/h0031619
+Psychological Bulletin, 76(5), 378<U+2013>382.
+https://doi.org/10.1037/h0031619
 }
 \keyword{datasets}

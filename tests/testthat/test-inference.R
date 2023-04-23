@@ -29,9 +29,38 @@ congerci_fishers <- list(
   congerci(x, type = "normal", transform = "fisher")
 )
 
+
+
+y <- dat.fleiss1971
+
+fleissci_aggrs <- list(
+  fleissci_aggr(y, transform = "none"),
+  fleissci_aggr(y, transform = "fisher"),
+  fleissci_aggr(y, transform = "arcsin")
+)
+
+bpci_aggrs <- list(
+  bpci_aggr(y, transform = "none"),
+  bpci_aggr(y, transform = "fisher"),
+  bpci_aggr(y, transform = "arcsin")
+)
+
+
 test_that("fleissci yield different results", {
   for (i in seq(length(fleisscis) - 1)) {
     expect_false(alleq(fleisscis[[i]], fleisscis[[i + 1]]))
+  }
+})
+
+test_that("bpci_aggrs yield different results", {
+  for (i in seq(length(bpci_aggrs) - 1)) {
+    expect_false(alleq(bpci_aggrs[[i]], bpci_aggrs[[i + 1]]))
+  }
+})
+
+test_that("fleissci_aggrs yield different results", {
+  for (i in seq(length(fleissci_aggrs) - 1)) {
+    expect_false(alleq(fleissci_aggrs[[i]], fleissci_aggrs[[i + 1]]))
   }
 })
 
@@ -59,6 +88,13 @@ test_that("fleissci and congerci yield different results", {
   }
 })
 
+test_that("bpci_aggr and fleissci_aggr yield different results", {
+  for (i in seq(length(fleissci_aggrs) - 1)) {
+    expect_false(alleq(fleissci_aggrs[[i]], bpci_aggrs[[i]]))
+  }
+})
+
+
 test_that("fleissci bootstrap does something", {
   expect_false(alleq(
     fleisscis[[1]],
@@ -70,6 +106,20 @@ test_that("congerci bootstrap does something", {
   expect_false(alleq(
     congercis[[1]],
     congerci(x, type = "adf", bootstrap = TRUE, n_reps = 10)
+  ))
+})
+
+test_that("fleissci_aggr bootstrap does something", {
+  expect_false(alleq(
+    fleissci_aggrs[[1]],
+    fleissci_aggr(x, bootstrap = TRUE, n_reps = 10)
+  ))
+})
+
+test_that("bpci_aggr bootstrap does something", {
+  expect_false(alleq(
+    bpci_aggrs[[1]],
+    bpci_aggr(x, bootstrap = TRUE, n_reps = 10)
   ))
 })
 

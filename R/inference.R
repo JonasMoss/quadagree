@@ -115,15 +115,32 @@ fleissci <- function(x,
 
 #' @export
 #' @rdname quadagree
-fleiss_aggr_ci <- function(x,
-                           values = seq(ncol(x)),
-                           transform = "none",
-                           conf_level = 0.95,
-                           alternative = c("two.sided", "greater", "less"),
-                           bootstrap = FALSE,
-                           n_reps = 1000) {
+congerci <- function(x,
+                     type = c("adf", "elliptical", "normal"),
+                     transform = "none",
+                     conf_level = 0.95,
+                     alternative = c("two.sided", "greater", "less"),
+                     bootstrap = FALSE,
+                     n_reps = 1000) {
   call <- match.call()
-  r <- sum(x[1, ])
+  args <- sapply(names(formals()), str2lang)
+  do.call(what = quadagree_, c(args, call = quote(call), fleiss = FALSE))
+}
+
+#' @export
+#' @rdname quadagree
+cohenci <- congerci
+
+#' @export
+#' @rdname quadagree
+fleissci_aggr <- function(x,
+                          values = seq_len(ncol(x)),
+                          transform = "none",
+                          conf_level = 0.95,
+                          alternative = c("two.sided", "greater", "less"),
+                          bootstrap = FALSE,
+                          n_reps = 1000) {
+  call <- match.call()
   stopifnot(ncol(x) == length(values))
   alternative <- match.arg(alternative)
   transformer <- get_transformer(transform)
@@ -165,38 +182,20 @@ fleiss_aggr_ci <- function(x,
 
 #' @export
 #' @rdname quadagree
-congerci <- function(x,
-                     type = c("adf", "elliptical", "normal"),
-                     transform = "none",
-                     conf_level = 0.95,
-                     alternative = c("two.sided", "greater", "less"),
-                     bootstrap = FALSE,
-                     n_reps = 1000) {
-  call <- match.call()
-  args <- sapply(names(formals()), str2lang)
-  do.call(what = quadagree_, c(args, call = quote(call), fleiss = FALSE))
-}
-
-#' @export
-#' @rdname quadagree
-bp_aggr <- function(x,
-                    values = seq(ncol(x)),
-                    kind = 1,
-                    transform = "none",
-                    conf_level = 0.95,
-                    alternative = c("two.sided", "greater", "less"),
-                    bootstrap = FALSE,
-                    n_reps = 1000) {
+bpci_aggr <- function(x,
+                      values = seq_len(ncol(x)),
+                      kind = 1,
+                      transform = "none",
+                      conf_level = 0.95,
+                      alternative = c("two.sided", "greater", "less"),
+                      bootstrap = FALSE,
+                      n_reps = 1000) {
   stopifnot(kind == 1 | kind == 2)
   args <- bp_aggr_prepare(x, values, kind)
   est <- do.call(bp_aggr_est_matrix, args)
   var <- do.call(bp_aggr_var_matrix, args)
   c(est, var)
 }
-
-#' @export
-#' @rdname quadagree
-cohenci <- congerci
 
 #' @keywords internal
 quadagree_ <- function(x,
@@ -247,34 +246,4 @@ quadagree_ <- function(x,
   class(ci) <- "quadagree"
   ci[2] <- min(ci[2], 1)
   ci
-}
-
-#' @export
-print.quadagree <- function(x, digits = getOption("digits"), ...) {
-  at <- \(y) attr(x, y)
-  cat("Call: ", paste(deparse(at("call")),
-    sep = "\n",
-    collapse = "\n"
-  ), "\n\n", sep = "")
-
-  if (!is.null(x)) {
-    cat(format(100 * at("conf_level")),
-      "% confidence interval (n = ", at("n"), ").\n",
-      sep = ""
-    )
-    print(x[1:2], digits = digits)
-    cat("\n")
-  }
-
-  if (!is.null(at("estimate"))) {
-    cat("Sample estimates.\n")
-    print(
-      c(
-        kappa = at("estimate"),
-        sd = at("sd")
-      ),
-      digits = digits
-    )
-  }
-  invisible(x)
 }

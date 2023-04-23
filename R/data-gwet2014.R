@@ -12,5 +12,6 @@
 #' @keywords datasets
 #'
 #' @source
-#' Gwet, K. L. (2014). Handbook of Inter-Rater Reliability. Advanced Analytics, LLC.
+#' Gwet, K. L. (2014). Handbook of Inter-Rater Reliability.
+#' Advanced Analytics, LLC.
 "dat.gwet2014"

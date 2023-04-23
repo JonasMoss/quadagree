@@ -120,7 +120,7 @@ cohen <- function(x) conger(x)
 
 #' @rdname fleiss
 #' @export
-fleiss_aggr <- \(x, values = seq(ncol(x))) {
+fleiss_aggr <- \(x, values = seq_len(ncol(x))) {
   r <- sum(x[1, ])
   stopifnot(ncol(x) == length(values))
 
@@ -137,7 +137,7 @@ fleiss_aggr <- \(x, values = seq(ncol(x))) {
 
 #' @export
 #' @rdname quadagree
-bp_aggr <- function(x, values = seq(ncol(x)), kind = 1) {
+bp_aggr <- function(x, values = seq_len(ncol(x)), kind = 1) {
   stopifnot(kind == 1 | kind == 2)
   args <- bp_aggr_prepare(x, values, kind)
   do.call(bp_aggr_est_matrix, args)

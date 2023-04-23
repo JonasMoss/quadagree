@@ -100,7 +100,6 @@ get_diag_indices <- function(r, vech = TRUE) {
 #' @keywords internal
 gamma_est <- function(x, sigma, type = "adf") {
   if (type == "adf") {
-    n <- nrow(x)
     i_row <- \(n) unlist(lapply(seq_len(n), seq.int, n))
     i_col <- \(n) rep.int(seq_len(n), times = rev(seq_len(n)))
     rows <- i_row(ncol(x))
@@ -157,7 +156,7 @@ pi_mat <- function(p, vech = TRUE) {
   indices <- arrangements::combinations(r, 2, replace = TRUE)
   ps <- apply(indices, 1, f)
   g <- Vectorize(\(x, y) f(c(indices[x, ], indices[y, ])) / (ps[x] * ps[y]))
-  x <- seq(nrow(indices))
+  x <- seq_len(nrow(indices))
   outer(x, x, g)
 }
 
@@ -169,7 +168,7 @@ pi_mat <- function(p, vech = TRUE) {
 pi_mat_empirical <- \(x) {
   r <- ncol(x)
   ind2 <- arrangements::combinations(r, 2, replace = TRUE)
-  ind4 <- arrangements::combinations(seq(nrow(ind2)), 2, replace = TRUE)
+  ind4 <- arrangements::combinations(seq_len(nrow(ind2)), 2, replace = TRUE)
 
   p2_hats <- apply(ind2, 1, \(i) mean(!is.na(x[, i[1]]) & !is.na(x[, i[2]])))
   hats <- apply(ind4, 1, \(i) {

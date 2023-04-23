@@ -53,7 +53,7 @@ bp_aggr_var_matrix <- \(calc, c1, r) {
 #'    Defaults to `1:C`, where `C` is the number of categories.
 #' @return Calculated value of Fleiss' kappa.
 #' @keywords internal
-fleiss_aggr_var <- \(x, values = seq(ncol(x))) {
+fleiss_aggr_var <- \(x, values = seq_len(ncol(x))) {
   r <- sum(x[1, ])
   n <- nrow(x)
   stopifnot(ncol(x) == length(values))

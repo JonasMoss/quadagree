@@ -2,7 +2,7 @@ bp_aggr_prepare <- \(x, values, type) {
   r <- sum(x[1, ])
   y <- as.matrix(x)
   calc <- bp_aggr_calc(y, values)
-  c1 <- bp_aggr_get_c1(y, values, type)
+  c1 <- bp_aggr_get_c1(values, type)
   list(calc = calc, c1 = c1, r = r)
 }
 
@@ -23,10 +23,10 @@ bp_aggr_est_matrix <- \(calc, c1, r) {
   unname(1 - disagreement / c1)
 }
 
-bp_aggr_get_c1 <- \(x, values, type) {
+bp_aggr_get_c1 <- \(values, type) {
   if (type == 1) {
     w <- outer(values, values, Vectorize(\(x, y) (x - y)^2))
-    n_cat <- ncol(x)
+    n_cat <- length(values)
     sum(w) / n_cat^2
   } else {
     0.5 * (max(values) - min(values))^2

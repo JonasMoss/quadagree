@@ -70,11 +70,32 @@
 #'
 #' @export
 
+#' @rdname fleiss
+#' @export
+bp <- \(x, values = NULL, type = 1) {
+  y <- as.matrix(x)
+
+  if (is.null(values)) {
+    values <- sort(unique(c(y)))
+  }
+
+  n <- nrow(y)
+
+  sigma <- stats::cov(y, use = "pairwise.complete.obs") * (n - 1) / n
+
+  if (any(is.na(sigma))) {
+    stop("The data does not contain sufficient non-NAs.")
+  }
+
+  mu <- colMeans(y, na.rm = TRUE)
+  bp_pop(mu, sigma, values, type)
+}
+
 #' @name fleiss
 fleiss <- function(x) {
   n <- nrow(x)
   sigma <- stats::cov(x, use = "pairwise.complete.obs") * (n - 1) / n
-  if(any(is.na(sigma))) {
+  if (any(is.na(sigma))) {
     stop("The data does not contain sufficient non-NAs.")
   }
   mu <- colMeans(x, na.rm = TRUE)
@@ -86,7 +107,7 @@ fleiss <- function(x) {
 conger <- function(x) {
   n <- nrow(x)
   sigma <- stats::cov(x, use = "pairwise.complete.obs") * (n - 1) / n
-  if(any(is.na(sigma))) {
+  if (any(is.na(sigma))) {
     stop("The data does not contain sufficient non-NAs.")
   }
   mu <- colMeans(x, na.rm = TRUE)
@@ -96,6 +117,18 @@ conger <- function(x) {
 #' @rdname fleiss
 #' @export
 cohen <- function(x) conger(x)
+
+#' @rdname fleiss
+#' @export
+bp_pop <- function(mu, sigma, values, type = 1) {
+  r <- ncol(sigma)
+  trace <- sum(diag(sigma))
+  mean_diff <- (mean(mu^2) - mean(mu)^2) * r
+  mean_sum <- sum(sigma) / r
+  c1 <- bp_aggr_get_c1(values, type)
+  d <- 2 / (r - 1) * (trace + mean_diff - mean_sum)
+  1 - d / c1
+}
 
 #' @rdname fleiss
 #' @export

@@ -40,7 +40,16 @@ congerci(
   n_reps = 1000
 )
 
-bp_aggr(x, values = seq(ncol(x)), kind = 1)
+bp_aggr(
+  x,
+  values = seq(ncol(x)),
+  kind = 1,
+  transform = "none",
+  conf_level = 0.95,
+  alternative = c("two.sided", "greater", "less"),
+  bootstrap = FALSE,
+  n_reps = 1000
+)
 
 cohenci(
   x,

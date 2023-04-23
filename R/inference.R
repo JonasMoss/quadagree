@@ -179,13 +179,19 @@ congerci <- function(x,
 
 #' @export
 #' @rdname quadagree
-bp_aggr <- \(x, values = seq(ncol(x)), kind = 1) {
+bp_aggr <- function(x,
+                    values = seq(ncol(x)),
+                    kind = 1,
+                    transform = "none",
+                    conf_level = 0.95,
+                    alternative = c("two.sided", "greater", "less"),
+                    bootstrap = FALSE,
+                    n_reps = 1000) {
   stopifnot(kind == 1 | kind == 2)
   args <- bp_aggr_prepare(x, values, kind)
-  c(
-    est = do.call(bp_aggr_est_matrix, args),
-    var = do.call(bp_aggr_var_matrix, args)
-  )
+  est <- do.call(bp_aggr_est_matrix, args)
+  var <- do.call(bp_aggr_var_matrix, args)
+  c(est, var)
 }
 
 #' @export
@@ -194,14 +200,14 @@ cohenci <- congerci
 
 #' @keywords internal
 quadagree_ <- function(x,
-                      type = c("adf", "elliptical", "normal"),
-                      transform,
-                      conf_level,
-                      alternative = c("two.sided", "greater", "less"),
-                      bootstrap,
-                      n_reps,
-                      call,
-                      fleiss) {
+                       type = c("adf", "elliptical", "normal"),
+                       transform,
+                       conf_level,
+                       alternative = c("two.sided", "greater", "less"),
+                       bootstrap,
+                       n_reps,
+                       call,
+                       fleiss) {
   type <- match.arg(type)
   alternative <- match.arg(alternative)
   transformer <- get_transformer(transform)

@@ -11,4 +11,6 @@ library("quadagree")
 fleissci(dat.klein2018)
 ```
 
-Possible options for the `ci` functions include the `type` argument, where one may assume the ratings are elliptically or normally distributed for possibly improved performance. Moreover, setting `bootstrap = TRUE` runs a studentized bootstrap with `n_reps` repetitions.
+Possible options for the `ci` functions include the `type` argument, where one may assume the ratings are elliptically or normally distributed for possibly improved performance. Moreover, setting `bootstrap = TRUE` runs a studentized bootstrap with `n_reps` repetitions. Since the studentized bootstrap is second-order consistent, one would expect it to have better coverage when $n$ is sufficiently large.
+
+Our methods provide consistent estimators of the agreement coefficient, but existing packages such as `irrCAC` does not. The following provides and example.

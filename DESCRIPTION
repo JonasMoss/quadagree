@@ -1,14 +1,17 @@
 Type: Package
 Package: quadagree
-Title: Confidence intervals for the quadratically weighted Fleiss' kappa, Conger's kappa, and Cohen's kappa
+Title: Inference for the quadratically weighted Fleiss' kappa, Conger's kappa, 
+    Cohen's kappa, and Brennan-Prediger coefficient
 Version: 0.0.1
 Authors@R: 
     person("Jonas", "Moss", , "jonas.moss.statistics@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6876-6964"))
 Description: Calculate the quadratically weighted Fleiss' kappa, Cohen's kappa,
-    and Conger's kappa. Missing values are handled using all pairwise
-    available information. Currently supports three inferential procedures;
-    the ADF method, the elliptical method, and the normal method.
+    Conger's kappa, and Brennan-Prediger coefficient. Missing values are handled 
+    using all pairwiseavailable information. Supports three 
+    inferential procedures; the ADF method, the elliptical method, 
+    and the normal method. Supports studentized bootstrapping with three 
+    transforms.
 License: MIT + file LICENSE
 URL: https://jonasmoss.github.io/quadagree/
 LazyData: true

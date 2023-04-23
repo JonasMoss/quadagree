@@ -50,7 +50,18 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ci_asymptotic</span><span class="op">(</span><span class="va">est</span>, <span class="va">sd</span>, <span class="va">n</span>, <span class="va">transformer</span>, <span class="va">quants</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ci_boot</span><span class="op">(</span><span class="va">x</span>, <span class="va">est</span>, <span class="va">sd</span>, <span class="va">type</span>, <span class="va">transformer</span>, <span class="va">quants</span>, <span class="va">n_reps</span>, fleiss <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">ci_boot</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">est</span>,</span>
+<span>  <span class="va">sd</span>,</span>
+<span>  <span class="va">type</span>,</span>
+<span>  <span class="va">transformer</span>,</span>
+<span>  <span class="va">quants</span>,</span>
+<span>  <span class="va">n_reps</span>,</span>
+<span>  fleiss <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  kind <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ci_boot_aggr</span><span class="op">(</span><span class="va">x</span>, <span class="va">values</span>, <span class="va">est</span>, <span class="va">sd</span>, <span class="va">transformer</span>, <span class="va">quants</span>, <span class="va">n_reps</span>, fleiss <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>

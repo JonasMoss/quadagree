@@ -205,7 +205,8 @@ most notably `irrCAC`.
 
 If you encounter a bug, have a feature request or need some help, open a
 [Github issue](https://github.com/JonasMoss/quadagree/issues). Create a
-pull requests to contribute.
+pull requests to contribute. This project follows a [contributer code of
+conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md).
 
 ## References
 

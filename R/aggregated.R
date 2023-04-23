@@ -12,11 +12,6 @@ bp_aggr_calc <- \(y, values) {
   cbind(xtx, xt12)
 }
 
-bp_aggr_est <- \(x, values, kind) {
-  args <- bp_aggr_prepare(x, values, kind)
-  do.call(bp_aggr_est_matrix, args)
-}
-
 bp_aggr_est_matrix <- \(calc, c1, r) {
   means <- colMeans(calc)
   disagreement <- 2 / (r - 1) * (means[1] - 1 / r * means[2])
@@ -31,11 +26,6 @@ bp_aggr_get_c1 <- \(values, kind) {
   } else {
     0.5 * (max(values) - min(values))^2
   }
-}
-
-bp_aggr_var <- \(x, values, kind) {
-  args <- bp_aggr_prepare(x, values, kind)
-  do.call(bp_aggr_var_matrix, args)
 }
 
 bp_aggr_var_matrix <- \(calc, c1, r) {

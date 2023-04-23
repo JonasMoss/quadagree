@@ -7,8 +7,8 @@ values <- seq(ncol(x))
 
 r <- sum(x[1, ])
 y <- as.matrix(x)
-calc <- bp_calc(y, values)
-c1 <- bp_get_c1(y, values, type = 1)
+calc <- bp_aggr_calc(y, values)
+c1 <- bp_aggr_get_c1(y, values, type = 1)
 
 bp_var_matrix1 <- \(calc, c1, r) {
   n <- nrow(calc)

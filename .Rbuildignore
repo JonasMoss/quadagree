@@ -33,3 +33,4 @@
 ^.lintr$
 ^paper$
 ^benchmarks$
+^verifications$

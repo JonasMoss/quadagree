@@ -121,3 +121,110 @@ pi_mat_empirical <- \(x) {
   new_mat[ind4] <- hats
   as.matrix(Matrix::forceSymmetric(new_mat, uplo = "U"))
 }
+
+#' Get the required value of c1.
+#' @param values Vector of values.
+#' @param kind The kind of c1 requested.
+#' @return The value of c1.
+#' @keywords internal
+bp_get_c1 <- \(values, kind) {
+  if (kind == 1) {
+    n_cat <- length(values)
+    combs <- arrangements::combinations(n_cat, 2, replace = FALSE)
+    rest <- sum(values[combs[, 1]] * values[combs[, 2]])
+    (2 * (n_cat - 1) * sum(values^2) - 4 * rest) / n_cat^2
+  } else {
+    0.5 * (max(values) - min(values))^2
+  }
+}
+
+#' @export
+print.quadagree <- function(x, digits = getOption("digits"), ...) {
+  at <- \(y) attr(x, y)
+  cat("Call: ", paste(deparse(at("call")),
+                      sep = "\n",
+                      collapse = "\n"
+  ), "\n\n", sep = "")
+
+  if (!is.null(x)) {
+    cat(format(100 * at("conf_level")),
+        "% confidence interval (n = ", at("n"), ").\n",
+        sep = ""
+    )
+    print(x[1:2], digits = digits)
+    cat("\n")
+  }
+
+  if (!is.null(at("estimate"))) {
+    cat("Sample estimates.\n")
+    print(
+      c(
+        kappa = at("estimate"),
+        sd = at("sd")
+      ),
+      digits = digits
+    )
+  }
+  invisible(x)
+}
+
+#' Calculates asymptotic confidence intervals.
+#'
+#' @param x Data to estimate kappa on.
+#' @param est,sd The estimate and estimated standard deviation.
+#' @param n Number of observations.
+#' @param type Type of confidence interval. Either `adf`, `elliptical`, or
+#'   `normal`.
+#' @param transformer A transformer object.
+#' @param quants Quantiles for the confidence interval.
+#' @param n_reps Number of bootstrap samples if `bootstrap = TRUE`. Ignored if
+#'   `bootstrap = FALSE`.
+#' @param fleiss If `TRUE`, calculates Fleiss' kappa. If not, calculates
+#'    Conger's kappa.
+#' @keywords internal
+#' @name ci
+ci_asymptotic <- function(est, sd, n, transformer, quants) {
+  est_t <- transformer$est(est)
+  sd_t <- transformer$sd(est, sd)
+  multiplier <- stats::qt(quants, n - 1) / sqrt(n - 1)
+  sort(transformer$inv(est_t + multiplier * sd_t))
+}
+
+get_transformer <- function(transform) {
+  transformers <- list(
+    fisher = transformer_fisher,
+    none = transformer_none,
+    arcsin = transformer_arcsin,
+    log = transformer_log
+  )
+
+  if (transform %in% names(transformers)) {
+    transformers[[transform]]
+  } else {
+    stop(paste0("`transformer = ", transform, "` not supported."))
+  }
+}
+
+transformer_fisher <- c(
+  est = \(est) atanh(est),
+  sd = \(est, sd) sd / (1 - est^2),
+  inv = tanh
+)
+
+transformer_log <- c(
+  est = \(est) log(1 - est),
+  sd = \(est, sd) sd / abs(1 - est),
+  inv = \(x) 1 - exp(x)
+)
+
+transformer_none <- c(
+  est = \(est) est,
+  sd = \(est, sd) sd,
+  inv = \(x) x
+)
+
+transformer_arcsin <- c(
+  est = asin,
+  sd = \(est, sd) sd / sqrt(1 - est^2),
+  inv = sin
+)

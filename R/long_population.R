@@ -5,7 +5,7 @@ bp_pop <- function(mu, sigma, values, kind = 1) {
   trace <- sum(diag(sigma))
   mean_diff <- (mean(mu^2) - mean(mu)^2) * r
   cov_sum <- sum(sigma) / r
-  c1 <- bp_aggr_get_c1(values, kind)
+  c1 <- bp_get_c1(values, kind)
   d <- 2 / (r - 1) * (trace + mean_diff - cov_sum)
   1 - d / c1
 }

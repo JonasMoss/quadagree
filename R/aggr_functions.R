@@ -1,7 +1,7 @@
 bp_aggr_prepare <- \(x, values, kind) {
   y <- as.matrix(x)
   r <- sum(y[1, ])
-  c1 <- bp_aggr_get_c1(values, kind)
+  c1 <- bp_get_c1(values, kind)
   xtx <- c(tcrossprod(values^2, y))
   xt12 <- c(tcrossprod(values, y))^2
   list(
@@ -12,24 +12,13 @@ bp_aggr_prepare <- \(x, values, kind) {
   )
 }
 
-bp_aggr_get_c1 <- \(values, kind) {
-  if (kind == 1) {
-    n_cat <- length(values)
-    combs <- arrangements::combinations(n_cat, 2, replace = FALSE)
-    rest <- sum(values[combs[, 1]] * values[combs[, 2]])
-    (2 * (n_cat - 1) * sum(values^2) - 4 * rest) / n_cat^2
-  } else {
-    0.5 * (max(values) - min(values))^2
-  }
-}
-
-bp_aggr_est_matrix <- \(calc) {
+bp_aggr_est <- \(calc) {
   means <- colMeans(calc$xx)
   disagreement <- 2 / (calc$r - 1) * (means[1] - 1 / calc$r * means[2])
   unname(1 - disagreement / calc$c1)
 }
 
-bp_aggr_var_matrix <- \(calc) {
+bp_aggr_var <- \(calc) {
   phi <- stats::cov(calc$xx) * (calc$n - 1) / calc$n
   phi[1, 1] <- phi[1, 1]
   phi[1, 2] <- phi[2, 1] <- -phi[1, 2] / calc$r

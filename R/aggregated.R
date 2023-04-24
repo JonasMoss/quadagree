@@ -51,7 +51,7 @@ fleiss_aggr_prepare <- \(x, values) {
 }
 
 fleiss_aggr_var <- \(calc) {
-  theta <- cov(calc$xx) * (calc$n - 1) / calc$n
+  theta <- stats::cov(calc$xx) * (calc$n - 1) / calc$n
   a <- mean(calc$xx[, 1])
   b <- mean(calc$xx[, 2])
   c <- mean(calc$xx[, 3])

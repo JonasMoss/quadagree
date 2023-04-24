@@ -146,6 +146,7 @@ fleiss_aggr <- \(x, values = seq_len(ncol(x))) {
 #' @rdname quadagree
 bp_aggr <- function(x, values = seq_len(ncol(x)), kind = 1) {
   stopifnot(kind == 1 | kind == 2)
-  args <- bp_aggr_prepare(x, values, kind)
-  do.call(bp_aggr_est_matrix, args)
+  stopifnot(ncol(x) == length(values))
+  calc <- bp_aggr_prepare(x, values, kind)
+  bp_aggr_est_matrix(calc)
 }

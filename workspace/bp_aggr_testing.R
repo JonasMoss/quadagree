@@ -3,7 +3,7 @@
 ### ============================================================================
 
 # Testing data
-x <- quadagree::dat.fleiss1971
+x <- fleissci::dat.fleiss1971
 
 bp_aggr(x)
 #' Convert data on raw form to Fleiss form.

@@ -5,7 +5,6 @@
 \alias{ci_asymptotic}
 \alias{ci_boot}
 \alias{ci_boot_aggr}
-\alias{ci_boot_bp_aggr}
 \title{Calculates asymptotic confidence intervals.}
 \usage{
 ci_asymptotic(est, sd, n, transformer, quants)
@@ -23,9 +22,7 @@ ci_boot(
   values = NULL
 )
 
-ci_boot_aggr(x, values, est, sd, transformer, quants, n_reps, fleiss = FALSE)
-
-ci_boot_bp_aggr(x, values, kind, est, sd, transformer, quants, n_reps)
+ci_boot_aggr(est, sd, calc, transformer, quants, n_reps, est_fun, var_fun)
 }
 \arguments{
 \item{est, sd}{The estimate and estimated standard deviation.}

@@ -163,42 +163,20 @@ fleissci_aggr <- function(x,
                           n_reps = 1000) {
   call <- match.call()
   stopifnot(ncol(x) == length(values))
-  alternative <- match.arg(alternative)
-  transformer <- get_transformer(transform)
-
-  quants <- limits(alternative, conf_level)
-  x <- as.matrix(x)
-  est <- fleiss_aggr(x, values)
-  sd <- sqrt(fleiss_aggr_var(x, values))
-
-  ci <- if (!bootstrap) {
-    ci_asymptotic(est, sd, nrow(x), transformer, quants)
-  } else {
-    ci_boot_aggr(
-      x,
-      values,
-      est,
-      sd,
-      transformer,
-      quants,
-      n_reps
-    )
-  }
-
-  names(ci) <- quants
-  attr(ci, "conf_level") <- conf_level
-  attr(ci, "alternative") <- alternative
-  attr(ci, "type") <- "Aggregated Fleiss kappa"
-  attr(ci, "n") <- nrow(x)
-  attr(ci, "transform") <- transform
-  attr(ci, "bootstrap") <- bootstrap
-  attr(ci, "n_reps") <- n_reps
-  attr(ci, "estimate") <- est
-  attr(ci, "sd") <- sd
-  attr(ci, "call") <- call
-  class(ci) <- "quadagree"
-  ci[2] <- min(ci[2], 1)
-  ci
+  calc <- fleiss_aggr_prepare(x, values)
+  est_fun <- fleiss_aggr_est
+  var_fun <- fleiss_aggr_var
+  quadagree_aggr_(
+    calc = calc,
+    transform = transform,
+    conf_level = conf_level,
+    alternative = alternative,
+    bootstrap = bootstrap,
+    n_reps = n_reps,
+    est_fun = est_fun,
+    var_fun = var_fun,
+    call = quote(call)
+  )
 }
 
 #' @export
@@ -212,36 +190,60 @@ bpci_aggr <- function(x,
                       bootstrap = FALSE,
                       n_reps = 1000) {
   stopifnot(kind == 1 | kind == 2)
-  call <- match.call()
   stopifnot(ncol(x) == length(values))
+  call <- match.call()
+  calc <- bp_aggr_prepare(x, values, kind)
+  est_fun <- bp_aggr_est_matrix
+  var_fun <- bp_aggr_var_matrix
+  quadagree_aggr_(
+    calc = calc,
+    transform = transform,
+    conf_level = conf_level,
+    alternative = alternative,
+    bootstrap = bootstrap,
+    n_reps = n_reps,
+    est_fun = est_fun,
+    var_fun = var_fun,
+    call = quote(call)
+  )
+}
+
+#' @keywords internal
+quadagree_aggr_ <- function(calc,
+                            transform = "none",
+                            conf_level = 0.95,
+                            alternative = c("two.sided", "greater", "less"),
+                            bootstrap = FALSE,
+                            n_reps = 1000,
+                            est_fun,
+                            var_fun,
+                            call) {
   alternative <- match.arg(alternative)
   transformer <- get_transformer(transform)
 
   quants <- limits(alternative, conf_level)
-  args <- bp_aggr_prepare(x, values, kind)
-  est <- do.call(bp_aggr_est_matrix, args)
-  sd <- sqrt(do.call(bp_aggr_var_matrix, args))
+  est <- est_fun(calc)
+  sd <- sqrt(var_fun(calc))
 
   ci <- if (!bootstrap) {
-    ci_asymptotic(est, sd, nrow(x), transformer, quants)
+    ci_asymptotic(est, sd, calc$n, transformer, quants)
   } else {
-    ci_boot_bp_aggr(
-      x,
-      values,
-      kind,
+    ci_boot_aggr(
       est,
       sd,
+      calc,
       transformer,
       quants,
-      n_reps
+      n_reps,
+      est_fun = est_fun,
+      var_fun = var_fun
     )
   }
 
   names(ci) <- quants
   attr(ci, "conf_level") <- conf_level
   attr(ci, "alternative") <- alternative
-  attr(ci, "type") <- "Aggregated Fleiss kappa"
-  attr(ci, "n") <- nrow(x)
+  attr(ci, "n") <- calc$n
   attr(ci, "transform") <- transform
   attr(ci, "bootstrap") <- bootstrap
   attr(ci, "n_reps") <- n_reps
@@ -252,6 +254,7 @@ bpci_aggr <- function(x,
   ci[2] <- min(ci[2], 1)
   ci
 }
+
 
 #' @keywords internal
 quadagree_ <- function(x,

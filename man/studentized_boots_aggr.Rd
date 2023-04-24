@@ -4,16 +4,16 @@
 \alias{studentized_boots_aggr}
 \title{Studentized bootstrap estimates using transformers.}
 \usage{
-studentized_boots_aggr(n_reps, x, values, transformer)
+studentized_boots_aggr(n_reps, est_t, calc, transformer, est_fun, var_fun)
 }
 \arguments{
 \item{n_reps}{Number of bootstrap repetitions.}
 
+\item{transformer}{A \code{transformer} object.}
+
 \item{x}{Data to estimate kappa on.}
 
 \item{values}{Values for the different categories.}
-
-\item{transformer}{A \code{transformer} object.}
 
 \item{fleiss}{If \code{TRUE}, calculates Fleiss' kappa. If not, calculates
 Conger's kappa.}

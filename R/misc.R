@@ -142,14 +142,14 @@ bp_get_c1 <- \(values, kind) {
 print.quadagree <- function(x, digits = getOption("digits"), ...) {
   at <- \(y) attr(x, y)
   cat("Call: ", paste(deparse(at("call")),
-                      sep = "\n",
-                      collapse = "\n"
+    sep = "\n",
+    collapse = "\n"
   ), "\n\n", sep = "")
 
   if (!is.null(x)) {
     cat(format(100 * at("conf_level")),
-        "% confidence interval (n = ", at("n"), ").\n",
-        sep = ""
+      "% confidence interval (n = ", at("n"), ").\n",
+      sep = ""
     )
     print(x[1:2], digits = digits)
     cat("\n")
@@ -166,28 +166,6 @@ print.quadagree <- function(x, digits = getOption("digits"), ...) {
     )
   }
   invisible(x)
-}
-
-#' Calculates asymptotic confidence intervals.
-#'
-#' @param x Data to estimate kappa on.
-#' @param est,sd The estimate and estimated standard deviation.
-#' @param n Number of observations.
-#' @param type Type of confidence interval. Either `adf`, `elliptical`, or
-#'   `normal`.
-#' @param transformer A transformer object.
-#' @param quants Quantiles for the confidence interval.
-#' @param n_reps Number of bootstrap samples if `bootstrap = TRUE`. Ignored if
-#'   `bootstrap = FALSE`.
-#' @param fleiss If `TRUE`, calculates Fleiss' kappa. If not, calculates
-#'    Conger's kappa.
-#' @keywords internal
-#' @name ci
-ci_asymptotic <- function(est, sd, n, transformer, quants) {
-  est_t <- transformer$est(est)
-  sd_t <- transformer$sd(est, sd)
-  multiplier <- stats::qt(quants, n - 1) / sqrt(n - 1)
-  sort(transformer$inv(est_t + multiplier * sd_t))
 }
 
 get_transformer <- function(transform) {

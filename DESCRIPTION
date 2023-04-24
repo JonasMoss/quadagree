@@ -21,8 +21,7 @@ Imports:
     future.apply,
     matrixcalc,
     Matrix,
-    arrangements,
-    methods
+    arrangements
 Suggests: 
     knitr,
     irrCAC,

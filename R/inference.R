@@ -1,10 +1,6 @@
 #' Confidence intervals for the quadratically weighted Fleiss' kappa and
 #'    Conger's (Cohen's) kappa
 #'
-#' Calculate confidence intervals quadratically weighted multi-rater kappas
-#'    with potentially missing data. `congerci` and `cohenci` are aliases.
-#'    See [fleiss()] and [cohen()] for estimation without inference.
-#'
 #' The confidence intervals are based on the formulas of Moss and van Oest
 #'    (work in progress) along with standard asymptotic theory
 #'    (Magnus, Neudecker, 2019) and the missing data theory of
@@ -100,7 +96,6 @@
 #' @return A vector of class `quadagree` containing the confidence end points.
 #'   The arguments of the function call are included as attributes.
 #' @name quadagree
-
 fleissci <- function(x,
                      type = c("adf", "elliptical", "normal"),
                      transform = "none",
@@ -110,7 +105,16 @@ fleissci <- function(x,
                      n_reps = 1000) {
   call <- match.call()
   args <- sapply(names(formals()), str2lang)
-  do.call(what = quadagree_, c(args, call = quote(call), fleiss = TRUE))
+  type <- match.arg(type)
+  x <- as.matrix(x)
+
+  est_fun <- \(calc) fleiss(calc$xx)
+  var_fun <- \(calc) avar(calc$xx, type, TRUE)
+
+  do.call(
+    what = quadagree_,
+    c(args, call = quote(call), est_fun = est_fun, var_fun = var_fun)
+  )
 }
 
 #' @export
@@ -124,9 +128,21 @@ congerci <- function(x,
                      n_reps = 1000) {
   call <- match.call()
   args <- sapply(names(formals()), str2lang)
-  do.call(what = quadagree_, c(args, call = quote(call), fleiss = FALSE))
+  type <- match.arg(type)
+  x <- as.matrix(x)
+
+  est_fun <- \(calc) conger(calc$xx)
+  var_fun <- \(calc) avar(calc$xx, type, FALSE)
+
+  do.call(
+    what = quadagree_,
+    c(args, call = quote(call), est_fun = est_fun, var_fun = var_fun)
+  )
 }
 
+#' @export
+#' @rdname quadagree
+cohenci <- congerci
 
 #' @export
 #' @rdname quadagree
@@ -140,78 +156,80 @@ bpci <- function(x,
                  bootstrap = FALSE,
                  n_reps = 1000) {
   stopifnot(kind == 1 || kind == 2)
+
   call <- match.call()
-  args <- sapply(names(formals()), str2lang)
-  do.call(
-    what = quadagree_,
-    c(args, call = quote(call), fleiss = FALSE)
+  type <- match.arg(type)
+  x <- as.matrix(x)
+  if(is.null(values)) {
+    values <- unique(c(x))
+  }
+
+  c1 <- bp_get_c1(values, kind)
+  est_fun <- \(calc) bp(calc$xx, c1)
+  var_fun <- \(calc) avar_bp(calc$xx, type, c1)
+
+  quadagree_(x,
+            type,
+            transform,
+            conf_level,
+            alternative,
+            bootstrap,
+            n_reps,
+            call,
+            est_fun,
+            var_fun)
+}
+
+#' @export
+#' @rdname quadagree
+fleissci_aggr <- function(x,
+                          values = seq_len(ncol(x)),
+                          transform = "none",
+                          conf_level = 0.95,
+                          alternative = c("two.sided", "greater", "less"),
+                          bootstrap = FALSE,
+                          n_reps = 1000) {
+  call <- match.call()
+  stopifnot(ncol(x) == length(values))
+  calc <- fleiss_aggr_prepare(x, values)
+  est_fun <- fleiss_aggr_est
+  var_fun <- fleiss_aggr_var
+  quadagree_aggr_(
+    calc = calc,
+    transform = transform,
+    conf_level = conf_level,
+    alternative = alternative,
+    bootstrap = bootstrap,
+    n_reps = n_reps,
+    est_fun = est_fun,
+    var_fun = var_fun,
+    call = quote(call)
   )
 }
 
 #' @export
 #' @rdname quadagree
-cohenci <- congerci
-
-#' @keywords internal
-quadagree_ <- function(x,
-                       type = c("adf", "elliptical", "normal"),
-                       transform,
-                       conf_level,
-                       alternative = c("two.sided", "greater", "less"),
-                       bootstrap,
-                       n_reps,
-                       call,
-                       fleiss,
-                       kind = NULL,
-                       values = NULL) {
-  type <- match.arg(type)
-  alternative <- match.arg(alternative)
-  transformer <- get_transformer(transform)
-  quants <- limits(alternative, conf_level)
-
-  x <- as.matrix(x)
-
-  if (is.null(kind)) {
-    est <- if (!fleiss) conger(x) else fleiss(x)
-    sd <- sqrt(avar(x, type, fleiss))
-  } else {
-    if (is.null(values)) {
-      values <- sort(unique(c(x)))
-    }
-    c1 <- bp_get_c1(values, kind)
-    est <- bp(x, values, kind)
-    sd <- sqrt(avar_bp(x, type, c1))
-  }
-
-  ci <- if (!bootstrap) {
-    ci_asymptotic(est, sd, nrow(x), transformer, quants)
-  } else {
-    ci_boot(
-      x,
-      est,
-      sd,
-      type,
-      transformer,
-      quants,
-      n_reps,
-      fleiss = fleiss,
-      kind,
-      values
-    )
-  }
-
-  names(ci) <- quants
-  attr(ci, "conf_level") <- conf_level
-  attr(ci, "alternative") <- alternative
-  attr(ci, "type") <- type
-  attr(ci, "n") <- nrow(x)
-  attr(ci, "transform") <- transform
-  attr(ci, "bootstrap") <- bootstrap
-  attr(ci, "n_reps") <- n_reps
-  attr(ci, "estimate") <- est
-  attr(ci, "sd") <- sd
-  attr(ci, "call") <- call
-  class(ci) <- "quadagree"
-  ci[2] <- min(ci[2], 1)
-  ci
+bpci_aggr <- function(x,
+                      values = seq_len(ncol(x)),
+                      kind = 1,
+                      transform = "none",
+                      conf_level = 0.95,
+                      alternative = c("two.sided", "greater", "less"),
+                      bootstrap = FALSE,
+                      n_reps = 1000) {
+  stopifnot(kind == 1 | kind == 2)
+  stopifnot(ncol(x) == length(values))
+  call <- match.call()
+  calc <- bp_aggr_prepare(x, values, kind)
+  quadagree_aggr_(
+    calc = calc,
+    transform = transform,
+    conf_level = conf_level,
+    alternative = alternative,
+    bootstrap = bootstrap,
+    n_reps = n_reps,
+    est_fun = bp_aggr_est,
+    var_fun = bp_aggr_var,
+    call = quote(call)
+  )
 }

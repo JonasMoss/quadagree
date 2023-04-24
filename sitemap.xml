@@ -52,9 +52,6 @@
     <loc>https://jonasmoss.github.io/quadagree/reference/fleiss.html</loc>
   </url>
   <url>
-    <loc>https://jonasmoss.github.io/quadagree/reference/fleiss_aggr_var.html</loc>
-  </url>
-  <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/gamma_est.html</loc>
   </url>
   <url>
@@ -86,8 +83,5 @@
   </url>
   <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/studentized_boots_aggr.html</loc>
-  </url>
-  <url>
-    <loc>https://jonasmoss.github.io/quadagree/reference/studentized_boots_bp_aggr.html</loc>
   </url>
 </urlset>

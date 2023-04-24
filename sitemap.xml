@@ -34,9 +34,6 @@
     <loc>https://jonasmoss.github.io/quadagree/reference/bp_get_c1.html</loc>
   </url>
   <url>
-    <loc>https://jonasmoss.github.io/quadagree/reference/ci.html</loc>
-  </url>
-  <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/cov_mat_kappa.html</loc>
   </url>
   <url>
@@ -50,9 +47,6 @@
   </url>
   <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/dat.zapf2016.html</loc>
-  </url>
-  <url>
-    <loc>https://jonasmoss.github.io/quadagree/reference/fleiss.html</loc>
   </url>
   <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/gamma_est.html</loc>
@@ -80,11 +74,5 @@
   </url>
   <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/quadagree.html</loc>
-  </url>
-  <url>
-    <loc>https://jonasmoss.github.io/quadagree/reference/studentized_boots.html</loc>
-  </url>
-  <url>
-    <loc>https://jonasmoss.github.io/quadagree/reference/studentized_boots_aggr.html</loc>
   </url>
 </urlset>

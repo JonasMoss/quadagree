@@ -79,7 +79,7 @@ or aggregated. An example of data on “raw” or “wide” form is the
 following data set with 4 raters and 5 categories from Zapf et
 al. (2016).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dat.zapf2016</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dat.zapf2016</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">Rater A</th>
@@ -124,280 +124,11 @@ al. (2016).</p>
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">3</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
 </tbody>
 </table>
-<p>To estimate Fleiss’ kappa and Conger’s kappa, simply call</p>
+<p>To calculate asymptotic confidence intervals for Fleiss’ kappa,
+use</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fleiss.html">fleiss</a></span><span class="op">(</span><span class="va">dat.zapf2016</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8983886</span></span>
-<span><span class="fu"><a href="../reference/fleiss.html">conger</a></span><span class="op">(</span><span class="va">dat.zapf2016</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.89847</span></span></code></pre></div>
-<p>For inference, use</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">fleissci</a></span><span class="op">(</span><span class="va">dat.zapf2016</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Call: fleissci(x = dat.zapf2016)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -408,8 +139,9 @@ al. (2016).</p>
 <span><span class="co">#&gt; Sample estimates.</span></span>
 <span><span class="co">#&gt;     kappa        sd </span></span>
 <span><span class="co">#&gt; 0.8983886 0.1931729</span></span></code></pre></div>
-<p>and</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>If you want to calculate Conger’s kappa (multi-rater Cohen’s kappa),
+use</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">cohenci</a></span><span class="op">(</span><span class="va">dat.zapf2016</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Call: cohenci(x = dat.zapf2016)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -420,14 +152,319 @@ al. (2016).</p>
 <span><span class="co">#&gt; Sample estimates.</span></span>
 <span><span class="co">#&gt;     kappa        sd </span></span>
 <span><span class="co">#&gt; 0.8984700 0.1929226</span></span></code></pre></div>
+<p>Finally, the quadratic Brennan-Prediger coefficient can be found
+by</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">bpci</a></span><span class="op">(</span><span class="va">dat.zapf2016</span>, kind <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Call: bpci(x = dat.zapf2016, kind = 1)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 95% confidence interval (n = 50).</span></span>
+<span><span class="co">#&gt;     0.025     0.975 </span></span>
+<span><span class="co">#&gt; 0.8026384 0.9323616 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample estimates.</span></span>
+<span><span class="co">#&gt;     kappa        sd </span></span>
+<span><span class="co">#&gt; 0.8675000 0.2259341</span></span></code></pre></div>
+<p>Kind <code>1</code> returns the classical Brennan-Prediger
+coefficients, while <code>2</code> returns the new formulation by Moss
+(2023).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">bpci</a></span><span class="op">(</span><span class="va">dat.zapf2016</span>, kind <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Call: bpci(x = dat.zapf2016, kind = 2)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 95% confidence interval (n = 50).</span></span>
+<span><span class="co">#&gt;     0.025     0.975 </span></span>
+<span><span class="co">#&gt; 0.9013192 0.9661808 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample estimates.</span></span>
+<span><span class="co">#&gt;    kappa       sd </span></span>
+<span><span class="co">#&gt; 0.933750 0.112967</span></span></code></pre></div>
 <p>It is also possible to use the studentized bootstrap by selecting the
 option <code>bootstrap = "TRUE</code>“, but this appears to confer no
 benefits and we would recommend sticking to the standard methods.</p>
+<p>The package supports several options for estimating the asymptotic
+covariance matrix using the <code>type</code> argument. The
+<code>adf</code> option makes no assumptions about the data-generating
+process and is recommended. The <code>elliptical</code> option assumes
+the rating data is elliptical, and the <code>normal</code> option that
+it is normal. There are also a couple of transforms for the confidence
+intervals; <code>none</code>, <code>fisher</code>, and
+<code>arcsin</code>. The Fisher and arcsine transforms appear to work
+slightly better in practice.</p>
+<p>All examples in this vignette use categorical data, but the package
+also supports continuous data, which is most meaningful for Fleiss’
+kappa, Conger’s kappa, and the new Brennan-Prediger coefficient (i.e.,
+with <code>kind = 2</code>).</p>
+<p>This package supports missing data in the following sense: If the
+same set of raters rate every item, but some raters are missing for some
+of the rows. An example is the Klein (2018) data:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dat.klein2018</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">rater1</th>
+<th align="right">rater2</th>
+<th align="right">rater3</th>
+<th align="right">rater4</th>
+<th align="right">rater5</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+</tbody>
+</table>
+<p>Here missing data is marked as <code>N/A</code>. The estimators of
+the coefficients are consistent, and the inference is based on pairwise
+available data using the method of van Praag (1985)</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">fleissci</a></span><span class="op">(</span><span class="va">dat.klein2018</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Call: fleissci(x = dat.klein2018)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 95% confidence interval (n = 10).</span></span>
+<span><span class="co">#&gt;      0.025      0.975 </span></span>
+<span><span class="co">#&gt; -0.1267018  0.5766644 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample estimates.</span></span>
+<span><span class="co">#&gt;     kappa        sd </span></span>
+<span><span class="co">#&gt; 0.2249813 0.4663909</span></span>
+<span><span class="co"># fleissci(dat.klein2018)</span></span>
+<span><span class="co"># bpci(dat.klein2018)</span></span></code></pre></div>
+<p>It’s not supported to do inference on data with less than <span class="math inline">\(2\)</span> ratings per pair. The following data
+from Gwet (2014) is an example</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dat.gwet2014</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">rater1</th>
+<th align="right">rater2</th>
+<th align="right">rater3</th>
+<th align="right">rater4</th>
+<th align="right">rater5</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>Observe that only one row is rated by both rater 4 and 5. Hence you
+get an error when calling</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">fleissci</a></span><span class="op">(</span><span class="va">dat.gwet2014</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in fleiss(calc$xx): The data does not contain sufficient non-NAs.</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="aggregated-data">Aggregated data<a class="anchor" aria-label="anchor" href="#aggregated-data"></a>
+</h2>
 <p>Data on aggregated form looks different, with each row aggregating
 the number of ratings for each category. The following example is from
 Fleiss (1971).</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dat.fleiss1971</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dat.fleiss1971</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">depression</th>
@@ -479,178 +516,10 @@ Fleiss (1971).</p>
 <td align="right">0</td>
 <td align="right">0</td>
 </tr>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">6</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">6</td>
-</tr>
 </tbody>
 </table>
 <p>The dataset has categories</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dat.fleiss1971</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "depression"           "personality disorder" "schizophrenia"       </span></span>
 <span><span class="co">#&gt; [4] "neurosis"             "other"</span></span></code></pre></div>
@@ -659,11 +528,7 @@ Fleiss (1971).</p>
 <code>2</code>, and so on, we can calculate and do inference on the
 quadratically weighted Fleiss kappa (but not Conger’s kappa) for data on
 this form.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fleiss.html">fleiss_aggr</a></span><span class="op">(</span><span class="va">dat.fleiss1971</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.2840722</span></span></code></pre></div>
-<p>Inference is done in a similar way.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">fleissci_aggr</a></span><span class="op">(</span><span class="va">dat.fleiss1971</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Call: call</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -674,6 +539,17 @@ this form.</p>
 <span><span class="co">#&gt; Sample estimates.</span></span>
 <span><span class="co">#&gt;     kappa        sd </span></span>
 <span><span class="co">#&gt; 0.2840722 0.5987194</span></span></code></pre></div>
+<p>The results from using the aggregated functions agree with
+<code>irrCAC</code>, despite the underlying methodology being different.
+The main contributions of this package when it comes to aggregated data
+is the ability to calculate the new variant of the Brennan-Prediger
+coefficient. The calculations are also marginally faster. Note that
+inference for missing data on aggregated form is not supported.</p>
+<p>Data on aggregated form can be bootstrapped, and the transforms
+<code>none</code>, <code>fisher</code> and <code>arcsin</code> are
+supported. The <code>type</code> options used in the long form do not
+make sense in this context, however.</p>
+</div>
   </main>
 </div>
 

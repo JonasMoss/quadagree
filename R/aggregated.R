@@ -1,6 +1,6 @@
 bp_aggr_prepare <- \(x, values, kind) {
-  r <- sum(x[1, ])
   y <- as.matrix(x)
+  r <- sum(y[1, ])
   c1 <- bp_aggr_get_c1(values, kind)
   xtx <- c(tcrossprod(values^2, y))
   xt12 <- c(tcrossprod(values, y))^2
@@ -14,9 +14,10 @@ bp_aggr_prepare <- \(x, values, kind) {
 
 bp_aggr_get_c1 <- \(values, kind) {
   if (kind == 1) {
-    w <- outer(values, values, Vectorize(\(x, y) (x - y)^2))
     n_cat <- length(values)
-    sum(w) / n_cat^2
+    combs <- arrangements::combinations(n_cat, 2, replace = FALSE)
+    rest <- sum(values[combs[, 1]] * values[combs[, 2]])
+    (2 * (n_cat - 1) * sum(values^2) - 4 * rest) / n_cat^2
   } else {
     0.5 * (max(values) - min(values))^2
   }
@@ -37,8 +38,8 @@ bp_aggr_var_matrix <- \(calc) {
 }
 
 fleiss_aggr_prepare <- \(x, values) {
-  r <- sum(x[1, ])
   y <- as.matrix(x)
+  r <- sum(y[1, ])
   xtx <- c(tcrossprod(values^2, y))
   xt1 <- c(tcrossprod(values, y))
   xt12 <- xt1^2

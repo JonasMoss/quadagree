@@ -192,18 +192,15 @@ bpci_aggr <- function(x,
   stopifnot(kind == 1 | kind == 2)
   stopifnot(ncol(x) == length(values))
   call <- match.call()
-  calc <- bp_aggr_prepare(x, values, kind)
-  est_fun <- bp_aggr_est_matrix
-  var_fun <- bp_aggr_var_matrix
   quadagree_aggr_(
-    calc = calc,
+    calc = bp_aggr_prepare(x, values, kind),
     transform = transform,
     conf_level = conf_level,
     alternative = alternative,
     bootstrap = bootstrap,
     n_reps = n_reps,
-    est_fun = est_fun,
-    var_fun = var_fun,
+    est_fun = bp_aggr_est_matrix,
+    var_fun = bp_aggr_var_matrix,
     call = quote(call)
   )
 }

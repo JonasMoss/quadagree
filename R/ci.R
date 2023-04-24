@@ -126,12 +126,14 @@ ci_boot_aggr <- function(est,
                          var_fun) {
   est_t <- transformer$est(est)
   sd_t <- transformer$sd(est, sd)
-  boots <- studentized_boots_aggr(n_reps,
-                                  est_t,
-                                  calc,
-                                  transformer,
-                                  est_fun,
-                                  var_fun)
+  boots <- studentized_boots_aggr(
+    n_reps,
+    est_t,
+    calc,
+    transformer,
+    est_fun,
+    var_fun
+  )
   multiplier <- stats::quantile(boots, quants, na.rm = TRUE)
   sort(transformer$inv(est_t + multiplier * sd_t))
 }

@@ -15,3 +15,109 @@ limits <- function(alternative, conf_level) {
     return(c(0, conf_level))
   }
 }
+
+#' Get the indices of the diagonal for the variances.
+#' @param r Number of raters.
+#' @param vech If `TRUE`, returns for the result for half-vectorization.
+#' @return A vector of `TRUE` where the variances are.
+#' @keywords internal
+get_diag_indices <- function(r, vech = TRUE) {
+  e_mat <- matrixcalc::elimination.matrix(r)
+  indices <- rep(0, r^2)
+  indices[c(1, (r + 1) * (1:(r - 1)) + 1)] <- 1
+  if (vech) c(e_mat %*% indices) else c(indices)
+}
+
+#' Gamma matrix
+#'
+#' Calculate the gamma matrix from a matrix of observations.
+#' @param x A numeric matrix of observations.
+#' @param sigma Covariance matrix of the data.
+#' @param type One of `adf`, `normal` and `elliptical`.
+#' @return The sample estimate of the gamma matrix.
+#' @keywords internal
+gamma_est <- function(x, sigma, type = "adf") {
+  if (type == "adf") {
+    i_row <- \(n) unlist(lapply(seq_len(n), seq.int, n))
+    i_col <- \(n) rep.int(seq_len(n), times = rev(seq_len(n)))
+    rows <- i_row(ncol(x))
+    cols <- i_col(ncol(x))
+    y <- t(x) - colMeans(x, na.rm = TRUE)
+    z <- y[cols, , drop = FALSE] * y[rows, , drop = FALSE]
+    mat <- z - rowMeans(z, na.rm = TRUE)
+    nas <- is.na(mat)
+    mat[nas] <- 0
+    return(base::tcrossprod(mat) / base::tcrossprod(!nas))
+  }
+
+  k <- ncol(sigma)
+  e_mat <- matrixcalc::elimination.matrix(k)
+  k_mat <- matrixcalc::K.matrix(k)
+  gamma <- ((diag(k^2) + k_mat) %*% (sigma %x% sigma))
+  gamma <- gamma * kurtosis_correction(x, type = type)
+  e_mat %*% gamma %*% t(e_mat)
+}
+
+#' Calculate unbiased sample kurtosis.
+#' @param x Matrix of valus.
+#' @return Unbiased sample kurtosis.
+#' @keywords internal
+kurtosis <- function(x) {
+  n <- nrow(x)
+  g2 <- \(x) mean((x - mean(x, na.rm = TRUE))^4) / stats::var(x, na.rm = TRUE)^2
+  kurtosis <- \(x) (n - 1) / ((n - 2) * (n - 3)) * ((n + 1) * g2(x) + 6)
+  mean(apply(x, 2, kurtosis), na.rm = TRUE) - 3
+}
+
+#' Calculate kurtosis correction
+#' @param x Matrix of values
+#' @param type The type of correction, either "normal" or "elliptical".
+#' @keywords internal
+kurtosis_correction <- function(x, type) {
+  kurt <- if (type == "normal") 0 else kurtosis(x)
+  1 + kurt / 3
+}
+
+#' Calculate the capital pi matrix.
+#'
+#' The capital pi matrix is multiplied element-wise with the asymptotic
+#'    covariance matrix of s to correct for missing values.
+#'
+#' @param p Vector of probabilities for being missing.
+#' @param vech Does not affect anything. The half-vectorized matrix is always
+#'    returned.
+#' @return The capital pi matrix.
+#' @keywords internal
+pi_mat <- function(p, vech = TRUE) {
+  r <- length(p)
+  f <- \(x) prod(p[unique(x)])
+  indices <- arrangements::combinations(r, 2, replace = TRUE)
+  ps <- apply(indices, 1, f)
+  g <- Vectorize(\(x, y) f(c(indices[x, ], indices[y, ])) / (ps[x] * ps[y]))
+  x <- seq_len(nrow(indices))
+  outer(x, x, g)
+}
+
+#' Calculates the empirical capital pi matrix.
+#'
+#' @param x Vector of probabilities for being missing.
+#' @return The capital pi matrix.
+#' @keywords internal
+pi_mat_empirical <- \(x) {
+  r <- ncol(x)
+  ind2 <- arrangements::combinations(r, 2, replace = TRUE)
+  ind4 <- arrangements::combinations(seq_len(nrow(ind2)), 2, replace = TRUE)
+
+  p2_hats <- apply(ind2, 1, \(i) mean(!is.na(x[, i[1]]) & !is.na(x[, i[2]])))
+  hats <- apply(ind4, 1, \(i) {
+    j1 <- ind2[i[1], ]
+    j2 <- ind2[i[2], ]
+    mean(!is.na(x[, j1[1]]) & !is.na(x[, j1[2]]) &
+      !is.na(x[, j2[1]]) & !is.na(x[, j2[2]])) /
+      (p2_hats[i[1]] * p2_hats[i[2]])
+  })
+
+  new_mat <- matrix(NA, choose(r + 1, 2), choose(r + 1, 2))
+  new_mat[ind4] <- hats
+  as.matrix(Matrix::forceSymmetric(new_mat, uplo = "U"))
+}

@@ -91,6 +91,4 @@ Provided we understand `depression` as being `1`, `personality disorder` as bein
 ```{r}
 fleissci_aggr(dat.fleiss1971)
 ```
-The results from using the aggregated functions agree with `irrCAC`, despite the underlying methodology being different. The main contributions of this package when it comes to aggregated data is the ability to calculate the new variant of the Brennan-Prediger coefficient. The calculations are also marginally faster. Note that inference for missing data on aggregated form is not supported.
-
-Data on aggregated form can be bootstrapped, and the transforms `none`, `fisher` and `arcsin` are supported. The `type` options used in the long form do not make sense in this context, however.
+The results from using the aggregated functions agree with `irrCAC`, despite the underlying methodology being different. The main contributions of this package when it comes to aggregated data is the ability to calculate the new variant of the Brennan-Prediger coefficient, the support for a a `values` telling the program what value to attach to each rating, and the support for transforms. The calculations are also marginally faster, about $2$ times, but this is unlikely to have an impact. Note that inference for missing data on aggregated form is not supported. Data on aggregated form can, however, be bootstrapped, and the transforms `none`, `fisher` and `arcsin` are supported. The `type` options used in the long form do not make sense in this context.

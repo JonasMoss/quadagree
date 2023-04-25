@@ -4,9 +4,6 @@
     <loc>https://jonasmoss.github.io/quadagree/404.html</loc>
   </url>
   <url>
-    <loc>https://jonasmoss.github.io/quadagree/LICENSE-text.html</loc>
-  </url>
-  <url>
     <loc>https://jonasmoss.github.io/quadagree/LICENSE.html</loc>
   </url>
   <url>
@@ -71,6 +68,9 @@
   </url>
   <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/pi_mat_empirical.html</loc>
+  </url>
+  <url>
+    <loc>https://jonasmoss.github.io/quadagree/reference/quadagree-package.html</loc>
   </url>
   <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/quadagree.html</loc>

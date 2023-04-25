@@ -1,5 +1,5 @@
 
-# quadagree
+# quadagree <img src="man/figures/logo.png" align="right" width="163" height="85" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree.png)](https://cran.r-project.org/package=quadagree)
 [![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml)
@@ -175,7 +175,7 @@ Fleiss’ kappa and the Brennan–Prediger coefficient is possible using
 
 ``` r
 fleissci_aggr(dat.fleiss1971)
-#> Call: fleissci_aggr(x = dat.fleiss1971)
+#> Call: call
 #> 
 #> 95% confidence interval (n = 30).
 #>      0.025      0.975 
@@ -198,8 +198,11 @@ irrCAC::fleiss.kappa.dist(dat.fleiss1971, weights = "quadratic")
 
 ## Similar software
 
-There are several `R` packages that calculate agreement coefficients,
-most notably `irrCAC`.
+There are several `R` packages that calculate agreement coefficients.
+The most feature complete `irrCAC`, which supports calculation and
+inference for agreement coefficients with more weightings than the
+quadratic. However, it does not support consistent inference in the
+presence of missing data, as demonstrated in the consistency vignette.
 
 ## How to Contribute or Get Help
 

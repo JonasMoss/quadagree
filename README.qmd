@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# quadagree 
+# quadagree <img src="man/figures/logo.png" align="right" width="163" height="85" />
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree)](https://cran.r-project.org/package=quadagree) [![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 

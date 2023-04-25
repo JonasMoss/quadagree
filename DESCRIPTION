@@ -12,7 +12,7 @@ Description: Calculate the quadratically weighted Fleiss' kappa, Cohen's kappa,
     inferential procedures; the ADF method, the elliptical method, 
     and the normal method. Supports studentized bootstrapping with three 
     transforms.
-License: MIT + file LICENSE
+License: CC BY 4.0
 URL: https://jonasmoss.github.io/quadagree/
 LazyData: true
 Depends:

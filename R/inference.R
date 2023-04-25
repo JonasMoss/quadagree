@@ -160,7 +160,7 @@ bpci <- function(x,
   call <- match.call()
   type <- match.arg(type)
   x <- as.matrix(x)
-  if(is.null(values)) {
+  if (is.null(values)) {
     values <- unique(c(x))
   }
 
@@ -168,16 +168,18 @@ bpci <- function(x,
   est_fun <- \(calc) bp(calc$xx, c1)
   var_fun <- \(calc) avar_bp(calc$xx, type, c1)
 
-  quadagree_(x,
-            type,
-            transform,
-            conf_level,
-            alternative,
-            bootstrap,
-            n_reps,
-            call,
-            est_fun,
-            var_fun)
+  quadagree_(
+    x,
+    type,
+    transform,
+    conf_level,
+    alternative,
+    bootstrap,
+    n_reps,
+    call,
+    est_fun,
+    var_fun
+  )
 }
 
 #' @export

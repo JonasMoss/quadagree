@@ -1,4 +1,3 @@
-
 #' @keywords internal
 quadagree_ <- function(x,
                        type = c("adf", "elliptical", "normal"),

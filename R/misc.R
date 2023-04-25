@@ -22,10 +22,14 @@ limits <- function(alternative, conf_level) {
 #' @return A vector of `TRUE` where the variances are.
 #' @keywords internal
 get_diag_indices <- function(r, vech = TRUE) {
-  e_mat <- matrixcalc::elimination.matrix(r)
-  indices <- rep(0, r^2)
-  indices[c(1, (r + 1) * (1:(r - 1)) + 1)] <- 1
-  if (vech) c(e_mat %*% indices) else c(indices)
+  if(vech) {
+    indices <- rep(0, choose(r + 1, 2))
+    indices[c(1, 1 + cumsum(r:2))] <- 1
+  } else {
+    indices <- rep(0, r^2)
+    indices[c(1, (r + 1) * (1:(r - 1)) + 1)] <- 1
+  }
+  indices
 }
 
 #' Gamma matrix
@@ -47,7 +51,8 @@ gamma_est <- function(x, sigma, type = "adf") {
     mat <- z - rowMeans(z, na.rm = TRUE)
     nas <- is.na(mat)
     mat[nas] <- 0
-    return(base::tcrossprod(mat) / base::tcrossprod(!nas))
+    #return(Rfast::Tcrossprod(mat) / base::tcrossprod(!nas))
+    return(tcrossprod(mat) / tcrossprod(!nas))
   }
 
   k <- ncol(sigma)
@@ -105,16 +110,19 @@ pi_mat <- function(p, vech = TRUE) {
 #' @keywords internal
 pi_mat_empirical <- \(x) {
   r <- ncol(x)
+  if(!anyNA(x)) {
+    return(matrix(1, choose(r + 1, 2), choose(r + 1, 2)))
+  }
+
   ind2 <- arrangements::combinations(r, 2, replace = TRUE)
   ind4 <- arrangements::combinations(seq_len(nrow(ind2)), 2, replace = TRUE)
 
-  p2_hats <- apply(ind2, 1, \(i) mean(!is.na(x[, i[1]]) & !is.na(x[, i[2]])))
+  nisna <- !is.na(x)
+  combs <- apply(ind2, 1, \(i) nisna[, i[1]] & nisna[, i[2]])
+  p2_hats <- colMeans(combs)
+
   hats <- apply(ind4, 1, \(i) {
-    j1 <- ind2[i[1], ]
-    j2 <- ind2[i[2], ]
-    mean(!is.na(x[, j1[1]]) & !is.na(x[, j1[2]]) &
-      !is.na(x[, j2[1]]) & !is.na(x[, j2[2]])) /
-      (p2_hats[i[1]] * p2_hats[i[2]])
+    mean(combs[, i[1]] & combs[, i[2]]) / (p2_hats[i[1]] * p2_hats[i[2]])
   })
 
   new_mat <- matrix(NA, choose(r + 1, 2), choose(r + 1, 2))
@@ -204,3 +212,7 @@ transformer_arcsin <- c(
   sd = \(est, sd) sd / sqrt(1 - est^2),
   inv = sin
 )
+
+tr <- \(x) {
+  sum(x[1L + 0L:(dim(x)[1L] - 1L) * (dim(x)[1L] + 1L)])
+}

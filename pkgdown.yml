@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   using_fleissci: using_fleissci.html
-last_built: 2023-04-25T06:40Z
+last_built: 2023-04-25T06:47Z
 urls:
   reference: https://jonasmoss.github.io/quadagree/reference
   article: https://jonasmoss.github.io/quadagree/articles

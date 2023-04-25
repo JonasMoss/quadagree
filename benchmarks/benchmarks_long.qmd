@@ -1,0 +1,61 @@
+---
+title: "Short benchmark of Fleiss' kappa, Cohen's kappa, and Brennan-Prediger"
+subtitle: "Benchmark for the non-aggregrated functions"
+author: "Jonas Moss"
+format: pdf
+editor: visual
+date: 4/25/2023
+---
+
+The main benefit of `quadagree` versus `irrCAC` for data on long form is its
+support for missing data and continuous data, but bootstrapping and transformations
+can come in handy as well. The extra machinery makes it slightly slower, however, in typical workloads. If $n$ is very large, `irrCAC.fleiss.raw` severely outperforms `fleissci`.
+The following benchmark is being run on $n=50$ ratings and $R=4$ raters.
+
+```{r}
+library("quadagree")
+x = dat.zapf2016
+irr_conger <- \(x) irrCAC::conger.kappa.raw(x, weights = "quadratic")
+irr_fleiss <- \(x) irrCAC::fleiss.kappa.raw(x, weights = "quadratic")
+irr_bp <- \(x) irrCAC::bp.coeff.raw(x, weights = "quadratic")
+microbenchmark::microbenchmark(
+  irr_conger(x),
+  congerci(x),
+  irr_fleiss(x),
+  fleissci(x),
+  irr_bp(x),
+  bpci(x),
+  times = 1000
+)
+```
+We see that `irrCAC` is more than twice as fast for Fleiss' kappa and the Brennan-Prediger coefficient, which is due to the binning used by `irrCAC`. On the other hand, binning is not as simple for Cohen's kappa, hence the speed differential is smaller. Let's try $n=500$.
+
+```{r}
+y = rbind(x, x, x, x, x, x, x, x, x, x)
+
+microbenchmark::microbenchmark(
+  irr_conger(y),
+  congerci(y),
+  irr_fleiss(y),
+  fleissci(y),
+  irr_bp(y),
+  bpci(y),
+  times = 1000
+)
+```
+The speed differential shrinks for Conger's kappa but increases for Fleiss' kappa / Brennan-Prediger as $n$ becomes larger. This is due to the calculation of the asymptotic variance, which is slow and unoptimized in `quadagree`.
+
+For $n=3000$, `irrCAC` is roughly $5$ times faster than `quadagree` for Fleiss' kapa.
+
+```{r}
+z = rbind(y, y, y, y, y, y, y, y, y, y)
+microbenchmark::microbenchmark(
+  irr_conger(z),
+  congerci(z),
+  irr_fleiss(z),
+  fleissci(z),
+  irr_bp(z),
+  bpci(z)
+)
+```
+

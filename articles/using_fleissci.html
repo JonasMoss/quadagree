@@ -543,12 +543,14 @@ this form.</p>
 <code>irrCAC</code>, despite the underlying methodology being different.
 The main contributions of this package when it comes to aggregated data
 is the ability to calculate the new variant of the Brennan-Prediger
-coefficient. The calculations are also marginally faster. Note that
-inference for missing data on aggregated form is not supported.</p>
-<p>Data on aggregated form can be bootstrapped, and the transforms
-<code>none</code>, <code>fisher</code> and <code>arcsin</code> are
-supported. The <code>type</code> options used in the long form do not
-make sense in this context, however.</p>
+coefficient, the support for a a <code>values</code> telling the program
+what value to attach to each rating, and the support for transforms. The
+calculations are also marginally faster, about <span class="math inline">\(2\)</span> times, but this is unlikely to have an
+impact. Note that inference for missing data on aggregated form is not
+supported. Data on aggregated form can, however, be bootstrapped, and
+the transforms <code>none</code>, <code>fisher</code> and
+<code>arcsin</code> are supported. The <code>type</code> options used in
+the long form do not make sense in this context.</p>
 </div>
   </main>
 </div>

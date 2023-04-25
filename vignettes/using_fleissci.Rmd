@@ -1,8 +1,8 @@
 ---
-title: "Using the quadagree package."
+title: "Using the quadagree package"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{using_quadagree}
+  %\VignetteIndexEntry{Using the quadagree package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

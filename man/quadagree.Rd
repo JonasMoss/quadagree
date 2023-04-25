@@ -107,15 +107,27 @@ A vector of class \code{quadagree} containing the confidence end points.
 The arguments of the function call are included as attributes.
 }
 \description{
-The confidence intervals are based on the formulas of Moss and van Oest
-(work in progress) along with standard asymptotic theory
+Confidence intervals for quadratic agreement coefficients with optional
+bootstrapping and transforms. Based on the formulas of Moss and van Oest
+(wip) and Moss (wip) along with standard asymptotic theory
 (Magnus, Neudecker, 2019) and the missing data theory of
 van Praag et al. (1985).
 }
 \details{
-The methods handle missing data using pairwise available information, i.e.,
-the option \code{use = "pairwise.complete.obs"} in \code{\link[stats:cor]{stats::cov()}} along with
-the asymptotic theory of van Praag et al. (1985). The bootstrap option
+There are two kinds of functions. The functions ending in \code{aggr} should be
+applied to data on aggregated form, where each row contains the number
+of selected ratings for each category. The data set \code{dat.fleiss1971}
+provides an example. Missing data is not supported for the \code{aggr}
+functions. The other functions should be applied to data on long form,
+where  each row contains the ratings of every rater. The data sets
+\code{dat.zapf2016} and \code{dat.klein2018} are examples. Missing data, and
+continuous data, is supported. See the usage vignette for
+more information.
+
+For data on long form, the methods handle missing data using pairwise
+available information, i.e., the option \code{use = "pairwise.complete.obs"}
+in \code{\link[stats:cor]{stats::cov()}} along with the asymptotic theory of
+van Praag et al. (1985). The bootstrap option
 uses the studentized bootstrap (Efron, B. 1987), which is second order
 correct. Both functions makes use of \code{\link{future.apply}} when bootstrapping.
 
@@ -140,6 +152,25 @@ distribution across raters, essentially assuming there is no difference in
 the rating distribution across raters, while Cohen's kappa does not.
 There is a large literature comparing Fleiss' kappa to Cohen's kappa, and
 there is no consensus on which to prefer.
+
+The aggregated functions takes an argument \code{values}, which specifies what
+numerical value to attach to each category. The default value for \code{values}
+is \verb{1...C}, where \code{C} is the number of categories.
+
+The Brennan-Prediger coefficients take an argument \code{kind}. If equal to \code{1}, it
+returns the traditional Brennan-Prediger coefficient. If \code{kind} equals \code{2},
+it returns the new Brennan-Prediger coefficient of Moss (wip).
+}
+\examples{
+library("quadagree")
+# Fleiss' kappa for data on long form
+fleissci(dat.zapf2016)
+
+# Brennan-Prediger for data on aggregated form
+bpci_aggr(dat.fleiss1971)
+
+# Conger's (Cohen's) kappa for data on long form with missing values
+congerci(dat.klein2018)
 }
 \references{
 Efron, B. (1987). Better Bootstrap Confidence Intervals. Journal of the

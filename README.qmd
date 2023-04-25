@@ -109,7 +109,7 @@ irrCAC::fleiss.kappa.dist(dat.fleiss1971, weights = "quadratic")
 ```
 
 ## Similar software
-There are several `R` packages that calculate agreement coefficients, most notably `irrCAC`.
+There are several `R` packages that calculate agreement coefficients. The most feature complete `irrCAC`, which supports calculation and inference for agreement coefficients with more weightings than the quadratic. However, it does not support consistent inference in the presence of missing data, as demonstrated in the consistency vignette.
 
 ## How to Contribute or Get Help
 

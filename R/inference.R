@@ -1,14 +1,26 @@
 #' Confidence intervals for the quadratically weighted Fleiss' kappa and
 #'    Conger's (Cohen's) kappa
 #'
-#' The confidence intervals are based on the formulas of Moss and van Oest
-#'    (work in progress) along with standard asymptotic theory
+#' Confidence intervals for quadratic agreement coefficients with optional
+#'    bootstrapping and transforms. Based on the formulas of Moss and van Oest
+#'    (wip) and Moss (wip) along with standard asymptotic theory
 #'    (Magnus, Neudecker, 2019) and the missing data theory of
 #'    van Praag et al. (1985).
 #'
-#' The methods handle missing data using pairwise available information, i.e.,
-#'    the option `use = "pairwise.complete.obs"` in [stats::cov()] along with
-#'    the asymptotic theory of van Praag et al. (1985). The bootstrap option
+#' There are two kinds of functions. The functions ending in `aggr` should be
+#'    applied to data on aggregated form, where each row contains the number
+#'    of selected ratings for each category. The data set `dat.fleiss1971`
+#'    provides an example. Missing data is not supported for the `aggr`
+#'    functions. The other functions should be applied to data on long form,
+#'    where  each row contains the ratings of every rater. The data sets
+#'    `dat.zapf2016` and `dat.klein2018` are examples. Missing data, and
+#'    continuous data, is supported. See the usage vignette for
+#'    more information.
+#'
+#' For data on long form, the methods handle missing data using pairwise
+#'    available information, i.e., the option `use = "pairwise.complete.obs"`
+#'    in [stats::cov()] along with the asymptotic theory of
+#'    van Praag et al. (1985). The bootstrap option
 #'    uses the studentized bootstrap (Efron, B. 1987), which is second order
 #'    correct. Both functions makes use of [`future.apply`] when bootstrapping.
 #'
@@ -33,6 +45,14 @@
 #'    the rating distribution across raters, while Cohen's kappa does not.
 #'    There is a large literature comparing Fleiss' kappa to Cohen's kappa, and
 #'    there is no consensus on which to prefer.
+#'
+#' The aggregated functions takes an argument `values`, which specifies what
+#'    numerical value to attach to each category. The default value for `values`
+#'    is `1...C`, where `C` is the number of categories.
+#'
+#' The Brennan-Prediger coefficients take an argument `kind`. If equal to `1`, it
+#'    returns the traditional Brennan-Prediger coefficient. If `kind` equals `2`,
+#'    it returns the new Brennan-Prediger coefficient of Moss (wip).
 #'
 #' @references
 #'
@@ -96,6 +116,16 @@
 #' @return A vector of class `quadagree` containing the confidence end points.
 #'   The arguments of the function call are included as attributes.
 #' @name quadagree
+#' @examples
+#' library("quadagree")
+#' # Fleiss' kappa for data on long form
+#' fleissci(dat.zapf2016)
+#'
+#' # Brennan-Prediger for data on aggregated form
+#' bpci_aggr(dat.fleiss1971)
+#'
+#' # Conger's (Cohen's) kappa for data on long form with missing values
+#' congerci(dat.klein2018)
 fleissci <- function(x,
                      type = c("adf", "elliptical", "normal"),
                      transform = "none",

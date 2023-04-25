@@ -130,9 +130,7 @@ pi_mat_empirical <- \(x) {
 bp_get_c1 <- \(values, kind) {
   if (kind == 1) {
     n_cat <- length(values)
-    combs <- arrangements::combinations(n_cat, 2, replace = FALSE)
-    rest <- sum(values[combs[, 1]] * values[combs[, 2]])
-    (2 * (n_cat - 1) * sum(values^2) - 4 * rest) / n_cat^2
+    (2 * n_cat * sum(values^2) - 2 * sum(values)^2) / n_cat^2
   } else {
     0.5 * (max(values) - min(values))^2
   }

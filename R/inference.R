@@ -135,18 +135,13 @@ fleissci <- function(x,
                      n_reps = 1000) {
   call <- match.call()
   args <- sapply(names(formals()), str2lang)
-  type <- match.arg(type)
-  x <- as.matrix(x)
+  type <- force(match.arg(type))
+  fun <- fleiss_fun
+  calc <- fleiss_prepare(x, type)
 
-
-  fun <- \(calc) {
-    list(est = fleiss(calc$xx), var = avar(calc$xx, type, TRUE))
-  }
-
-  do.call(
-    what = quadagree_,
-    c(args, call = quote(call), fun = fun)
-  )
+  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  print(args)
+  do.call(what = quadagree_internal, args = args)
 }
 
 #' @export
@@ -159,18 +154,13 @@ congerci <- function(x,
                      bootstrap = FALSE,
                      n_reps = 1000) {
   call <- match.call()
-  args <- sapply(names(formals()), str2lang)
   type <- match.arg(type)
-  x <- as.matrix(x)
 
-  fun <- \(calc) {
-    list(est = conger(calc$xx), var = avar(calc$xx, type, FALSE))
-  }
+  fun <- conger_est
+  calc <- conger_prepare(x, type)
 
-  do.call(
-    what = quadagree_,
-    c(args, call = quote(call), fun = fun)
-  )
+  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  do.call(what = quadagree_internal, args = args)
 }
 
 #' @export
@@ -189,31 +179,13 @@ bpci <- function(x,
                  bootstrap = FALSE,
                  n_reps = 1000) {
   stopifnot(kind == 1 || kind == 2)
-
   call <- match.call()
   type <- match.arg(type)
-  x <- as.matrix(x)
-  if (is.null(values)) {
-    values <- unique(c(x))
-  }
+  calc <- bp_prepare(x, values, kind, type)
+  fun <- bp_fun
 
-  c1 <- bp_get_c1(values, kind)
-
-  fun <- \(calc) {
-    list(est = bp(calc$xx, c1), var = avar_bp(calc$xx, type, c1))
-  }
-
-  quadagree_(
-    x,
-    type,
-    transform,
-    conf_level,
-    alternative,
-    bootstrap,
-    n_reps,
-    call,
-    fun
-  )
+  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  do.call(what = quadagree_internal, args = args)
 }
 
 #' @export
@@ -225,19 +197,13 @@ fleissci_aggr <- function(x,
                           alternative = c("two.sided", "greater", "less"),
                           bootstrap = FALSE,
                           n_reps = 1000) {
-  call <- match.call()
   stopifnot(ncol(x) == length(values))
+  type <- match.arg(type)
+  call <- match.call()
   calc <- fleiss_aggr_prepare(x, values)
-  quadagree_aggr_(
-    calc = calc,
-    transform = transform,
-    conf_level = conf_level,
-    alternative = alternative,
-    bootstrap = bootstrap,
-    n_reps = n_reps,
-    fun = fleiss_aggr_fun,
-    call = quote(call)
-  )
+
+  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  do.call(what = quadagree_internal, args = args)
 }
 
 #' @export
@@ -254,14 +220,7 @@ bpci_aggr <- function(x,
   stopifnot(ncol(x) == length(values))
   call <- match.call()
   calc <- bp_aggr_prepare(x, values, kind)
-  quadagree_aggr_(
-    calc = calc,
-    transform = transform,
-    conf_level = conf_level,
-    alternative = alternative,
-    bootstrap = bootstrap,
-    n_reps = n_reps,
-    fun = bp_aggr_fun,
-    call = quote(call)
-  )
+
+  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  do.call(what = quadagree_internal, args = args)
 }

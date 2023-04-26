@@ -141,11 +141,11 @@ use</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 95% confidence interval (n = 50).</span></span>
 <span><span class="co">#&gt;     0.025     0.975 </span></span>
-<span><span class="co">#&gt; 0.8429321 0.9538451 </span></span>
+<span><span class="co">#&gt; 0.8418042 0.9549730 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample estimates.</span></span>
 <span><span class="co">#&gt;     kappa        sd </span></span>
-<span><span class="co">#&gt; 0.8983886 0.1931729</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.8983886 0.1971016</span></span></code></pre></div>
 <p>If you want to calculate Conger’s kappa (multi-rater Cohen’s kappa),
 use</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -154,11 +154,11 @@ use</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 95% confidence interval (n = 50).</span></span>
 <span><span class="co">#&gt;     0.025     0.975 </span></span>
-<span><span class="co">#&gt; 0.8430854 0.9538547 </span></span>
+<span><span class="co">#&gt; 0.8419597 0.9549804 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample estimates.</span></span>
 <span><span class="co">#&gt;     kappa        sd </span></span>
-<span><span class="co">#&gt; 0.8984700 0.1929226</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.8984700 0.1968438</span></span></code></pre></div>
 <p>Finally, the quadratic Brennan-Prediger coefficient can be found
 by</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -297,11 +297,11 @@ available data using the method of van Praag (1985)</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 95% confidence interval (n = 10).</span></span>
 <span><span class="co">#&gt;      0.025      0.975 </span></span>
-<span><span class="co">#&gt; -0.1267018  0.5766644 </span></span>
+<span><span class="co">#&gt; -0.1549052  0.6048678 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample estimates.</span></span>
 <span><span class="co">#&gt;     kappa        sd </span></span>
-<span><span class="co">#&gt; 0.2249813 0.4663909</span></span>
+<span><span class="co">#&gt; 0.2249813 0.5037932</span></span>
 <span><span class="co"># fleissci(dat.klein2018)</span></span>
 <span><span class="co"># bpci(dat.klein2018)</span></span></code></pre></div>
 <p>It’s not supported to do inference on data with less than <span class="math inline">\(2\)</span> ratings per pair. The following data
@@ -463,7 +463,7 @@ from Gwet (2014) is an example</p>
 get an error when calling</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">fleissci</a></span><span class="op">(</span><span class="va">dat.gwet2014</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in fleiss(calc$xx): The data does not contain sufficient non-NAs.</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in fun(calc): The data does not contain sufficient non-NAs.</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="aggregated-data">Aggregated data<a class="anchor" aria-label="anchor" href="#aggregated-data"></a>
 </h2>
@@ -537,14 +537,14 @@ quadratically weighted Fleiss kappa (but not Conger’s kappa) for data on
 this form.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quadagree.html">fleissci_aggr</a></span><span class="op">(</span><span class="va">dat.fleiss1971</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Call: call</span></span>
+<span><span class="co">#&gt; Call: fleissci_aggr(x = dat.fleiss1971)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 95% confidence interval (n = 30).</span></span>
 <span><span class="co">#&gt;      0.025      0.975 </span></span>
 <span><span class="co">#&gt; 0.05668483 0.51145967 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample estimates.</span></span>
-<span><span class="co">#&gt;     kappa        sd </span></span>
+<span><span class="co">#&gt; kappa.xtx        sd </span></span>
 <span><span class="co">#&gt; 0.2840722 0.5987194</span></span></code></pre></div>
 <p>The results from using the aggregated functions agree with
 <code>irrCAC</code>, despite the underlying methodology being different.

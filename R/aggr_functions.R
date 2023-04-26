@@ -12,18 +12,18 @@ bp_aggr_prepare <- \(x, values, kind) {
   )
 }
 
-bp_aggr_est <- \(calc) {
+bp_aggr_fun <- \(calc) {
   means <- colMeans(calc$xx)
-  disagreement <- 2 / (calc$r - 1) * (means[1] - 1 / calc$r * means[2])
-  unname(1 - disagreement / calc$c1)
-}
-
-bp_aggr_var <- \(calc) {
+  calcr_inv_1 <- 1 / (calc$r - 1)
+  calcr_inv <- 1 / calc$r
+  calcc1_inv <- 1 / calc$c1
+  disagreement <- 2 * calcr_inv_1 * (means[1] - calcr_inv * means[2])
   phi <- stats::cov(calc$xx) * (calc$n - 1) / calc$n
-  phi[1, 1] <- phi[1, 1]
-  phi[1, 2] <- phi[2, 1] <- -phi[1, 2] / calc$r
-  phi[2, 2] <- phi[2, 2] / calc$r^2
-  1 / calc$c1^2 * 4 / (calc$r - 1)^2 * sum(phi)
+  k <- phi[1, 1] - 2 * phi[1, 2] * calcr_inv + phi[2, 2] * calcr_inv^2
+
+  est <- unname(1 - disagreement * calcc1_inv)
+  var <- calcc1_inv^2 * 4 * calcr_inv_1^2 * k
+  list(est = est, var = var)
 }
 
 fleiss_aggr_prepare <- \(x, values) {
@@ -40,20 +40,18 @@ fleiss_aggr_prepare <- \(x, values) {
   )
 }
 
-fleiss_aggr_var <- \(calc) {
+fleiss_aggr_fun <- \(calc) {
   theta <- stats::cov(calc$xx) * (calc$n - 1) / calc$n
-  a <- mean(calc$xx[, 1])
-  b <- mean(calc$xx[, 2])
-  c <- mean(calc$xx[, 3])
-  k <- (c - a^2 / calc$r)^(-1)
-  grad <- k / (calc$r - 1) *
-    c(2 * a * ((b - a^2) * k / calc$r - 1), 1, -k * (b - a^2))
-  c(crossprod(grad, theta %*% grad))
-}
+  m <- colMeans(calc$xx)
 
-fleiss_aggr_est <- \(calc) {
-  ext1 <- mean(calc$xx[, 1])
-  ext2 <- mean(calc$xx[, 2])
-  extx <- mean(calc$xx[, 3])
-  1 / (calc$r - 1) * ((ext2 - ext1^2) / (extx - ext1^2 / calc$r) - 1)
+  k <- calc$r / (m[3] * calc$r - m[1]^2)
+  km <- k * (m[2] - m[1]^2)
+  calc_r_inv <- 1 / (calc$r - 1)
+
+  grad <- k * calc_r_inv * c(2 * m[1] * (km / calc$r - 1), 1, -km)
+
+  est <- calc_r_inv * (km - 1)
+  var <- c(crossprod(grad, theta %*% grad))
+
+  list(est = est, var = var)
 }

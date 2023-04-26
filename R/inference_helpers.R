@@ -7,24 +7,23 @@ quadagree_ <- function(x,
                        bootstrap,
                        n_reps,
                        call,
-                       est_fun,
-                       var_fun) {
+                       fun) {
   type <- match.arg(type)
   alternative <- match.arg(alternative)
   transformer <- get_transformer(transform)
   quants <- limits(alternative, conf_level)
 
   calc <- list(xx = x, n = nrow(x))
-  est <- est_fun(calc)
-  sd <- sqrt(var_fun(calc))
+  est_var <- fun(calc)
+  est <- est_var$est
+  sd <- sqrt(est_var$var)
 
   ci <- if (!bootstrap) {
     ci_asymptotic(est, sd, nrow(x), transformer, quants)
   } else {
     ci_boot(
       calc,
-      est_fun,
-      var_fun,
+      fun,
       type,
       transformer,
       quants,
@@ -56,22 +55,22 @@ quadagree_aggr_ <- function(calc,
                             alternative = c("two.sided", "greater", "less"),
                             bootstrap = FALSE,
                             n_reps = 1000,
-                            est_fun,
-                            var_fun,
+                            fun,
                             call) {
   alternative <- match.arg(alternative)
   transformer <- get_transformer(transform)
   quants <- limits(alternative, conf_level)
-  est <- est_fun(calc)
-  sd <- sqrt(var_fun(calc))
+  est_var <- fun(calc)
+  est <- est_var$est
+  sd <- sqrt(est_var$var)
+
 
   ci <- if (!bootstrap) {
     ci_asymptotic(est, sd, calc$n, transformer, quants)
   } else {
     ci_boot(
       calc,
-      est_fun,
-      var_fun,
+      fun,
       type = NULL,
       transformer,
       quants,

@@ -10,7 +10,7 @@ bp_pop <- function(mu, sigma, c1) {
 conger_pop <- function(mu, sigma) {
   r <- ncol(sigma)
   trace <- tr(sigma)
-  mean_diff <- (mean(mu^2) - mean(mu)^2) * r ^ 2
+  mean_diff <- (mean(mu^2) - mean(mu)^2) * r^2
   top <- sum(sigma) - trace
   bottom <- (r - 1) * trace + mean_diff
   top / bottom
@@ -22,7 +22,7 @@ fleiss_pop <- function(mu, sigma) {
   n <- length(mu)
   r <- ncol(sigma)
   trace <- tr(sigma)
-  mean_diff <- (sum(mu^2) / n - (sum(mu)/n)^2) * r
+  mean_diff <- (sum(mu^2) / n - (sum(mu) / n)^2) * r
   top <- sum(sigma) - trace - mean_diff
   bottom <- (r - 1) * (trace + mean_diff)
   top / bottom

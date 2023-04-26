@@ -22,7 +22,7 @@ limits <- function(alternative, conf_level) {
 #' @return A vector of `TRUE` where the variances are.
 #' @keywords internal
 get_diag_indices <- function(r, vech = TRUE) {
-  if(vech) {
+  if (vech) {
     indices <- rep(0, choose(r + 1, 2))
     indices[c(1, 1 + cumsum(r:2))] <- 1
   } else {
@@ -47,12 +47,16 @@ gamma_est <- function(x, sigma, type = "adf") {
     rows <- i_row(ncol(x))
     cols <- i_col(ncol(x))
     y <- t(x) - colMeans(x, na.rm = TRUE)
-    z <- y[cols, , drop = FALSE] * y[rows, , drop = FALSE]
+    z <- y[cols, ] * y[rows, ]
     mat <- z - rowMeans(z, na.rm = TRUE)
-    nas <- is.na(mat)
-    mat[nas] <- 0
-    #return(Rfast::Tcrossprod(mat) / base::tcrossprod(!nas))
-    return(tcrossprod(mat) / tcrossprod(!nas))
+    if (!anyNA(mat)) {
+      div <- nrow(x)
+    } else {
+      nas <- is.na(mat)
+      mat[nas] <- 0
+      div <- tcrossprod(!nas)
+    }
+    return(tcrossprod(mat) / div)
   }
 
   k <- ncol(sigma)
@@ -110,7 +114,7 @@ pi_mat <- function(p, vech = TRUE) {
 #' @keywords internal
 pi_mat_empirical <- \(x) {
   r <- ncol(x)
-  if(!anyNA(x)) {
+  if (!anyNA(x)) {
     return(matrix(1, choose(r + 1, 2), choose(r + 1, 2)))
   }
 

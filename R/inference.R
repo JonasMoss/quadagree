@@ -138,12 +138,14 @@ fleissci <- function(x,
   type <- match.arg(type)
   x <- as.matrix(x)
 
-  est_fun <- \(calc) fleiss(calc$xx)
-  var_fun <- \(calc) avar(calc$xx, type, TRUE)
+
+  fun <- \(calc) {
+    list(est = fleiss(calc$xx), var = avar(calc$xx, type, TRUE))
+  }
 
   do.call(
     what = quadagree_,
-    c(args, call = quote(call), est_fun = est_fun, var_fun = var_fun)
+    c(args, call = quote(call), fun = fun)
   )
 }
 
@@ -161,12 +163,13 @@ congerci <- function(x,
   type <- match.arg(type)
   x <- as.matrix(x)
 
-  est_fun <- \(calc) conger(calc$xx)
-  var_fun <- \(calc) avar(calc$xx, type, FALSE)
+  fun <- \(calc) {
+    list(est = conger(calc$xx), var = avar(calc$xx, type, FALSE))
+  }
 
   do.call(
     what = quadagree_,
-    c(args, call = quote(call), est_fun = est_fun, var_fun = var_fun)
+    c(args, call = quote(call), fun = fun)
   )
 }
 
@@ -195,8 +198,10 @@ bpci <- function(x,
   }
 
   c1 <- bp_get_c1(values, kind)
-  est_fun <- \(calc) bp(calc$xx, c1)
-  var_fun <- \(calc) avar_bp(calc$xx, type, c1)
+
+  fun <- \(calc) {
+    list(est = bp(calc$xx, c1), var = avar_bp(calc$xx, type, c1))
+  }
 
   quadagree_(
     x,
@@ -207,8 +212,7 @@ bpci <- function(x,
     bootstrap,
     n_reps,
     call,
-    est_fun,
-    var_fun
+    fun
   )
 }
 
@@ -224,8 +228,6 @@ fleissci_aggr <- function(x,
   call <- match.call()
   stopifnot(ncol(x) == length(values))
   calc <- fleiss_aggr_prepare(x, values)
-  est_fun <- fleiss_aggr_est
-  var_fun <- fleiss_aggr_var
   quadagree_aggr_(
     calc = calc,
     transform = transform,
@@ -233,8 +235,7 @@ fleissci_aggr <- function(x,
     alternative = alternative,
     bootstrap = bootstrap,
     n_reps = n_reps,
-    est_fun = est_fun,
-    var_fun = var_fun,
+    fun = fleiss_aggr_fun,
     call = quote(call)
   )
 }
@@ -260,8 +261,7 @@ bpci_aggr <- function(x,
     alternative = alternative,
     bootstrap = bootstrap,
     n_reps = n_reps,
-    est_fun = bp_aggr_est,
-    var_fun = bp_aggr_var,
+    fun = bp_aggr_fun,
     call = quote(call)
   )
 }

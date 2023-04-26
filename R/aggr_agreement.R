@@ -17,5 +17,5 @@ bp_aggr <- function(x, values = seq_len(ncol(x)), kind = 1) {
   stopifnot(kind == 1 | kind == 2)
   stopifnot(ncol(x) == length(values))
   calc <- bp_aggr_prepare(x, values, kind)
-  bp_aggr_est(calc)
+  bp_aggr_fun(calc)$est
 }

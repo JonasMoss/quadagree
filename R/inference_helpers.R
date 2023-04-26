@@ -11,31 +11,32 @@ quadagree_internal <- function(calc,
   alternative <- match.arg(alternative)
   transformer <- get_transformer(transform)
   quants <- limits(alternative, conf_level)
-
-  calc <- list(xx = x, n = nrow(x))
   est_var <- fun(calc)
   est <- est_var$est
   sd <- sqrt(est_var$var)
 
-  ci <- if (!bootstrap) {
-    ci_asymptotic(est, sd, nrow(x), transformer, quants)
+  out <- if (!bootstrap) {
+    ci_asymptotic(est, sd, calc$n, transformer, quants)
   } else {
     ci_boot(calc, fun, transformer, quants, n_reps)
   }
 
-  names(ci) <- quants
-  attr(ci, "conf_level") <- conf_level
-  attr(ci, "alternative") <- alternative
-  attr(ci, "type") <- type
-  attr(ci, "n") <- nrow(x)
-  attr(ci, "transform") <- transform
-  attr(ci, "bootstrap") <- bootstrap
-  attr(ci, "n_reps") <- n_reps
-  attr(ci, "estimate") <- est
-  attr(ci, "sd") <- sd
-  attr(ci, "call") <- call
-  class(ci) <- "quadagree"
-  ci[2] <- min(ci[2], 1)
+  names(out) <- quants
+  out[2] <- min(out[2], 1)
+  ci <- structure(out,
+    conf_level = conf_level,
+    alternative = alternative,
+    type = calc$type,
+    n = calc$n,
+    transform = transform,
+    bootstrap = bootstrap,
+    n_reps = n_reps,
+    estimate = est,
+    sd = sd,
+    call = call,
+    class = "quadagree"
+  )
+
   ci
 }
 

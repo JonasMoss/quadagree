@@ -6,10 +6,8 @@
 #'    Conger's kappa.
 #' @return The asymptotic variance for the kappas.
 #' @keywords internal
-avar <- \(x, type, fleiss) {
+avar <- \(x, sigma, mu, type, fleiss) {
   p <- colSums(!is.na(x)) / nrow(x)
-  mu <- colMeans(x, na.rm = TRUE)
-  sigma <- stats::cov(x, use = "pairwise.complete.obs")
   gamma <- gamma_est(x, sigma, type)
   mat <- cov_mat_kappa(p, mu, sigma, gamma, x)
   avar_(mat, mu, sigma, fleiss)

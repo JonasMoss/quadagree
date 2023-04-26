@@ -4,7 +4,7 @@
 \alias{avar}
 \title{Asymptotic variance for the kappas.}
 \usage{
-avar(x, type, fleiss)
+avar(x, sigma, mu, type, fleiss)
 }
 \arguments{
 \item{x}{Covariance matrix as calculated by \code{cov_mat_kappa}.}

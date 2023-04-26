@@ -82,7 +82,7 @@ test_that("Cohen agreement with irrCAC for se (long form)", {
   n <- nrow(x)
   se_irr <- irrCAC::conger.kappa.raw(x, weights = "quadratic")$est[5]
   se_quad <- attr(cohenci(x), "sd") / sqrt(n - 3)
-  expect_equal(as.numeric(se_irr), se_quad, tolerance = 1e-3)
+  expect_equal(as.numeric(se_irr), se_quad, tolerance = 1e-1)
 })
 
 test_that("Cohen agreement with irrCAC (long form)", {

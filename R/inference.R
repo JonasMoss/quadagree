@@ -135,12 +135,16 @@ fleissci <- function(x,
                      n_reps = 1000) {
   call <- match.call()
   args <- sapply(names(formals()), str2lang)
-  type <- force(match.arg(type))
+  type <- match.arg(type)
   fun <- fleiss_fun
   calc <- fleiss_prepare(x, type)
 
-  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
-  print(args)
+  args <- c(
+    calc = list(calc),
+    utils::tail(sapply(names(formals()), str2lang), -1),
+    call = quote(call),
+    fun = fun
+  )
   do.call(what = quadagree_internal, args = args)
 }
 
@@ -156,10 +160,15 @@ congerci <- function(x,
   call <- match.call()
   type <- match.arg(type)
 
-  fun <- conger_est
+  fun <- conger_fun
   calc <- conger_prepare(x, type)
 
-  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  args <- c(
+    calc = list(calc),
+    utils::tail(sapply(names(formals()), str2lang), -1),
+    call = quote(call),
+    fun = fun
+  )
   do.call(what = quadagree_internal, args = args)
 }
 
@@ -184,7 +193,12 @@ bpci <- function(x,
   calc <- bp_prepare(x, values, kind, type)
   fun <- bp_fun
 
-  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  args <- c(
+    calc = list(calc),
+    utils::tail(sapply(names(formals()), str2lang), -1),
+    call = quote(call),
+    fun = fun
+  )
   do.call(what = quadagree_internal, args = args)
 }
 
@@ -198,11 +212,16 @@ fleissci_aggr <- function(x,
                           bootstrap = FALSE,
                           n_reps = 1000) {
   stopifnot(ncol(x) == length(values))
-  type <- match.arg(type)
   call <- match.call()
   calc <- fleiss_aggr_prepare(x, values)
+  fun <- fleiss_aggr_fun
 
-  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  args <- c(
+    calc = list(calc),
+    utils::tail(sapply(names(formals()), str2lang), -1),
+    call = quote(call),
+    fun = fun
+  )
   do.call(what = quadagree_internal, args = args)
 }
 
@@ -220,7 +239,13 @@ bpci_aggr <- function(x,
   stopifnot(ncol(x) == length(values))
   call <- match.call()
   calc <- bp_aggr_prepare(x, values, kind)
+  fun <- bp_aggr_fun
 
-  args <- c(sapply(names(formals()), str2lang), call = quote(call), fun = fun)
+  args <- c(
+    calc = list(calc),
+    utils::tail(sapply(names(formals()), str2lang), -1),
+    call = quote(call),
+    fun = fun
+  )
   do.call(what = quadagree_internal, args = args)
 }

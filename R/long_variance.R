@@ -1,27 +1,10 @@
-#' Asymptotic variance for the kappas.
-#'
-#' @param x Covariance matrix as calculated by `cov_mat_kappa`.
-#' @param type Either `adf`, `normal`, or `elliptical`.
-#' @param fleiss If `TRUE` calculates variance for Fleiss kappa, else
-#'    Conger's kappa.
-#' @return The asymptotic variance for the kappas.
-#' @keywords internal
-avar <- \(x, sigma, mu, type, fleiss) {
+avar <- \(x, sigma, mu, type, fleiss, pi) {
   p <- colSums(!is.na(x)) / nrow(x)
   gamma <- gamma_est(x, sigma, type)
-  mat <- cov_mat_kappa(p, mu, sigma, gamma, x)
+  mat <- cov_mat_kappa(p, mu, sigma, gamma, x, pi)
   avar_(mat, mu, sigma, fleiss)
 }
 
-#' Asymptotic variance for the kappas.
-#'
-#' @param mat Covariance matrix as calculated by `cov_mat_kappa`.
-#' @param mu Vector of means.
-#' @param sigma Covariance matrix
-#' @param fleiss If `TRUE` calculates variance for Fleiss kappa, else
-#'    Conger's kappa.
-#' @return The asymptotic variance for the kappas.
-#' @keywords internal
 avar_ <- function(mat, mu, sigma, fleiss) {
   r <- nrow(sigma)
   yy <- sum(diag(sigma))
@@ -39,22 +22,11 @@ avar_ <- function(mat, mu, sigma, fleiss) {
   c(t(vec) %*% mat %*% vec) * mult^2
 }
 
-#' Covariance matrix (x,y,z) for Fleiss' and Cohen's kappa.
-#'
-#' Returns the covariance matrix of x, y, z as defined in the paper on
-#'   quadratic Fleiss kappa and Cohen's kappa.
-#'
-#' @param p Vector of probabilities for being missing.
-#' @param mu Vector of means.
-#' @param sigma Covariance matrix
-#' @param gamma Covariance matrix of the covariances.
-#' @return The covariance matrix of x, y, z
-#' @keywords internal
-cov_mat_kappa <- function(p, mu, sigma, gamma, x) {
+cov_mat_kappa <- function(p, mu, sigma, gamma, x, pi) {
   r <- length(p)
 
   # The covariances involving s.
-  gamma_pi <- gamma * pi_mat_empirical(x)
+  gamma_pi <- gamma * pi
   d <- get_diag_indices(r, vech = TRUE)
   ones <- rep(1, length(d))
   ones_minus_d <- ones - d
@@ -74,23 +46,16 @@ cov_mat_kappa <- function(p, mu, sigma, gamma, x) {
   ), nrow = 3, byrow = FALSE)
 }
 
-#' Asymptotic variance for Brennan-Prediger.
-#'
-#' @param x Covariance matrix as calculated by `cov_mat_kappa`.
-#' @param type Either `adf`, `normal`, or `elliptical`.
-#' @param c1 Denominator in BP.
-#' @return The asymptotic variance for the kappas.
-#' @keywords internal
-avar_bp <- \(x, type, c1) {
+avar_bp <- \(x, type, c1, pi) {
   p <- colSums(!is.na(x)) / nrow(x)
   mu <- colMeans(x, na.rm = TRUE)
   sigma <- stats::cov(x, use = "pairwise.complete.obs")
   gamma <- gamma_est(x, sigma, type)
-  var <- cov_mat_bp(p, mu, sigma, gamma, x)
+  var <- cov_mat_bp(p, mu, sigma, gamma, x, pi)
   avar_bp_(var, mu, sigma, c1)
 }
 
-cov_mat_bp <- function(p, mu, sigma, gamma, x) {
+cov_mat_bp <- function(p, mu, sigma, gamma, x, pi) {
   r <- length(p)
 
   # The variance of mean(mu^2) - mean(mu)^2
@@ -100,7 +65,7 @@ cov_mat_bp <- function(p, mu, sigma, gamma, x) {
   var_a <- c(4 * t(mu_vec) %*% mu_middle %*% mu_vec)
 
   # The covariances involving Sigma.
-  gamma_pi <- gamma * pi_mat_empirical(x)
+  gamma_pi <- gamma * pi
   d <- get_diag_indices(r, vech = TRUE)
   ones <- rep(1, length(d))
   d_minus_ones <- d * (1 + 1 / r) - 2 / r * ones

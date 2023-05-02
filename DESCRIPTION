@@ -27,7 +27,8 @@ Suggests:
     irrCAC,
     rmarkdown,
     testthat (>= 3.0.0),
-    covr
+    covr,
+    microbenchmark
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

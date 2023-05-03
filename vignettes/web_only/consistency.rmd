@@ -107,7 +107,7 @@ x
 
 Observe the `kappa` attributes, which contains the true kappa (both Fleiss and Cohen). Now let's estimate Fleiss using `quadagree` and `irrCAC`. The plot below shows the population value (solid line), the `quadagree` estimates (black), and the `irrCAC` estimates (blue).
 
-```{r, cache = TRUE, class.source = 'fold-hide'}
+```{r, class.source = 'fold-hide'}
 set.seed(313)
 kappa <- attr(x, "kappa")
 n_reps <- 1000

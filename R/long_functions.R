@@ -33,7 +33,7 @@ conger_fun <- \(calc) {
 bp_prepare <- \(x, values, kind, type) {
   x <- as.matrix(x)
   pi <- pi_mat_empirical(x)
-  if (is.null(values)) values <- na.omit(unique(c(x)))
+  if (is.null(values)) values <- stats::na.omit(unique(c(x)))
   c1 <- bp_get_c1(values, kind)
   list(xx = x, c1 = c1, type = type, n = nrow(x), pi = pi)
 }

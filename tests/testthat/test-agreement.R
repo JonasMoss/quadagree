@@ -20,7 +20,7 @@ test_that("population and x-based measures coincide", {
     cohen_pop(mu, sigma)
   )
   expect_equal(
-    bp(x, bp_get_c1(values, 1)),
+    bp(x, values, 1),
     bp_pop(mu, sigma, bp_get_c1(values, 1))
   )
 })
@@ -36,7 +36,7 @@ test_that("Functions return errors for NA-saturated data", {
 test_that("BP agreement with irrCAC (long form)", {
   x <- dat.zapf2016
   est_irr <- (irrCAC::bp.coeff.raw(x, weights = "quadratic"))$est[4]
-  est_quad <- bp(x, bp_get_c1(1:5, 1))
+  est_quad <- bp(x, 1:5, 1)
   expect_equal(as.numeric(est_irr), est_quad)
 })
 
@@ -69,6 +69,15 @@ test_that("Fleiss agreement with irrCAC for se (wide form)", {
   se_quad <- attr(fleissci_aggr(x), "sd") / sqrt(n - 1)
   expect_equal(as.numeric(se_irr), se_quad)
 })
+
+test_that("Fleiss agreement with irrCAC for est (wide form)", {
+  x <- dat.fleiss1971
+  n <- nrow(x)
+  est_irr <- c(irrCAC::fleiss.kappa.dist(x, weights = "quadratic")[2])
+  est_quad <- fleiss_aggr(x)
+  expect_equal(as.numeric(est_irr), est_quad)
+})
+
 
 test_that("Fleiss agreement with irrCAC (long form)", {
   x <- dat.zapf2016

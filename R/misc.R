@@ -18,17 +18,11 @@ limits <- function(alternative, conf_level) {
 
 #' Get the indices of the diagonal for the variances.
 #' @param r Number of raters.
-#' @param vech If `TRUE`, returns for the result for half-vectorization.
 #' @return A vector of `TRUE` where the variances are.
 #' @keywords internal
-get_diag_indices <- function(r, vech = TRUE) {
-  if (vech) {
-    indices <- rep(0, choose(r + 1, 2))
-    indices[c(1, 1 + cumsum(r:2))] <- 1
-  } else {
-    indices <- rep(0, r^2)
-    indices[c(1, (r + 1) * (1:(r - 1)) + 1)] <- 1
-  }
+get_diag_indices <- function(r) {
+  indices <- rep(0, choose(r + 1, 2))
+  indices[c(1, 1 + cumsum(r:2))] <- 1
   indices
 }
 
@@ -85,26 +79,6 @@ kurtosis <- function(x) {
 kurtosis_correction <- function(x, type) {
   kurt <- if (type == "normal") 0 else kurtosis(x)
   1 + kurt / 3
-}
-
-#' Calculate the capital pi matrix.
-#'
-#' The capital pi matrix is multiplied element-wise with the asymptotic
-#'    covariance matrix of s to correct for missing values.
-#'
-#' @param p Vector of probabilities for being missing.
-#' @param vech Does not affect anything. The half-vectorized matrix is always
-#'    returned.
-#' @return The capital pi matrix.
-#' @keywords internal
-pi_mat <- function(p, vech = TRUE) {
-  r <- length(p)
-  f <- \(x) prod(p[unique(x)])
-  indices <- arrangements::combinations(r, 2, replace = TRUE)
-  ps <- apply(indices, 1, f)
-  g <- Vectorize(\(x, y) f(c(indices[x, ], indices[y, ])) / (ps[x] * ps[y]))
-  x <- seq_len(nrow(indices))
-  outer(x, x, g)
 }
 
 #' Calculates the empirical capital pi matrix.

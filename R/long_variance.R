@@ -27,7 +27,7 @@ cov_mat_kappa <- function(p, mu, sigma, gamma, x, pi) {
 
   # The covariances involving s.
   gamma_pi <- gamma * pi
-  d <- get_diag_indices(r, vech = TRUE)
+  d <- get_diag_indices(r)
   ones <- rep(1, length(d))
   ones_minus_d <- ones - d
   cov_ss_ss <- t(ones_minus_d) %*% (gamma_pi) %*% ones_minus_d
@@ -66,7 +66,7 @@ cov_mat_bp <- function(p, mu, sigma, gamma, x, pi) {
 
   # The covariances involving Sigma.
   gamma_pi <- gamma * pi
-  d <- get_diag_indices(r, vech = TRUE)
+  d <- get_diag_indices(r)
   ones <- rep(1, length(d))
   d_minus_ones <- d * (1 + 1 / r) - 2 / r * ones
   var_b <- c(t(d_minus_ones) %*% gamma_pi %*% d_minus_ones)

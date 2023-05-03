@@ -161,3 +161,19 @@ test_that("bpci_aggr bootstrap does something", {
 test_that("print is invisible", {
   capture.output(expect_invisible(print(congercis[[1]])))
 })
+
+test_that("bp returns error for data with too many missing values", {
+  expect_error(bpci(dat.gwet2014))
+})
+
+test_that("bp does not return error for data with missing values", {
+  expect_no_error(bpci(dat.klein2018))
+})
+
+test_that("fleiss returns error for data with too many missing values", {
+  expect_error(fleissci(dat.gwet2014))
+})
+
+test_that("conger returns error for data with too many missing values", {
+  expect_error(congerci(dat.gwet2014))
+})

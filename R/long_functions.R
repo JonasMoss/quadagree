@@ -33,13 +33,13 @@ conger_fun <- \(calc) {
 bp_prepare <- \(x, values, kind, type) {
   x <- as.matrix(x)
   pi <- pi_mat_empirical(x)
-  if (is.null(values)) values <- unique(c(x))
+  if (is.null(values)) values <- na.omit(unique(c(x)))
   c1 <- bp_get_c1(values, kind)
   list(xx = x, c1 = c1, type = type, n = nrow(x), pi = pi)
 }
 
 bp_fun <- \(calc) {
-  est <- bp(calc$xx, calc$c1)
+  est <- bp_calc(calc$xx, calc$c1)
   var <- avar_bp(calc$xx, calc$type, calc$c1, calc$pi)
   list(est = est, var = var)
 }

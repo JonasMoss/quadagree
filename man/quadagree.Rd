@@ -82,7 +82,7 @@ bpci_aggr(
 
 fleiss(x)
 
-bp(x, values, kind)
+bp(x, values = na.omit(unique(c(x))), kind = 1)
 
 conger(x)
 

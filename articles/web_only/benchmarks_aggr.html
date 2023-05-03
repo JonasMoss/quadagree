@@ -142,11 +142,11 @@ questionable.</p>
 <span>  times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
-<span><span class="co">##              expr   min     lq     mean median     uq     max neval</span></span>
-<span><span class="co">##         irr_bp(x) 775.3 838.70 932.6728 860.75 904.55 19714.4  1000</span></span>
-<span><span class="co">##      bpci_aggr(x) 377.9 418.50 450.7593 444.50 456.10  3734.3  1000</span></span>
-<span><span class="co">##     irr_fleiss(x) 794.3 863.05 936.9629 883.15 940.15  4224.5  1000</span></span>
-<span><span class="co">##  fleissci_aggr(x) 367.2 409.40 442.4691 435.65 447.95  3769.2  1000</span></span></code></pre>
+<span><span class="co">##              expr   min    lq     mean median     uq     max neval</span></span>
+<span><span class="co">##         irr_bp(x) 697.7 727.6 770.3688 736.95 752.70  9784.0  1000</span></span>
+<span><span class="co">##      bpci_aggr(x) 342.6 360.3 395.5609 386.35 397.65  3311.1  1000</span></span>
+<span><span class="co">##     irr_fleiss(x) 720.9 747.2 801.8408 757.35 772.60 16393.3  1000</span></span>
+<span><span class="co">##  fleissci_aggr(x) 334.0 351.1 387.7550 377.10 389.75  3363.1  1000</span></span></code></pre>
 <p>So <code>quadagree</code> is roughly twice as fast. Let’s see what
 happens when <span class="math inline">\(n=300\)</span>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -160,11 +160,11 @@ happens when <span class="math inline">\(n=300\)</span>.</p>
 <span>  times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
-<span><span class="co">##              expr   min     lq     mean median      uq    max neval</span></span>
-<span><span class="co">##         irr_bp(x) 807.3 877.65 947.5052 913.90  978.80 7347.9  1000</span></span>
-<span><span class="co">##      bpci_aggr(x) 391.6 441.25 480.6776 465.05  480.40 4028.8  1000</span></span>
-<span><span class="co">##     irr_fleiss(x) 832.0 908.00 992.8156 948.20 1025.30 4544.6  1000</span></span>
-<span><span class="co">##  fleissci_aggr(x) 383.2 439.15 485.6501 459.85  476.05 4033.9  1000</span></span></code></pre>
+<span><span class="co">##              expr   min    lq     mean median    uq    max neval</span></span>
+<span><span class="co">##         irr_bp(x) 730.7 760.3 805.2447 771.50 788.3 4000.5  1000</span></span>
+<span><span class="co">##      bpci_aggr(x) 353.0 380.5 409.7981 404.50 413.9 3497.9  1000</span></span>
+<span><span class="co">##     irr_fleiss(x) 757.0 784.2 828.3320 796.00 812.5 6609.4  1000</span></span>
+<span><span class="co">##  fleissci_aggr(x) 346.5 373.8 407.4402 398.25 408.4 3493.4  1000</span></span></code></pre>
 <p>The run time is almost the same for all methods as it was for <span class="math inline">\(n=30\)</span>, suggesting that there is
 substantial overhead to both methods. Let’s check <span class="math inline">\(n=3000\)</span>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -179,10 +179,10 @@ substantial overhead to both methods. Let’s check <span class="math inline">\(
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
 <span><span class="co">##              expr    min      lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##         irr_bp(x) 1191.4 1270.30 1411.7410 1331.35 1398.35  5345.8  1000</span></span>
-<span><span class="co">##      bpci_aggr(x)  542.9  599.15  647.1828  616.45  651.45  4058.8  1000</span></span>
-<span><span class="co">##     irr_fleiss(x) 1250.7 1327.75 1593.7207 1398.20 1476.05 79979.4  1000</span></span>
-<span><span class="co">##  fleissci_aggr(x)  571.0  627.55  687.5549  645.10  682.35  4394.1  1000</span></span></code></pre>
+<span><span class="co">##         irr_bp(x) 1064.5 1089.45 1274.9010 1102.25 1120.85 70162.8  1000</span></span>
+<span><span class="co">##      bpci_aggr(x)  491.2  510.40  550.2382  531.30  544.15  3485.7  1000</span></span>
+<span><span class="co">##     irr_fleiss(x) 1109.7 1136.60 1223.9508 1149.60 1168.05  6560.4  1000</span></span>
+<span><span class="co">##  fleissci_aggr(x)  514.1  536.85  570.9322  555.75  567.95  3489.4  1000</span></span></code></pre>
 <p>It appears that <code>bpci_aggr</code> is pulling ahead of
 <code><a href="https://rdrr.io/pkg/irrCAC/man/bp.coeff.dist.html" class="external-link">irrCAC::bp.coeff.dist</a></code>.</p>
 <p>Let’s finish off with a larger number of categories.</p>
@@ -198,10 +198,10 @@ substantial overhead to both methods. Let’s check <span class="math inline">\(
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
 <span><span class="co">##              expr    min      lq     mean  median      uq     max neval</span></span>
-<span><span class="co">##         irr_bp(x) 4.7984 5.21620 6.437929 5.35000 8.00040 85.5448  1000</span></span>
-<span><span class="co">##      bpci_aggr(x) 1.3443 1.45250 1.759932 1.49955 1.55945 79.6446  1000</span></span>
-<span><span class="co">##     irr_fleiss(x) 5.0672 5.40515 6.634949 5.57755 8.32110 82.8240  1000</span></span>
-<span><span class="co">##  fleissci_aggr(x) 1.3525 1.47120 1.677441 1.52225 1.57750  8.2375  1000</span></span></code></pre>
+<span><span class="co">##         irr_bp(x) 3.8710 4.43595 5.355181 4.51550 6.79305 72.1514  1000</span></span>
+<span><span class="co">##      bpci_aggr(x) 1.1297 1.23730 1.397919 1.27040 1.31395  5.3103  1000</span></span>
+<span><span class="co">##     irr_fleiss(x) 4.0820 4.56420 5.623001 4.66945 6.88205 73.0643  1000</span></span>
+<span><span class="co">##  fleissci_aggr(x) 1.1691 1.25885 1.528163 1.28860 1.33760 69.9841  1000</span></span></code></pre>
 <p>So <code>quadagree</code> could substantially faster on data with
 very many categories and items rated.</p>
 </div>

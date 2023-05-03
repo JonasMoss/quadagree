@@ -112,12 +112,12 @@ fast.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
 <span><span class="co">##           expr    min      lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##  irr_conger(x) 1804.5 1949.15 2069.2306 2000.70 2089.45  9007.5  1000</span></span>
-<span><span class="co">##    congerci(x)  601.4  666.40  725.3937  686.45  707.65  5051.4  1000</span></span>
-<span><span class="co">##  irr_fleiss(x)  989.5 1089.25 1183.4894 1123.30 1187.45 19561.8  1000</span></span>
-<span><span class="co">##    fleissci(x)  639.2  711.20  770.1327  729.05  748.65 12548.8  1000</span></span>
-<span><span class="co">##      irr_bp(x)  982.7 1066.55 1198.4242 1096.60 1162.85  8708.0  1000</span></span>
-<span><span class="co">##        bpci(x)  651.9  713.65  771.6456  731.10  750.40  5193.6  1000</span></span></code></pre>
+<span><span class="co">##  irr_conger(x) 1591.7 1664.80 1789.4978 1689.60 1719.80 17563.1  1000</span></span>
+<span><span class="co">##    congerci(x)  548.6  580.50  634.0811  594.75  607.25  7462.7  1000</span></span>
+<span><span class="co">##  irr_fleiss(x)  906.9  938.25 1005.3007  955.55  975.30 11471.3  1000</span></span>
+<span><span class="co">##    fleissci(x)  580.1  614.10  651.7203  629.10  642.60  4568.2  1000</span></span>
+<span><span class="co">##      irr_bp(x)  887.7  920.65  983.8838  936.60  962.65  6642.7  1000</span></span>
+<span><span class="co">##        bpci(x)  582.2  615.40  652.1625  628.95  641.75  4603.5  1000</span></span></code></pre>
 <p>Let’s try <span class="math inline">\(n=500\)</span>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">)</span></span>
@@ -132,13 +132,13 @@ fast.</p>
 <span>  times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
-<span><span class="co">##           expr    min      lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##  irr_conger(y) 3024.5 3189.30 3631.1844 3311.00 3447.15 80547.6  1000</span></span>
-<span><span class="co">##    congerci(y)  752.1  810.20  856.4348  829.75  855.70  6647.8  1000</span></span>
-<span><span class="co">##  irr_fleiss(y) 1228.3 1316.20 1410.7720 1360.25 1439.15  5607.3  1000</span></span>
-<span><span class="co">##    fleissci(y)  772.3  848.20  880.9373  869.00  893.80  4929.2  1000</span></span>
-<span><span class="co">##      irr_bp(y) 1192.8 1286.00 1392.2227 1328.15 1400.95  5686.3  1000</span></span>
-<span><span class="co">##        bpci(y)  842.9  919.75  969.0297  941.50  965.10  5121.5  1000</span></span></code></pre>
+<span><span class="co">##           expr    min     lq      mean  median      uq     max neval</span></span>
+<span><span class="co">##  irr_conger(y) 2608.8 2683.0 2970.9075 2716.20 2771.30 10508.4  1000</span></span>
+<span><span class="co">##    congerci(y)  670.9  693.5  724.4132  709.95  722.60  6177.2  1000</span></span>
+<span><span class="co">##  irr_fleiss(y) 1085.5 1128.4 1191.2239 1142.50 1164.55  5134.6  1000</span></span>
+<span><span class="co">##    fleissci(y)  705.0  729.7  767.8602  744.10  756.55  4409.5  1000</span></span>
+<span><span class="co">##      irr_bp(y) 1069.4 1108.1 1170.2286 1122.20 1145.00  5086.5  1000</span></span>
+<span><span class="co">##        bpci(y)  760.0  784.2  876.6384  800.10  815.10 69584.9  1000</span></span></code></pre>
 <p>For <span class="math inline">\(n=3000\)</span>,
 <code>quadagree</code> is roughly <span class="math inline">\(5\)</span>
 times faster than <code>irrCAC</code> for Conger’s kappa and the
@@ -156,12 +156,12 @@ Brennan-Prediger coefficient.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
 <span><span class="co">##           expr     min       lq      mean   median       uq     max neval</span></span>
-<span><span class="co">##  irr_conger(z) 15.9342 16.82160 19.627765 19.49270 20.15230 94.1730   100</span></span>
-<span><span class="co">##    congerci(z)  2.1079  2.19495  2.315045  2.23960  2.31200  5.5958   100</span></span>
-<span><span class="co">##  irr_fleiss(z)  3.5111  3.66680  4.212808  3.79570  3.90535  8.5928   100</span></span>
-<span><span class="co">##    fleissci(z)  2.1167  2.22715  2.446749  2.29170  2.35450  5.5952   100</span></span>
-<span><span class="co">##      irr_bp(z)  3.3867  3.58685  4.259870  3.67530  3.86925  7.8561   100</span></span>
-<span><span class="co">##        bpci(z)  2.8987  3.02145  3.136567  3.07605  3.14115  6.1122   100</span></span></code></pre>
+<span><span class="co">##  irr_conger(z) 13.3590 14.24200 16.642344 16.51985 16.74755 84.1491   100</span></span>
+<span><span class="co">##    congerci(z)  1.7994  1.83550  1.988133  1.86905  1.92180  4.7662   100</span></span>
+<span><span class="co">##  irr_fleiss(z)  3.0094  3.07595  3.488588  3.12205  3.25100  9.8982   100</span></span>
+<span><span class="co">##    fleissci(z)  1.8262  1.87065  1.978866  1.91820  1.96535  4.7306   100</span></span>
+<span><span class="co">##      irr_bp(z)  2.9378  2.99755  3.491205  3.07080  3.16545  6.2811   100</span></span>
+<span><span class="co">##        bpci(z)  2.4987  2.55235  2.766592  2.58760  2.64535  7.1265   100</span></span></code></pre>
 <p>If we increase the number of categories, the differential becomes
 very large.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -176,13 +176,13 @@ very large.</p>
 <span>  <span class="fu"><a href="../../reference/quadagree.html">bpci</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
-<span><span class="co">##           expr     min       lq      mean   median       uq      max neval</span></span>
-<span><span class="co">##  irr_conger(w) 16.7627 19.85730 24.347989 20.50220 21.24100 101.3364   100</span></span>
-<span><span class="co">##    congerci(w) 20.1625 23.35310 26.800304 24.01905 26.20585 107.8029   100</span></span>
-<span><span class="co">##  irr_fleiss(w)  3.0049  3.21235  3.778833  3.31810  3.50830   7.6916   100</span></span>
-<span><span class="co">##    fleissci(w) 20.3117 23.56065 26.997069 24.30555 26.95315 103.9575   100</span></span>
-<span><span class="co">##      irr_bp(w)  2.9799  3.18435  3.647585  3.29525  3.43585   7.4173   100</span></span>
-<span><span class="co">##        bpci(w) 22.3854 25.55960 31.017904 26.47380 28.70165 137.4716   100</span></span></code></pre>
+<span><span class="co">##           expr     min       lq      mean   median       uq     max neval</span></span>
+<span><span class="co">##  irr_conger(w) 13.5441 15.57500 18.922734 16.69640 17.35415 87.7664   100</span></span>
+<span><span class="co">##    congerci(w) 17.1359 19.78690 24.731655 20.69710 23.16585 90.1379   100</span></span>
+<span><span class="co">##  irr_fleiss(w)  2.5026  2.65330  3.944797  2.74855  2.86735 71.2418   100</span></span>
+<span><span class="co">##    fleissci(w) 17.3776 19.81395 25.814951 20.71100 23.71965 90.7021   100</span></span>
+<span><span class="co">##      irr_bp(w)  2.5228  2.64540  3.267354  2.72685  2.86895 12.0368   100</span></span>
+<span><span class="co">##        bpci(w) 18.7016 21.80100 27.379407 22.60400 25.42650 94.2620   100</span></span></code></pre>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>

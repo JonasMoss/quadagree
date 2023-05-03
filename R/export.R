@@ -263,7 +263,7 @@ fleiss <- function(x) {
 
 #' @export
 #' @rdname quadagree
-bp <- function(x, values, kind) {
+bp <- function(x, values = na.omit(unique(c(x))), kind = 1) {
   c1 <- bp_get_c1(values, kind)
   bp_calc(x, c1)
 }

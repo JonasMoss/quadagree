@@ -174,6 +174,7 @@ test_that("fleiss returns error for data with too many missing values", {
   expect_error(fleissci(dat.gwet2014))
 })
 
+
 test_that("conger returns error for data with too many missing values", {
   expect_error(congerci(dat.gwet2014))
 })

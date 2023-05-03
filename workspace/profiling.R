@@ -83,21 +83,15 @@ microbenchmark::microbenchmark(
 
 
 
-get_diag_indices <- function(r, vech = TRUE) {
+get_diag_indices <- function(r) {
   e_mat <- matrixcalc::elimination.matrix(r)
   indices <- rep(0, r^2)
   indices[c(1, (r + 1) * (1:(r - 1)) + 1)] <- 1
-  if (vech) c(e_mat %*% indices) else c(indices)
 }
 
-get_diag_indices2 <- function(r, vech = TRUE) {
-  if(vech) {
-    indices <- rep(0, choose(r + 1, 2))
-    indices[c(1, 1 + cumsum(r:2))] <- 1
-  } else {
-    indices <- rep(0, r^2)
-    indices[c(1, (r + 1) * (1:(r - 1)) + 1)] <- 1
-  }
+get_diag_indices2 <- function(r) {
+  indices <- rep(0, choose(r + 1, 2))
+  indices[c(1, 1 + cumsum(r:2))] <- 1
   indices
 }
 

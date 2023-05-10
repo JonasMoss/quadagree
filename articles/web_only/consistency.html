@@ -100,7 +100,7 @@ the bottom of this document.</p>
 <span>  <span class="va">t_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span>  <span class="va">skills</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span><span class="op">)</span></span>
 <span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">simulate_jsm</span><span class="op">(</span><span class="va">n</span>, <span class="va">skills</span>, model <span class="op">=</span> <span class="st">"fleiss"</span>, true_dist <span class="op">=</span> <span class="va">t_dist</span><span class="op">)</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">n</span> <span class="op">-</span> <span class="va">p</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">*</span> <span class="va">n</span><span class="op">)</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">n</span> <span class="op">-</span> <span class="va">p</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">*</span> <span class="va">n</span><span class="op">)</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span>  <span class="va">x</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Here is an example:</p>
@@ -146,13 +146,15 @@ population value (solid line), the <code>quadagree</code> estimates
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>      <span class="fu">quadagree</span><span class="fu">:::</span><span class="fu"><a href="../../reference/quadagree.html">fleiss</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">irrCAC</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/irrCAC/man/fleiss.kappa.raw.html" class="external-link">fleiss.kappa.raw</a></span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="st">"quadratic"</span><span class="op">)</span><span class="op">$</span><span class="va">est</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">coeff.val</span></span>
-<span>    <span class="op">)</span>    </span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">results</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nn</span>, <span class="va">results</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">results</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">results</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"b"</span>,</span>
-<span>     ylab <span class="op">=</span> <span class="st">"Mean estimated kappa"</span>, xlab <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nn</span>, <span class="va">results</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">results</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">results</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"b"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"Mean estimated kappa"</span>, xlab <span class="op">=</span> <span class="st">"n"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">nn</span>, <span class="va">results</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"blue"</span>, type <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">kappa</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="consistency_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
@@ -164,17 +166,17 @@ and better as <span class="math inline">\(n\)</span> grows larger.</p>
 <h3 id="code-for-simulate_jsm">Code for <code>simulate_jsm</code><a class="anchor" aria-label="anchor" href="#code-for-simulate_jsm"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">simulate_jsm</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>,</span>
-<span>                         <span class="va">s</span>,</span>
-<span>                         <span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>                           <span class="st">"general"</span>,</span>
-<span>                           <span class="st">"cohen-fleiss"</span>,</span>
-<span>                           <span class="st">"fleiss"</span>,</span>
-<span>                           <span class="st">"bp"</span>,</span>
-<span>                           <span class="st">"tu"</span></span>
-<span>                         <span class="op">)</span>,</span>
-<span>                         <span class="va">true_dist</span>,</span>
-<span>                         <span class="va">guessing_dist</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">simulate_jsm</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">n</span>,</span>
+<span>  <span class="va">s</span>,</span>
+<span>  <span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"general"</span>,</span>
+<span>    <span class="st">"cohen-fleiss"</span>,</span>
+<span>    <span class="st">"fleiss"</span>,</span>
+<span>    <span class="st">"bp"</span>,</span>
+<span>    <span class="st">"tu"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">true_dist</span>,</span>
+<span>  <span class="va">guessing_dist</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"cohen-fleiss"</span><span class="op">)</span> <span class="op">{</span></span>

@@ -112,12 +112,12 @@ fast.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
 <span><span class="co">##           expr    min      lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##  irr_conger(x) 1591.7 1664.80 1789.4978 1689.60 1719.80 17563.1  1000</span></span>
-<span><span class="co">##    congerci(x)  548.6  580.50  634.0811  594.75  607.25  7462.7  1000</span></span>
-<span><span class="co">##  irr_fleiss(x)  906.9  938.25 1005.3007  955.55  975.30 11471.3  1000</span></span>
-<span><span class="co">##    fleissci(x)  580.1  614.10  651.7203  629.10  642.60  4568.2  1000</span></span>
-<span><span class="co">##      irr_bp(x)  887.7  920.65  983.8838  936.60  962.65  6642.7  1000</span></span>
-<span><span class="co">##        bpci(x)  582.2  615.40  652.1625  628.95  641.75  4603.5  1000</span></span></code></pre>
+<span><span class="co">##  irr_conger(x) 1618.0 1696.95 1818.6615 1724.15 1755.05 17688.5  1000</span></span>
+<span><span class="co">##    congerci(x)  550.2  585.95  632.6691  607.30  620.60  5091.0  1000</span></span>
+<span><span class="co">##  irr_fleiss(x)  905.0  952.65 1038.0972  970.55  994.60 13292.8  1000</span></span>
+<span><span class="co">##    fleissci(x)  549.1  579.60  624.3693  600.20  615.25  4881.4  1000</span></span>
+<span><span class="co">##      irr_bp(x)  898.1  935.70 1012.3407  955.05  978.65  5497.0  1000</span></span>
+<span><span class="co">##        bpci(x)  586.6  622.85  663.8958  641.10  654.15  4789.3  1000</span></span></code></pre>
 <p>Let’s try <span class="math inline">\(n=500\)</span>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">)</span></span>
@@ -133,12 +133,12 @@ fast.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
 <span><span class="co">##           expr    min     lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##  irr_conger(y) 2608.8 2683.0 2970.9075 2716.20 2771.30 10508.4  1000</span></span>
-<span><span class="co">##    congerci(y)  670.9  693.5  724.4132  709.95  722.60  6177.2  1000</span></span>
-<span><span class="co">##  irr_fleiss(y) 1085.5 1128.4 1191.2239 1142.50 1164.55  5134.6  1000</span></span>
-<span><span class="co">##    fleissci(y)  705.0  729.7  767.8602  744.10  756.55  4409.5  1000</span></span>
-<span><span class="co">##      irr_bp(y) 1069.4 1108.1 1170.2286 1122.20 1145.00  5086.5  1000</span></span>
-<span><span class="co">##        bpci(y)  760.0  784.2  876.6384  800.10  815.10 69584.9  1000</span></span></code></pre>
+<span><span class="co">##  irr_conger(y) 2680.5 2765.9 3108.0454 2796.35 2848.85 77633.1  1000</span></span>
+<span><span class="co">##    congerci(y)  675.9  705.1  735.7437  723.00  736.40  4718.2  1000</span></span>
+<span><span class="co">##  irr_fleiss(y) 1095.6 1144.8 1219.9749 1161.05 1183.75  5249.5  1000</span></span>
+<span><span class="co">##    fleissci(y)  661.7  699.9  734.5436  719.00  732.00  4713.5  1000</span></span>
+<span><span class="co">##      irr_bp(y) 1084.7 1123.3 1192.5757 1142.50 1166.25  8047.4  1000</span></span>
+<span><span class="co">##        bpci(y)  780.8  808.1  841.4232  818.50  831.55  4976.8  1000</span></span></code></pre>
 <p>For <span class="math inline">\(n=3000\)</span>,
 <code>quadagree</code> is roughly <span class="math inline">\(5\)</span>
 times faster than <code>irrCAC</code> for Conger’s kappa and the
@@ -156,12 +156,12 @@ Brennan-Prediger coefficient.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
 <span><span class="co">##           expr     min       lq      mean   median       uq     max neval</span></span>
-<span><span class="co">##  irr_conger(z) 13.3590 14.24200 16.642344 16.51985 16.74755 84.1491   100</span></span>
-<span><span class="co">##    congerci(z)  1.7994  1.83550  1.988133  1.86905  1.92180  4.7662   100</span></span>
-<span><span class="co">##  irr_fleiss(z)  3.0094  3.07595  3.488588  3.12205  3.25100  9.8982   100</span></span>
-<span><span class="co">##    fleissci(z)  1.8262  1.87065  1.978866  1.91820  1.96535  4.7306   100</span></span>
-<span><span class="co">##      irr_bp(z)  2.9378  2.99755  3.491205  3.07080  3.16545  6.2811   100</span></span>
-<span><span class="co">##        bpci(z)  2.4987  2.55235  2.766592  2.58760  2.64535  7.1265   100</span></span></code></pre>
+<span><span class="co">##  irr_conger(z) 13.6759 14.02290 16.050722 16.75520 17.14095 22.8148   100</span></span>
+<span><span class="co">##    congerci(z)  1.8162  1.87275  2.081286  1.89745  1.92570  4.9996   100</span></span>
+<span><span class="co">##  irr_fleiss(z)  3.0511  3.11160  3.451150  3.14365  3.24115  6.8528   100</span></span>
+<span><span class="co">##    fleissci(z)  1.8220  1.85765  2.134364  1.88925  1.93870  5.5135   100</span></span>
+<span><span class="co">##      irr_bp(z)  2.9592  3.03165  4.190997  3.07270  3.22765 75.5282   100</span></span>
+<span><span class="co">##        bpci(z)  2.4958  2.56295  2.667961  2.59435  2.63370  5.5793   100</span></span></code></pre>
 <p>If we increase the number of categories, the differential becomes
 very large.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -177,12 +177,12 @@ very large.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
 <span><span class="co">##           expr     min       lq      mean   median       uq     max neval</span></span>
-<span><span class="co">##  irr_conger(w) 13.5441 15.57500 18.922734 16.69640 17.35415 87.7664   100</span></span>
-<span><span class="co">##    congerci(w) 17.1359 19.78690 24.731655 20.69710 23.16585 90.1379   100</span></span>
-<span><span class="co">##  irr_fleiss(w)  2.5026  2.65330  3.944797  2.74855  2.86735 71.2418   100</span></span>
-<span><span class="co">##    fleissci(w) 17.3776 19.81395 25.814951 20.71100 23.71965 90.7021   100</span></span>
-<span><span class="co">##      irr_bp(w)  2.5228  2.64540  3.267354  2.72685  2.86895 12.0368   100</span></span>
-<span><span class="co">##        bpci(w) 18.7016 21.80100 27.379407 22.60400 25.42650 94.2620   100</span></span></code></pre>
+<span><span class="co">##  irr_conger(w) 14.0782 17.07270 19.935116 17.70405 18.31895 93.6371   100</span></span>
+<span><span class="co">##    congerci(w) 17.0102 20.56905 24.426132 22.08335 24.00990 95.7215   100</span></span>
+<span><span class="co">##  irr_fleiss(w)  2.6010  2.73980  3.281558  2.84325  2.92670  6.4652   100</span></span>
+<span><span class="co">##    fleissci(w) 17.5108 20.95390 24.468120 21.84530 23.60985 96.4056   100</span></span>
+<span><span class="co">##      irr_bp(w)  2.5440  2.70610  3.883452  2.81635  2.87260 77.0926   100</span></span>
+<span><span class="co">##        bpci(w) 19.5163 22.64605 26.807498 23.94275 25.34720 97.8557   100</span></span></code></pre>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>

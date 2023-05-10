@@ -21,7 +21,7 @@ test_that("population and x-based measures coincide", {
   )
   expect_equal(
     bp(x, values, 1),
-    bp_pop(mu, sigma, bp_get_c1(values, 1))
+    bp_pop(mu, sigma, values, 1)
   )
 })
 

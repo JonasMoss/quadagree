@@ -4,16 +4,21 @@ bp_calc <- function(x, c1) {
   sigma <- stats::cov(y, use = "pairwise.complete.obs") * (n - 1) / n
   if (any(is.na(sigma))) stop("The data does not contain sufficient non-NAs.")
   mu <- colMeans(y, na.rm = TRUE)
-  bp_pop(mu, sigma, c1)
+  bp_pop_c1(mu, sigma, c1)
 }
 
-bp_pop <- function(mu, sigma, c1) {
+bp_pop_c1 <- function(mu, sigma, c1) {
   r <- ncol(sigma)
   trace <- tr(sigma)
   mean_diff <- (mean(mu^2) - mean(mu)^2) * r
   cov_sum <- sum(sigma) / r
   d <- 2 / (r - 1) * (trace + mean_diff - cov_sum)
   1 - d / c1
+}
+
+bp_pop <- function(mu, sigma, values, type = 1) {
+  c1 <- bp_get_c1(values, type)
+  bp_pop_c1(mu, sigma, c1)
 }
 
 conger_pop <- function(mu, sigma) {

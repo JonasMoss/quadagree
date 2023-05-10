@@ -92,7 +92,7 @@ sim <- \(n, p) {
   t_dist <- rep(1 / 5, 5)
   skills <- c(0.9, 0.1, 0.2, 0.5, 0.8, 0.9)
   x <- simulate_jsm(n, skills, model = "fleiss", true_dist = t_dist)
-  for (i in seq(length(p))) x[sample(n, n - p[i] * n), i] <- NA
+  for (i in seq_along(p)) x[sample(n, n - p[i] * n), i] <- NA
   x
 }
 ```
@@ -118,13 +118,15 @@ results <- sapply(nn, \(n) {
     c(
       quadagree:::fleiss(x),
       c(irrCAC::fleiss.kappa.raw(x, weights = "quadratic")$est[4])$coeff.val
-    )    
+    )
   })
   rowMeans(results, na.rm = TRUE)
 })
 
-plot(nn, results[1, ], ylim = c(min(results, na.rm = TRUE), max(results, na.rm = TRUE)), type = "b",
-     ylab = "Mean estimated kappa", xlab = "n")
+plot(nn, results[1, ],
+  ylim = c(min(results, na.rm = TRUE), max(results, na.rm = TRUE)), type = "b",
+  ylab = "Mean estimated kappa", xlab = "n"
+)
 points(nn, results[2, ], col = "blue", type = "b")
 abline(h = kappa, lwd = 2)
 ```
@@ -135,17 +137,17 @@ as $n$ grows larger.
 
 ### Code for `simulate_jsm`
 ```{r}
-simulate_jsm <- function(n,
-                         s,
-                         model = c(
-                           "general",
-                           "cohen-fleiss",
-                           "fleiss",
-                           "bp",
-                           "tu"
-                         ),
-                         true_dist,
-                         guessing_dist) {
+simulate_jsm <- \(n,
+  s,
+  model = c(
+    "general",
+    "cohen-fleiss",
+    "fleiss",
+    "bp",
+    "tu"
+  ),
+  true_dist,
+  guessing_dist) {
   model <- match.arg(model)
 
   if (model == "cohen-fleiss") {

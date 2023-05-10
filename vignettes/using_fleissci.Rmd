@@ -58,8 +58,6 @@ Here missing data is marked as `N/A`. The estimators of the coefficients are con
 
 ```{r}
 fleissci(dat.klein2018)
-# fleissci(dat.klein2018)
-# bpci(dat.klein2018)
 ```
 
 It's not supported to do inference on data with less than $2$ ratings per pair. The following data from Gwet (2014) is an example

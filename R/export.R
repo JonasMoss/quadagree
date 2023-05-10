@@ -50,9 +50,9 @@
 #'    numerical value to attach to each category. The default value for `values`
 #'    is `1...C`, where `C` is the number of categories.
 #'
-#' The Brennan-Prediger coefficients take an argument `kind`. If equal to `1`, it
-#'    returns the traditional Brennan-Prediger coefficient. If `kind` equals `2`,
-#'    it returns the new Brennan-Prediger coefficient of Moss (wip).
+#' The Brennan-Prediger coefficients take an argument `kind`. If equal to `1`,
+#'    it returns the traditional Brennan-Prediger coefficient. If `kind`
+#'    equals `2`, it returns the new Brennan-Prediger coefficient of Moss (wip).
 #'
 #' @references
 #'
@@ -134,7 +134,6 @@ fleissci <- function(x,
                      bootstrap = FALSE,
                      n_reps = 1000) {
   call <- match.call()
-  args <- sapply(names(formals()), str2lang)
   type <- match.arg(type)
   fun <- fleiss_fun
   calc <- fleiss_prepare(x, type)
@@ -307,4 +306,3 @@ bp_aggr <- function(x, values = seq_len(ncol(x)), kind = 1) {
   calc <- bp_aggr_prepare(x, values, kind)
   bp_aggr_fun(calc)$est
 }
-

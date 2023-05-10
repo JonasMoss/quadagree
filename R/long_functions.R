@@ -1,6 +1,6 @@
 fleiss_prepare <- \(x, type) {
   x <- as.matrix(x)
-  pi = pi_mat_empirical(x)
+  pi <- pi_mat_empirical(x)
   list(xx = as.matrix(x), type = type, n = nrow(x), pi = pi)
 }
 
@@ -9,14 +9,14 @@ fleiss_fun <- \(calc) {
   sigma <- stats::cov(calc$xx, use = "pairwise.complete.obs") * (n - 1) / n
   if (any(is.na(sigma))) stop("The data does not contain sufficient non-NAs.")
   mu <- colMeans(calc$xx, na.rm = TRUE)
-  est = fleiss_pop(mu, sigma)
-  var = avar(calc$xx, sigma, mu, calc$type, TRUE, calc$pi)
+  est <- fleiss_pop(mu, sigma)
+  var <- avar(calc$xx, sigma, mu, calc$type, TRUE, calc$pi)
   list(est = est, var = var)
 }
 
 conger_prepare <- \(x, type) {
   x <- as.matrix(x)
-  pi = pi_mat_empirical(x)
+  pi <- pi_mat_empirical(x)
   list(xx = x, type = type, n = nrow(x), pi = pi)
 }
 
@@ -25,8 +25,8 @@ conger_fun <- \(calc) {
   sigma <- stats::cov(calc$xx, use = "pairwise.complete.obs") * (n - 1) / n
   if (any(is.na(sigma))) stop("The data does not contain sufficient non-NAs.")
   mu <- colMeans(calc$xx, na.rm = TRUE)
-  est = conger_pop(mu, sigma)
-  var = avar(calc$xx, sigma, mu, calc$type, FALSE, calc$pi)
+  est <- conger_pop(mu, sigma)
+  var <- avar(calc$xx, sigma, mu, calc$type, FALSE, calc$pi)
   list(est = est, var = var)
 }
 

@@ -175,9 +175,9 @@ The aggregated functions takes an argument \code{values}, which specifies what
 numerical value to attach to each category. The default value for \code{values}
 is \verb{1...C}, where \code{C} is the number of categories.
 
-The Brennan-Prediger coefficients take an argument \code{kind}. If equal to \code{1}, it
-returns the traditional Brennan-Prediger coefficient. If \code{kind} equals \code{2},
-it returns the new Brennan-Prediger coefficient of Moss (wip).
+The Brennan-Prediger coefficients take an argument \code{kind}. If equal to \code{1},
+it returns the traditional Brennan-Prediger coefficient. If \code{kind}
+equals \code{2}, it returns the new Brennan-Prediger coefficient of Moss (wip).
 }
 \examples{
 library("quadagree")

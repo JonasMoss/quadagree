@@ -23,7 +23,7 @@ quadagree_internal <- function(calc,
 
   names(out) <- quants
   out[2] <- min(out[2], 1)
-  ci <- structure(out,
+  structure(out,
     conf_level = conf_level,
     alternative = alternative,
     type = calc$type,
@@ -36,8 +36,6 @@ quadagree_internal <- function(calc,
     call = call,
     class = "quadagree"
   )
-
-  ci
 }
 
 #' @keywords internal

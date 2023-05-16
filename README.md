@@ -3,7 +3,6 @@
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree.png)](https://cran.r-project.org/package=quadagree)
 [![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml)
-\[
 
 An `R` package for calculating and doing inference the quadratically
 weighted multi-rater measures of agreement. Fleiss’ kappa, Cohen’s kappa

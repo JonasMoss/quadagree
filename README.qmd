@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # quadagree <img src="man/figures/logo.png" align="right" width="163" height="85" />
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree)](https://cran.r-project.org/package=quadagree) [![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree)](https://cran.r-project.org/package=quadagree) [![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml) [
 
 An `R` package for calculating and doing inference the quadratically weighted multi-rater measures of agreement. Fleiss' kappa, Cohen's kappa (Conger's kappa), and the Brennan-Prediger coefficient. Has support for missing values using the methods of Moss and van Oest (work in progress) and Moss (work in progress). ***This package is work in progress and has no stable API! Expect breaking changes.***
 

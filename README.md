@@ -3,9 +3,7 @@
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/quadagree.png)](https://cran.r-project.org/package=quadagree)
 [![R-CMD-check](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JonasMoss/quadagree/actions/workflows/R-CMD-check.yaml)
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+\[
 
 An `R` package for calculating and doing inference the quadratically
 weighted multi-rater measures of agreement. Fleiss’ kappa, Cohen’s kappa
@@ -49,11 +47,11 @@ fleissci(dat.zapf2016)
 #> 
 #> 95% confidence interval (n = 50).
 #>     0.025     0.975 
-#> 0.8429321 0.9538451 
+#> 0.8418042 0.9549730 
 #> 
 #> Sample estimates.
 #>     kappa        sd 
-#> 0.8983886 0.1931729
+#> 0.8983886 0.1971016
 ```
 
 You can also calculate confidence intervals for Conger’s kappa (Cohen’s
@@ -175,14 +173,14 @@ Fleiss’ kappa and the Brennan–Prediger coefficient is possible using
 
 ``` r
 fleissci_aggr(dat.fleiss1971)
-#> Call: call
+#> Call: fleissci_aggr(x = dat.fleiss1971)
 #> 
 #> 95% confidence interval (n = 30).
 #>      0.025      0.975 
 #> 0.05668483 0.51145967 
 #> 
 #> Sample estimates.
-#>     kappa        sd 
+#> kappa.xtx        sd 
 #> 0.2840722 0.5987194
 ```
 

@@ -46,6 +46,15 @@
     <loc>https://jonasmoss.github.io/quadagree/reference/gamma_est.html</loc>
   </url>
   <url>
+    <loc>https://jonasmoss.github.io/quadagree/reference/gamma_est_adf.html</loc>
+  </url>
+  <url>
+    <loc>https://jonasmoss.github.io/quadagree/reference/gamma_est_nt.html</loc>
+  </url>
+  <url>
+    <loc>https://jonasmoss.github.io/quadagree/reference/gamma_est_unbiased.html</loc>
+  </url>
+  <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/get_diag_indices.html</loc>
   </url>
   <url>
@@ -61,9 +70,15 @@
     <loc>https://jonasmoss.github.io/quadagree/reference/limits.html</loc>
   </url>
   <url>
+    <loc>https://jonasmoss.github.io/quadagree/reference/lower_vec_indices.html</loc>
+  </url>
+  <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/pi_mat_empirical.html</loc>
   </url>
   <url>
     <loc>https://jonasmoss.github.io/quadagree/reference/quadagree.html</loc>
+  </url>
+  <url>
+    <loc>https://jonasmoss.github.io/quadagree/reference/vech.html</loc>
   </url>
 </urlset>

@@ -11,7 +11,7 @@ gamma_est(x, sigma, type = "adf")
 
 \item{sigma}{Covariance matrix of the data.}
 
-\item{type}{One of \code{adf}, \code{normal} and \code{elliptical}.}
+\item{type}{One of \code{adf}, \code{normal}, \code{elliptical} or \code{unbiased}.}
 }
 \value{
 The sample estimate of the gamma matrix.

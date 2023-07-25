@@ -16,6 +16,12 @@ limits <- function(alternative, conf_level) {
   }
 }
 
+#' Half-vectorize matrix.
+#'
+#' @param x Matrix to vectorize.
+#' @keywords internal
+vech <- function(x) x[row(x) >= col(x)]
+
 #' Get the indices of the diagonal for the variances.
 #' @param r Number of raters.
 #' @return A vector of `TRUE` where the variances are.
@@ -31,34 +37,103 @@ get_diag_indices <- function(r) {
 #' Calculate the gamma matrix from a matrix of observations.
 #' @param x A numeric matrix of observations.
 #' @param sigma Covariance matrix of the data.
-#' @param type One of `adf`, `normal` and `elliptical`.
+#' @param type One of `adf`, `normal`, `elliptical` or `unbiased`.
 #' @return The sample estimate of the gamma matrix.
 #' @keywords internal
 gamma_est <- function(x, sigma, type = "adf") {
   if (type == "adf") {
-    i_row <- \(n) unlist(lapply(seq_len(n), seq.int, n))
-    i_col <- \(n) rep.int(seq_len(n), times = rev(seq_len(n)))
-    rows <- i_row(ncol(x))
-    cols <- i_col(ncol(x))
-    y <- t(x) - colMeans(x, na.rm = TRUE)
-    z <- y[cols, ] * y[rows, ]
-    mat <- z - rowMeans(z, na.rm = TRUE)
-    if (!anyNA(mat)) {
-      div <- nrow(x)
-    } else {
-      nas <- is.na(mat)
-      mat[nas] <- 0
-      div <- tcrossprod(!nas)
-    }
-    return(tcrossprod(mat) / div)
+    gamma_est_adf(x, sigma)
+  } else if (type == "unbiased") {
+    gamma_est_unbiased(x, sigma)
+  } else {
+    gamma <- gamma_est_nt(sigma)
+    gamma_est_nt(sigma) * kurtosis_correction(x, type = type)
   }
+}
 
-  k <- ncol(sigma)
-  e_mat <- matrixcalc::elimination.matrix(k)
-  k_mat <- matrixcalc::K.matrix(k)
-  gamma <- ((diag(k^2) + k_mat) %*% (sigma %x% sigma))
-  gamma <- gamma * kurtosis_correction(x, type = type)
-  e_mat %*% gamma %*% t(e_mat)
+#' Asymptotically distribution free covariance matrix.
+#' @param x Data.
+#' @param sigma Covariance of the data.
+#' @return Estimate of the ADF covariance matrix.
+#' @keywords Internal.
+gamma_est_adf <- function(x, sigma) {
+  i_row <- \(n) unlist(lapply(seq_len(n), seq.int, n))
+  i_col <- \(n) rep.int(seq_len(n), times = rev(seq_len(n)))
+  rows <- i_row(ncol(x))
+  cols <- i_col(ncol(x))
+  y <- t(x) - colMeans(x, na.rm = TRUE)
+  z <- y[cols, ] * y[rows, ]
+  mat <- z - rowMeans(z, na.rm = TRUE)
+
+  if (!anyNA(mat)) {
+    div <- nrow(x)
+  } else {
+    nas <- is.na(mat)
+    mat[nas] <- 0
+    div <- tcrossprod(!nas)
+  }
+  tcrossprod(mat) / div
+}
+
+#' Normal theory gamma matrix
+#'
+#' Code obtained from `lavaan`:
+#' https://github.com/yrosseel/lavaan/blob/6f047c800206d23f246d484b9522295257614222/R/lav_matrix.R
+#'
+#' Calculate the gamma matrix from a matrix of observations.
+#' @param sigma Covariance matrix of the data.
+#' @return Normal theory gamma matrix.
+#' @keywords internal
+gamma_est_nt <- function(sigma) {
+  n <- ncol(sigma)
+
+  lower <- lower_vec_indices(n)
+  upper <- upper_vec_indices(n)
+
+  y <- sigma %x% sigma
+  out <- (y[lower, , drop = FALSE] + y[upper, , drop = FALSE]) / 2
+  out[, lower, drop = FALSE] + out[, upper, drop = FALSE]
+}
+
+#' Unbiased asymptotic covariance matrix.
+#'
+#' @param x Data.
+#' @param sigma Covariance matrix of the data.
+#' @return Unbiased asymptotic covariance matrix.
+#' @keywords internal
+gamma_est_unbiased <- function(x, sigma) {
+  gamma_adf <- gamma_est_adf(x, sigma)
+  gamma_nt <- gamma_est_nt(sigma)
+  gamma_rem <- tcrossprod(vech(sigma))
+  n <- nrow(x)
+  mult <- n / ((n - 2) * (n - 3))
+  mult * ((n - 1) * gamma - (gamma_nt - 2 / (n - 1) * gamma_rem))
+}
+
+
+#' Obtain indices of lower or upper triangular matrix in vec indices.
+#'
+#' Code obtained from `lavaan`:
+#' https://github.com/yrosseel/lavaan/blob/6f047c800206d23f246d484b9522295257614222/R/lav_matrix.R
+#'
+#' @param n Dimension of square matrix.
+#' @param diagonal If `TRUE`, includes the diagonal elements.
+#' @returns Indices `x` so that `a[x] = c(a)[x]` returns the elements
+#'    of the lower (upper) diagonal matrix in row-wise (column-wise)
+#'    order.
+#' @keywords internal
+#'
+lower_vec_indices <- function(n = 1L, diagonal = TRUE) {
+  rows <- matrix(seq_len(n), n, n)
+  cols <- matrix(seq_len(n), n, n, byrow = TRUE)
+  if (diagonal) which(rows >= cols) else which(rows > cols)
+}
+
+upper_vec_indices <- function(n = 1L, diagonal = TRUE) {
+  rows <- matrix(seq_len(n), n, n)
+  cols <- matrix(seq_len(n), n, n, byrow = TRUE)
+  tmp <- matrix(seq_len(n * n), n, n, byrow = TRUE)
+  if (diagonal) tmp[rows >= cols] else tmp[rows > cols]
 }
 
 #' Calculate unbiased sample kurtosis.

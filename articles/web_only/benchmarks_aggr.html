@@ -142,11 +142,11 @@ questionable.</p>
 <span>  times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
-<span><span class="co">##              expr   min      lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##         irr_bp(x) 938.1  984.10 1123.5005 1014.95 1075.70 18592.4  1000</span></span>
-<span><span class="co">##      bpci_aggr(x) 435.9  454.45  511.8797  469.50  494.10  5359.3  1000</span></span>
-<span><span class="co">##     irr_fleiss(x) 961.9 1010.50 1112.7696 1041.20 1104.35  9315.0  1000</span></span>
-<span><span class="co">##  fleissci_aggr(x) 425.9  447.45  491.1294  460.95  483.35  3886.5  1000</span></span></code></pre>
+<span><span class="co">##              expr   min     lq     mean median     uq     max neval</span></span>
+<span><span class="co">##         irr_bp(x) 613.3 664.45 727.5471 690.05 719.25  5018.7  1000</span></span>
+<span><span class="co">##      bpci_aggr(x) 269.2 314.75 371.6888 350.15 386.50  3835.7  1000</span></span>
+<span><span class="co">##     irr_fleiss(x) 632.3 686.10 757.0655 713.40 741.20 16611.0  1000</span></span>
+<span><span class="co">##  fleissci_aggr(x) 259.7 307.50 368.2673 340.90 377.65  9412.4  1000</span></span></code></pre>
 <p>So <code>quadagree</code> is roughly twice as fast. Let’s see what
 happens when <span class="math inline">\(n=300\)</span>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -160,11 +160,11 @@ happens when <span class="math inline">\(n=300\)</span>.</p>
 <span>  times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
-<span><span class="co">##              expr    min     lq      mean  median      uq    max neval</span></span>
-<span><span class="co">##         irr_bp(x)  972.2 1010.1 1100.1495 1043.10 1099.05 5466.1  1000</span></span>
-<span><span class="co">##      bpci_aggr(x)  447.9  466.4  525.6444  480.70  502.20 4231.7  1000</span></span>
-<span><span class="co">##     irr_fleiss(x) 1001.9 1040.3 1139.2992 1071.35 1130.80 6555.5  1000</span></span>
-<span><span class="co">##  fleissci_aggr(x)  442.7  462.4  509.2837  477.30  500.50 3775.7  1000</span></span></code></pre>
+<span><span class="co">##              expr   min     lq     mean median     uq    max neval</span></span>
+<span><span class="co">##         irr_bp(x) 629.3 698.45 757.8999 724.35 753.85 3963.5  1000</span></span>
+<span><span class="co">##      bpci_aggr(x) 277.2 328.85 386.3098 366.55 405.80 3348.6  1000</span></span>
+<span><span class="co">##     irr_fleiss(x) 659.9 724.35 787.9814 747.75 777.60 5602.6  1000</span></span>
+<span><span class="co">##  fleissci_aggr(x) 263.4 322.05 372.0573 358.60 395.45 3738.0  1000</span></span></code></pre>
 <p>The run time is almost the same for all methods as it was for <span class="math inline">\(n=30\)</span>, suggesting that there is
 substantial overhead to both methods. Let’s check <span class="math inline">\(n=3000\)</span>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -179,10 +179,10 @@ substantial overhead to both methods. Let’s check <span class="math inline">\(
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
 <span><span class="co">##              expr    min      lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##         irr_bp(x) 1373.4 1461.30 1635.4560 1519.35 1586.65  8173.4  1000</span></span>
-<span><span class="co">##      bpci_aggr(x)  585.1  621.15  687.2139  643.60  679.00  3945.4  1000</span></span>
-<span><span class="co">##     irr_fleiss(x) 1457.2 1538.35 1787.1756 1595.00 1669.85 69393.4  1000</span></span>
-<span><span class="co">##  fleissci_aggr(x)  615.2  652.05  738.2744  672.65  707.95 10305.6  1000</span></span></code></pre>
+<span><span class="co">##         irr_bp(x)  966.8 1039.95 1184.6915 1076.10 1145.20  6794.1  1000</span></span>
+<span><span class="co">##      bpci_aggr(x)  422.5  487.90  554.6640  526.40  581.70  3488.1  1000</span></span>
+<span><span class="co">##     irr_fleiss(x) 1026.1 1092.05 1282.5113 1131.90 1199.50 61732.1  1000</span></span>
+<span><span class="co">##  fleissci_aggr(x)  458.1  510.35  586.9982  549.15  603.85  3758.6  1000</span></span></code></pre>
 <p>It appears that <code>bpci_aggr</code> is pulling ahead of
 <code><a href="https://rdrr.io/pkg/irrCAC/man/bp.coeff.dist.html" class="external-link">irrCAC::bp.coeff.dist</a></code>.</p>
 <p>Let’s finish off with a larger number of categories.</p>
@@ -197,11 +197,11 @@ substantial overhead to both methods. Let’s check <span class="math inline">\(
 <span>  times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
-<span><span class="co">##              expr    min      lq     mean  median      uq     max neval</span></span>
-<span><span class="co">##         irr_bp(x) 4.6455 5.18435 6.459659 5.39310 7.40730 75.0611  1000</span></span>
-<span><span class="co">##      bpci_aggr(x) 1.2568 1.37870 1.718311 1.43420 1.53645 67.8872  1000</span></span>
-<span><span class="co">##     irr_fleiss(x) 4.6828 5.36810 6.414962 5.56740 7.20440 30.4509  1000</span></span>
-<span><span class="co">##  fleissci_aggr(x) 1.2684 1.40175 1.651264 1.45225 1.54780  8.7115  1000</span></span></code></pre>
+<span><span class="co">##              expr    min      lq     mean  median     uq     max neval</span></span>
+<span><span class="co">##         irr_bp(x) 3.8895 4.13585 5.311351 4.38325 6.5277 69.0357  1000</span></span>
+<span><span class="co">##      bpci_aggr(x) 1.1781 1.33185 1.551891 1.39725 1.5016  5.5703  1000</span></span>
+<span><span class="co">##     irr_fleiss(x) 4.0393 4.28190 5.243444 4.50350 6.1125 60.7268  1000</span></span>
+<span><span class="co">##  fleissci_aggr(x) 1.1984 1.35350 1.660983 1.43035 1.5447 58.3830  1000</span></span></code></pre>
 <p>So <code>quadagree</code> could substantially faster on data with
 very many categories and items rated.</p>
 </div>

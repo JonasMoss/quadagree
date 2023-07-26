@@ -107,7 +107,7 @@ gamma_est_unbiased <- function(x, sigma) {
   gamma_rem <- tcrossprod(vech(sigma))
   n <- nrow(x)
   mult <- n / ((n - 2) * (n - 3))
-  mult * ((n - 1) * gamma - (gamma_nt - 2 / (n - 1) * gamma_rem))
+  mult * ((n - 1) * gamma_adf - (gamma_nt - 2 / (n - 1) * gamma_rem))
 }
 
 

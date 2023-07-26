@@ -127,7 +127,7 @@
 #' # Conger's (Cohen's) kappa for data on long form with missing values
 #' congerci(dat.klein2018)
 fleissci <- function(x,
-                     type = c("adf", "elliptical", "normal"),
+                     type = c("adf", "elliptical", "normal", "unbiased"),
                      transform = "none",
                      conf_level = 0.95,
                      alternative = c("two.sided", "greater", "less"),
@@ -150,7 +150,7 @@ fleissci <- function(x,
 #' @export
 #' @rdname quadagree
 congerci <- function(x,
-                     type = c("adf", "elliptical", "normal"),
+                     type = c("adf", "elliptical", "normal", "unbiased"),
                      transform = "none",
                      conf_level = 0.95,
                      alternative = c("two.sided", "greater", "less"),
@@ -180,7 +180,7 @@ cohenci <- congerci
 bpci <- function(x,
                  values = NULL,
                  kind = 1,
-                 type = c("adf", "elliptical", "normal"),
+                 type = c("adf", "elliptical", "normal", "unbiased"),
                  transform = "none",
                  conf_level = 0.95,
                  alternative = c("two.sided", "greater", "less"),

@@ -19,7 +19,7 @@ Conger's (Cohen's) kappa}
 \usage{
 fleissci(
   x,
-  type = c("adf", "elliptical", "normal"),
+  type = c("adf", "elliptical", "normal", "unbiased"),
   transform = "none",
   conf_level = 0.95,
   alternative = c("two.sided", "greater", "less"),
@@ -29,7 +29,7 @@ fleissci(
 
 congerci(
   x,
-  type = c("adf", "elliptical", "normal"),
+  type = c("adf", "elliptical", "normal", "unbiased"),
   transform = "none",
   conf_level = 0.95,
   alternative = c("two.sided", "greater", "less"),
@@ -39,7 +39,7 @@ congerci(
 
 cohenci(
   x,
-  type = c("adf", "elliptical", "normal"),
+  type = c("adf", "elliptical", "normal", "unbiased"),
   transform = "none",
   conf_level = 0.95,
   alternative = c("two.sided", "greater", "less"),
@@ -51,7 +51,7 @@ bpci(
   x,
   values = NULL,
   kind = 1,
-  type = c("adf", "elliptical", "normal"),
+  type = c("adf", "elliptical", "normal", "unbiased"),
   transform = "none",
   conf_level = 0.95,
   alternative = c("two.sided", "greater", "less"),

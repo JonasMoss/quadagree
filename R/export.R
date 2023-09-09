@@ -253,6 +253,7 @@ bpci_aggr <- function(x,
 #' @export
 #' @rdname quadagree
 fleiss <- function(x) {
+  x <- as.matrix(x)
   n <- nrow(x)
   sigma <- stats::cov(x, use = "pairwise.complete.obs") * (n - 1) / n
   if (any(is.na(sigma))) stop("The data does not contain sufficient non-NAs.")
@@ -263,6 +264,7 @@ fleiss <- function(x) {
 #' @export
 #' @rdname quadagree
 bp <- function(x, values = stats::na.omit(unique(c(x))), kind = 1) {
+  x <- as.matrix(x)
   c1 <- bp_get_c1(values, kind)
   bp_calc(x, c1)
 }
@@ -270,6 +272,7 @@ bp <- function(x, values = stats::na.omit(unique(c(x))), kind = 1) {
 #' @export
 #' @rdname quadagree
 conger <- function(x) {
+  x <- as.matrix(x)
   n <- nrow(x)
   sigma <- stats::cov(x, use = "pairwise.complete.obs") * (n - 1) / n
   if (any(is.na(sigma))) stop("The data does not contain sufficient non-NAs.")

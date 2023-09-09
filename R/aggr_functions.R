@@ -24,7 +24,7 @@ bp_aggr_fun <- \(calc) {
 
   est <- unname(1 - disagreement * calcc1_inv)
   var <- calcc1_inv^2 * 4 * calcr_inv_1^2 * k
-  list(est = est, var = var)
+  list(est = est, var = max(var, 0))
 }
 
 fleiss_aggr_prepare <- \(x, values) {

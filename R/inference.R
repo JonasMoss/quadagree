@@ -13,7 +13,7 @@ quadagree_internal <- function(calc,
   quants <- limits(alternative, conf_level)
   est_var <- fun(calc)
   est <- est_var$est
-  sd <- sqrt(est_var$var)
+  sd <- sqrt(max(est_var$var, 0))
 
   out <- if (!bootstrap) {
     ci_asymptotic(est, sd, calc$n, transformer, quants)
@@ -21,8 +21,8 @@ quadagree_internal <- function(calc,
     ci_boot(calc, fun, transformer, quants, n_reps)
   }
 
-  names(out) <- quants
   out[2] <- min(out[2], 1)
+  names(out) <- quants
   structure(out,
     conf_level = conf_level,
     alternative = alternative,

@@ -252,13 +252,26 @@ bpci_aggr <- function(x,
 
 #' @export
 #' @rdname quadagree
-fleiss <- function(x) {
+fleiss <- function(x, variant = c("normal", "unbiased", "unbiased2")) {
+  variant <- match.arg(variant)
   x <- as.matrix(x)
   n <- nrow(x)
-  sigma <- stats::cov(x, use = "pairwise.complete.obs") * (n - 1) / n
+  r <- ncol(x)
+  sigma <- stats::cov(x, use = "pairwise.complete.obs")
+  if (any(is.na(sigma))) stop("The data does not contain sufficient non-NAs.")
+
+  if (variant == "normal") {
+    sigma <- sigma * (n - 1) / n
+  }
+
+  corr <- if (variant == "unbiased2") {
+    1 / (n * r^2) * sum(sigma) - 1 / (r * n) * tr(sigma)
+  } else {
+    0
+  }
   if (any(is.na(sigma))) stop("The data does not contain sufficient non-NAs.")
   mu <- colMeans(x, na.rm = TRUE)
-  fleiss_pop(mu, sigma)
+  fleiss_pop(mu, sigma, corr)
 }
 
 #' @export

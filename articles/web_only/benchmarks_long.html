@@ -5,64 +5,49 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="quadagree">
 <title>Benchmark of Fleiss' kappa, Cohen's kappa, and the Brennan-Prediger coefficient • quadagree</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><meta property="og:title" content="Benchmark of Fleiss' kappa, Cohen's kappa, and the Brennan-Prediger coefficient">
-<meta property="og:description" content="quadagree">
-<meta property="og:image" content="https://jonasmoss.github.io/quadagree/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><meta property="og:title" content="Benchmark of Fleiss' kappa, Cohen's kappa, and the Brennan-Prediger coefficient">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../../index.html">quadagree</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../../articles/using_fleissci.html">Using the quadagree package</a>
-    <a class="dropdown-item" href="../../articles/web_only/benchmarks_aggr.html">Short benchmark of Fleiss' kappa and Brennan-Prediger</a>
-    <a class="dropdown-item" href="../../articles/web_only/benchmarks_long.html">Benchmark of Fleiss' kappa, Cohen's kappa, and the Brennan-Prediger coefficient</a>
-    <a class="dropdown-item" href="../../articles/web_only/consistency.html">Consistency with missing ratings</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../../articles/web_only/benchmarks_aggr.html">Short benchmark of Fleiss' kappa and Brennan-Prediger</a></li>
+    <li><a class="dropdown-item" href="../../articles/web_only/benchmarks_long.html">Benchmark of Fleiss' kappa, Cohen's kappa, and the Brennan-Prediger coefficient</a></li>
+    <li><a class="dropdown-item" href="../../articles/web_only/consistency.html">Consistency with missing ratings</a></li>
+    <li><a class="dropdown-item" href="../../articles/using_fleissci.html">Using the quadagree package</a></li>
+  </ul>
 </li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav"></ul>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../../search.json">
+</form></li>
+      </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -78,7 +63,7 @@ non-aggregrated functions</h3>
             
             <h4 data-toc-skip class="date">4/25/2023</h4>
       
-      
+
       <div class="d-none name"><code>benchmarks_long.rmd</code></div>
     </div>
 
@@ -94,7 +79,11 @@ difference is found for Conger’s kappa, as the method used by
 necessarily do much more work for Conger’s kappa. For
 <code>quadagree</code>, Fleiss’s kappa and Conger’s kappa are equally
 fast.</p>
-<p>The following benchmark is being run on <span class="math inline">\(n=50\)</span> ratings and <span class="math inline">\(R=4\)</span> raters.</p>
+<p>The following benchmark is being run on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">n=50</annotation></semantics></math>
+ratings and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">R=4</annotation></semantics></math>
+raters.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://jonasmoss.github.io/quadagree/">"quadagree"</a></span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">dat.zapf2016</span></span>
@@ -111,14 +100,15 @@ fast.</p>
 <span>  times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
-<span><span class="co">##           expr    min      lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##  irr_conger(x) 1645.3 1715.25 1863.0479 1744.35 1787.80 18336.9  1000</span></span>
-<span><span class="co">##    congerci(x)  557.7  596.20  656.4417  621.20  636.50  5592.6  1000</span></span>
-<span><span class="co">##  irr_fleiss(x)  911.4  970.70 1053.4898  990.20 1021.80  5995.9  1000</span></span>
-<span><span class="co">##    fleissci(x)  554.6  589.15  630.5210  616.65  629.95  5217.8  1000</span></span>
-<span><span class="co">##      irr_bp(x)  901.0  949.05 1048.9359  970.75 1000.45 12332.2  1000</span></span>
-<span><span class="co">##        bpci(x)  594.4  640.40  696.3058  658.75  674.20  5327.5  1000</span></span></code></pre>
-<p>Let’s try <span class="math inline">\(n=500\)</span>.</p>
+<span><span class="co">##           expr      min       lq      mean   median        uq       max neval</span></span>
+<span><span class="co">##  irr_conger(x) 1251.396 1297.387 1376.6267 1312.595 1336.6350 13004.414  1000</span></span>
+<span><span class="co">##    congerci(x)  370.131  401.379  437.6575  417.174  428.8305  3877.338  1000</span></span>
+<span><span class="co">##  irr_fleiss(x)  662.847  697.096  779.4348  707.851  721.8075  8714.877  1000</span></span>
+<span><span class="co">##    fleissci(x)  366.133  397.948  420.8645  411.658  423.5655  3446.813  1000</span></span>
+<span><span class="co">##      irr_bp(x)  649.272  682.263  741.6886  693.820  710.0455  4340.332  1000</span></span>
+<span><span class="co">##        bpci(x)  397.572  430.624  470.3892  445.702  457.1540  4023.059  1000</span></span></code></pre>
+<p>Let’s try
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">n=500</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">)</span></span>
 <span><span class="co"># 500 ratings</span></span>
@@ -132,15 +122,17 @@ fast.</p>
 <span>  times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: microseconds</span></span>
-<span><span class="co">##           expr    min      lq      mean  median      uq     max neval</span></span>
-<span><span class="co">##  irr_conger(y) 2650.3 2737.15 3069.4792 2796.55 2878.95  9664.1  1000</span></span>
-<span><span class="co">##    congerci(y)  679.0  717.30  753.9632  739.10  759.35  6762.3  1000</span></span>
-<span><span class="co">##  irr_fleiss(y) 1104.2 1143.20 1232.2854 1165.05 1209.75  5930.2  1000</span></span>
-<span><span class="co">##    fleissci(y)  673.0  711.05  749.4147  733.50  752.10  5477.7  1000</span></span>
-<span><span class="co">##      irr_bp(y) 1081.3 1119.25 1275.0096 1145.70 1187.95 70068.9  1000</span></span>
-<span><span class="co">##        bpci(y)  790.0  820.70  853.7148  832.70  850.25  5699.8  1000</span></span></code></pre>
-<p>For <span class="math inline">\(n=3000\)</span>,
-<code>quadagree</code> is roughly <span class="math inline">\(5\)</span>
+<span><span class="co">##           expr      min        lq      mean    median        uq       max neval</span></span>
+<span><span class="co">##  irr_conger(y) 1953.326 2037.0375 2351.9054 2066.0815 2102.8500 58641.427  1000</span></span>
+<span><span class="co">##    congerci(y)  457.013  502.8190  537.7253  522.8710  543.8705  4083.753  1000</span></span>
+<span><span class="co">##  irr_fleiss(y)  788.131  830.8805  875.0251  847.4120  866.4730  4839.012  1000</span></span>
+<span><span class="co">##    fleissci(y)  458.465  498.5860  533.6132  518.4475  542.4325  3856.188  1000</span></span>
+<span><span class="co">##      irr_bp(y)  764.878  815.3120  868.8832  831.8830  851.6340  4550.654  1000</span></span>
+<span><span class="co">##        bpci(y)  543.104  589.3950  633.4511  608.9765  635.2210  5555.360  1000</span></span></code></pre>
+<p>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>3000</mn></mrow><annotation encoding="application/x-tex">n=3000</annotation></semantics></math>,
+<code>quadagree</code> is roughly
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>5</mn><annotation encoding="application/x-tex">5</annotation></semantics></math>
 times faster than <code>irrCAC</code> for Conger’s kappa and the
 Brennan-Prediger coefficient.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -155,13 +147,20 @@ Brennan-Prediger coefficient.</p>
 <span>  <span class="fu"><a href="../../reference/quadagree.html">bpci</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
-<span><span class="co">##           expr     min       lq      mean   median       uq     max neval</span></span>
-<span><span class="co">##  irr_conger(z) 13.2621 14.34160 15.931149 16.47720 17.12720 18.0650   100</span></span>
-<span><span class="co">##    congerci(z)  1.8425  1.89310  2.083672  1.92175  1.96545  5.5312   100</span></span>
-<span><span class="co">##  irr_fleiss(z)  2.9535  3.01520  3.379842  3.05405  3.14955  6.9252   100</span></span>
-<span><span class="co">##    fleissci(z)  1.8163  1.88065  1.969098  1.90120  1.94520  4.6338   100</span></span>
-<span><span class="co">##      irr_bp(z)  2.8817  2.95010  4.013545  3.00480  3.14150 66.3507   100</span></span>
-<span><span class="co">##        bpci(z)  2.4851  2.53450  2.668838  2.55955  2.61215  5.7178   100</span></span></code></pre>
+<span><span class="co">##           expr       min        lq      mean    median        uq       max</span></span>
+<span><span class="co">##  irr_conger(z) 16.605005 19.614978 20.086820 19.975275 20.263523 71.729186</span></span>
+<span><span class="co">##    congerci(z)  2.221176  2.299062  2.435888  2.349476  2.451561  5.915702</span></span>
+<span><span class="co">##  irr_fleiss(z)  3.474505  3.579702  4.054850  3.645415  3.733063 13.285418</span></span>
+<span><span class="co">##    fleissci(z)  2.202451  2.290601  2.478628  2.356649  2.484287  5.746637</span></span>
+<span><span class="co">##      irr_bp(z)  3.409935  3.506064  3.924030  3.557545  3.618785 10.126331</span></span>
+<span><span class="co">##        bpci(z)  3.191246  3.298451  3.612792  3.381982  3.452605  6.659040</span></span>
+<span><span class="co">##  neval</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span></code></pre>
 <p>If we increase the number of categories, the differential becomes
 very large.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -176,35 +175,40 @@ very large.</p>
 <span>  <span class="fu"><a href="../../reference/quadagree.html">bpci</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
-<span><span class="co">##           expr     min       lq      mean   median       uq     max neval</span></span>
-<span><span class="co">##  irr_conger(w) 13.0152 16.26790 18.894183 17.69950 18.60705 83.0060   100</span></span>
-<span><span class="co">##    congerci(w) 17.8804 20.45495 25.402378 22.07135 24.36645 90.6685   100</span></span>
-<span><span class="co">##  irr_fleiss(w)  2.4879  2.65925  3.354390  2.80210  2.97565  7.0557   100</span></span>
-<span><span class="co">##    fleissci(w) 18.0427 21.45565 24.344248 23.15730 24.84840 88.0869   100</span></span>
-<span><span class="co">##      irr_bp(w)  2.5153  2.62220  3.969609  2.77975  2.93975 66.9596   100</span></span>
-<span><span class="co">##        bpci(w) 19.8264 22.40605 25.041962 23.71840 25.37900 84.8764   100</span></span></code></pre>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+<span><span class="co">##           expr       min        lq      mean    median        uq       max</span></span>
+<span><span class="co">##  irr_conger(w) 15.279891 18.056969 20.821602 18.474173 19.064069 72.911493</span></span>
+<span><span class="co">##    congerci(w) 20.324657 23.242999 26.181156 24.336600 26.389737 81.909648</span></span>
+<span><span class="co">##  irr_fleiss(w)  2.939937  3.060958  3.480633  3.210573  3.291263  7.502654</span></span>
+<span><span class="co">##    fleissci(w) 20.260156 23.249191 26.381585 24.020200 26.692999 78.435323</span></span>
+<span><span class="co">##      irr_bp(w)  2.888512  3.045229  3.755012  3.154713  3.230786 10.834052</span></span>
+<span><span class="co">##        bpci(w) 23.700528 26.757284 32.093062 28.027285 30.285835 85.202615</span></span>
+<span><span class="co">##  neval</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span>
+<span><span class="co">##    100</span></span></code></pre>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Jonas Moss.</p>
+  <p>Developed by Jonas Moss.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

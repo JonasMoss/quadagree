@@ -21,10 +21,10 @@ bp_pop <- function(mu, sigma, values, type = 1) {
   bp_pop_c1(mu, sigma, c1)
 }
 
-conger_pop <- function(mu, sigma) {
+conger_pop <- function(mu, sigma, corr = 0) {
   r <- ncol(sigma)
   trace <- tr(sigma)
-  mean_diff <- (mean(mu^2) - mean(mu)^2) * r^2
+  mean_diff <- (mean(mu^2) - mean(mu)^2) * r^2 + corr
   top <- sum(sigma) - trace
   bottom <- (r - 1) * trace + mean_diff
   top / bottom
@@ -32,11 +32,11 @@ conger_pop <- function(mu, sigma) {
 
 cohen_pop <- function(mu, sigma) conger_pop(mu, sigma)
 
-fleiss_pop <- function(mu, sigma) {
+fleiss_pop <- function(mu, sigma, corr = 0) {
   n <- length(mu)
   r <- ncol(sigma)
   trace <- tr(sigma)
-  mean_diff <- (sum(mu^2) / n - (sum(mu) / n)^2) * r
+  mean_diff <- (sum(mu^2) / n - (sum(mu) / n)^2 + corr) * r
   top <- sum(sigma) - trace - mean_diff
   bottom <- (r - 1) * (trace + mean_diff)
   top / bottom

@@ -15,7 +15,7 @@ irrCAC::bp.coeff.dist(dat.fleiss1971, weights = "quadratic")
 bpci_aggr(dat.fleiss1971)
 ```
 
-For aggregated data, `quadagree` supports user-supplied `values` vectors, transforms, and studentized bootstrapping, which `irrCAC` does not. But is it faster? It turns out it is roughly twice as fast for reasonable numbers of raters. This suggests there is no benefit in using the moment formulation (as done in `quadagree`) when calculating these coefficients, as `quadagree` is likely to be substantially more optimized than `irrCAC`.
+For aggregated data, `quadagree` supports user-supplied `values` vectors, transforms, and studentized bootstrapping, which `irrCAC` does not. But is it faster? It turns out `quadagree` is roughly twice as fast for reasonable numbers of raters. This suggests there is no benefit in using the moment formulation (as done in `quadagree`) when calculating these coefficients, as `quadagree` is likely to be substantially more optimized than `irrCAC`.
 
 We note that no effort has been made to bin the values. One of the benefits of the moment formulation of Fleiss' kappa is its ability to handle continuous values, and binning will not help here. It is, however, possible to take advantage of binning when dealing with categorical data, also in the moment formulation. Implementing binning is likely to further increase the speed differential between `irrCAC` and `quadagree`, especially when there are few categories compared to the number of rows, but its utility is questionable.
 
@@ -80,4 +80,4 @@ microbenchmark::microbenchmark(
 )
 ```
 
-So `quadagree` could substantially faster on data with very many categories and items rated.
+So `quadagree` is substantially faster on data with very many categories and items rated.
